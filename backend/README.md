@@ -1,13 +1,6 @@
-# OC_P6_Piiquante : Construisez une API sécurisée pour une application d'avis gastronomiques
+# OC_P7_Groupomania : Backend 
 
-<div align="right">
-
-[![HitCount](https://hits.dwyl.com/mhihmi/https://githubcom/mhihmi/HilmiMehdi_7_01052022.svg?style=flat&show=unique)](# "Unique view count")
-[![HitCount](https://hits.dwyl.com/mhihmi/https://githubcom/mhihmi/HilmiMehdi_7_01052022.svg?style=flat)](# "All view count")
-
-</div>
-
-This is the back end for Project 7 of Openclassrooms Web Developer path : Groupomania
+This is the back-end for Project 7 of Openclassrooms Web Developer path : Groupomania
 
 ## Back end Prerequisites
 
@@ -38,35 +31,3 @@ GET, PUT, DELETE : to get, edit or delete a specific post<br>
 
 POST : to add a like/dislike on a post<br>
 `http://localhost:3000/api/post/:id/like`
-
-## Front end Repository
-
-- You can use this API with the [front-end repository](https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6)
-
--------
-# Présentation du Projet
-
-> Construire une API fonctionnelle permettant de stocker des données pour une application web.
-
-## Scénario :
-
-Vous avez passé la dernière année en tant que développeur back-end indépendant et vous avez travaillé sur plusieurs projets de tailles et de difficultés variées.
-
-La semaine dernière, vous avez reçu un message sur votre plateforme de freelance vous demandant de l'aide pour un nouveau projet. Les sauces piquantes sont de plus en plus populaires, en grande partie grâce à la série YouTube « Hot Ones » . C’est pourquoi ce nouveau client, la marque de condiments à base de piment Piiquante, veut développer une application web de critique des sauces piquantes appelée « Hot Takes » .
-
-<p align="center">
-    <a href="#gh-light-mode-only"><img src="https://github.com/mhihmi/HilmiMehdi_7_01052022/blob/main/images/Readme/icon-left-font-monochrome-black" width="50%"/></a>&nbsp;
-    <a href="#gh-light-mode-only"><img src="https://github.com/mhihmi/HilmiMehdi_7_01052022/blob/main/images/Readme/icon-left-font-monochrome-white" width="50%"/></a>&nbsp;
-</p>
-
-Si la responsable produit de Piiquante souhaite à terme transformer l'application d'évaluation en une boutique en ligne, elle souhaite que la première version soit une « galerie de sauces » permettant aux utilisateurs de télécharger leurs sauces piquantes préférées et de liker ou disliker les sauces que d'autres partagent. Le front-end de l'application a été développé à l'aide d'Angular et a été précompilé après des tests internes, mais Piiquante a besoin d'un développeur back-end pour construire l'API.
-
-## Livrables attendus :
-
-- Un fichier zip contenant le **code de l'API**.
-
-## Compétences évaluées
-
-* Stocker des données de manière sécurisée 
-* Mettre en œuvre des opérations CRUD de manière sécurisée 
-* Implémenter un modèle logique de données conformément à la réglementation 
