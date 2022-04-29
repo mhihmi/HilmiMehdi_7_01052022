@@ -20,8 +20,8 @@ Votre directrice, Stéphanie, invite toute l'agence à prendre un verre pour cé
 Le client en question est Groupomania, un groupe spécialisé dans la grande distribution et l'un des plus fidèles clients de l'agence.
 
 <p align="center">
-    <a href="#gh-light-mode-only"><img src="https://github.com/mhihmi/HilmiMehdi_7_01052022/backend/blob/main/images/Readme/icon-left-font-monochrome-black" width="50%"/></a>&nbsp;
-    <a href="#gh-light-mode-only"><img src="https://github.com/mhihmi/HilmiMehdi_7_01052022//backend/blob/main/images/Readme/icon-left-font-monochrome-white" width="50%"/></a>&nbsp;
+    <a href="#gh-light-mode-only"><img src="hhttps://github.com/mhihmi/HilmiMehdi_7_01052022/blob/main/backend/images/Readme/icon-left-font-monochrome-black.svg" width="50%"/></a>&nbsp;
+    <a href="#gh-light-mode-only"><img src="https://github.com/mhihmi/HilmiMehdi_7_01052022/blob/main/backend/images/Readme/icon-left-font-monochrome-white.svg" width="50%"/></a>&nbsp;
 </p>
 
 Le projet consiste à construire un réseau social interne pour les employés de Groupomania. Le but de cet outil est de faciliter les interactions entre collègues. Le département RH de Groupomania a laissé libre cours à son imagination pour les fonctionnalités du réseau et a imaginé plusieurs briques pour favoriser les échanges entre collègues.
