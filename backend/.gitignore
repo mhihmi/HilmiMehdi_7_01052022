@@ -42,7 +42,7 @@ build/Release
 .env
 
 # Images/Assets
-images
+images/*
 !images/Readme
 
 # Dependency directories
