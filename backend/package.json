@@ -1,0 +1,44 @@
+{
+  "name": "p7_backend_groupomania",
+  "version": "1.0.0",
+  "description": "Backend for Groupomania application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhihmi/HilmiMehdi_7_01052022.git"
+  },
+  "keywords": [
+    "NodeJs",
+    "Express",
+    "Mysql",
+    "Sequelize",
+    "Rest",
+    "Api"
+  ],
+  "author": "Mehdi HILMI",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mhihmi/HilmiMehdi_7_01052022/issues"
+  },
+  "homepage": "https://github.com/mhihmi/HilmiMehdi_7_01052022#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.0",
+    "express-rate-limit": "^6.4.0",
+    "helmet": "^5.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.4",
+    "mysql2": "^2.3.3",
+    "password-validator": "^5.2.1",
+    "sequelize": "^6.19.0",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15"
+  }
+}
