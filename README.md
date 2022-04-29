@@ -21,7 +21,7 @@ Le client en question est Groupomania, un groupe spécialisé dans la grande dis
 
 <p align="center">
     <a href="#gh-light-mode-only"><img src="https://github.com/mhihmi/HilmiMehdi_7_01052022/blob/main/backend/images/Readme/icon-left-font-monochrome-black.svg" width="50%"/></a>&nbsp;
-    <a href="#gh-light-mode-only"><img src="https://github.com/mhihmi/HilmiMehdi_7_01052022/blob/main/backend/images/Readme/icon-left-font-monochrome-white.svg" width="50%"/></a>&nbsp;
+    <a href="#gh-dark-mode-only"><img src="https://github.com/mhihmi/HilmiMehdi_7_01052022/blob/main/backend/images/Readme/icon-left-font-monochrome-white.svg" width="50%"/></a>&nbsp;
 </p>
 
 Le projet consiste à construire un réseau social interne pour les employés de Groupomania. Le but de cet outil est de faciliter les interactions entre collègues. Le département RH de Groupomania a laissé libre cours à son imagination pour les fonctionnalités du réseau et a imaginé plusieurs briques pour favoriser les échanges entre collègues.
