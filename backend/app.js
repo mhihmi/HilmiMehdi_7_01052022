@@ -11,6 +11,7 @@ const morgan = require('morgan');
 // Import Routes
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
+const commentRoutes = require('./routes/comment');
 
 // Setup rate-limit
 const limiter = rateLimit({
@@ -47,5 +48,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
 //  Use Routes of postRoutes for : /api/post
 app.use('/api/post', postRoutes);
+//  Use Routes of postRoutes for : /api/comment
+app.use('/api/comment', commentRoutes);
 
 module.exports = app;
