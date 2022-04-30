@@ -1,13 +1,13 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-    class Comment extends Model {
+    class Like extends Model {
         static associate(models) {
-            models.Comment.belongsTo(models.User, {
+            models.Like.belongsTo(models.User, {
                 foreignKey: { name: 'userId', allowNull: false },
                 onDelete: 'CASCADE',
                 hooks: true
             });
-            models.Comment.belongsTo(models.Post, {
+            models.Like.belongsTo(models.Post, {
                 foreignKey: { name: 'postId', allowNull: false },
                 onDelete: 'CASCADE',
                 hooks: true
@@ -15,14 +15,14 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
 
-    Comment.init({
-        content: {
-            type: DataTypes.TEXT,
-            allowNull: false,
+    Like.init({
+        like: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true
         }
     }, {
         sequelize,
-        modelName: 'Comment',
+        modelName: 'Like',
     });
 
     return Post;

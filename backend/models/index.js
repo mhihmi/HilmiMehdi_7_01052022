@@ -31,6 +31,7 @@ db.sequelize = sequelize;
 db.users = require('./User.js')(sequelize, DataTypes);
 db.posts = require('./Post.js')(sequelize, DataTypes);
 db.comments = require('./Comment.js')(sequelize, DataTypes);
+db.likes = require('./Like.js')(sequelize, DataTypes);
 
 db.sequelize.sync({ force: false }) // Avoid rewrite every Table, just sync it.
     .then(() => {
