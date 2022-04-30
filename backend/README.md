@@ -8,7 +8,7 @@ You will need to have Node and `npm` installed locally on your machine.
 
 ## Back end Installation
 
-- Clone this repo, run `npm install` from within the project directory. 
+- Clone this repo, run `npm install` from within the backend directory. 
 - You can then run the server with `npm start`.
 - You can also run it with server refresh using `nodemon server`. (use `npm install -g nodemon` before).
 - Add DB_ID, DB_PASS, DB_NAME, and DB_CLUSTER for your Database Mysql in a .env file in root folder. (you can use and rename `.env_exemple` file)
