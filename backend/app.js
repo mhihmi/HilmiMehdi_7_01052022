@@ -47,8 +47,8 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 // Use Routes of userRoutes for : /api/auth
 app.use('/api/auth', userRoutes);
 //  Use Routes of postRoutes for : /api/post
-app.use('/api/post', postRoutes);
-//  Use Routes of postRoutes for : /api/comment
-app.use('/api/comment', commentRoutes);
+// app.use('/api/post', postRoutes);
+//  Use Routes of commentRoutes for : /api/comment
+// app.use('/api/comment', commentRoutes);
 
 module.exports = app;

@@ -25,6 +25,8 @@ sequelize.authenticate()
         console.log('Error' + err)
     });
 
+const db = {}
+
 db.sequelize = Sequelize;
 db.sequelize = sequelize;
 
