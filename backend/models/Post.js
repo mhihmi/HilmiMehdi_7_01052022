@@ -32,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         media: {
             type: DataTypes.STRING,
-            allowNull: true
         }
     }, {
         sequelize,

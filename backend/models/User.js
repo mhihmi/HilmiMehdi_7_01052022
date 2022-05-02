@@ -28,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         firstname: {
             type: DataTypes.STRING,
-            allowNull: true,
         },
         lastname: {
             type: DataTypes.STRING,
@@ -49,7 +48,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         isAdmin: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
             defaultValue: false
         }
     }, {

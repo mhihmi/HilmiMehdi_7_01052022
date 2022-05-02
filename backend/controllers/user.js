@@ -12,14 +12,41 @@ exports.signup = (req, res) => {
 
     bcrypt.hash(req.body.password, 10) // hash request psw, salt hash number - method async
         .then(hash => {
-            const user = new User({ // get hashed psw & save it in User Model instance for Database
+            const user = new db.users({ // get hashed psw & save it in User Model instance for Database
                 email: emailCryptoJs,
                 password: hash,
                 ...req.body
             });
             user.save() // save new user in Database
-                .then(() => res.status(201).json({ message: 'User Created !' }))
+                .then(() => res.status(201).json({ message: 'Utilisateur Créé !' }))
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error })); // Error 500 => server
+};
+
+exports.login = (req, res) => {
+    const emailCryptoJs = cryptojs.HmacSHA256(req.body.email, process.env.MAIL_CRYPTO_KEY).toString();
+
+    User.findOne({ email: emailCryptoJs }) // Find User in DB with email sent in request, after encrypt
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({ error: 'Utilisateur introuvable !' }); // 401 => Unauthorized
+            }
+            bcrypt.compare(req.body.password, user.password) // compare req psw with user hash psw in DB - Promise
+                .then(valid => { // Return a Boolean
+                    if (!valid) {
+                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
+                    }
+                    res.status(200).json({ // if true, Request Ok, object sent :
+                        userId: user.id, // userId in DB
+                        token: jwt.sign( // Encode token with jsw method sign()
+                            { userId: user.id }, // Check userId Request - Payload
+                            process.env.JWT_KEY, // Encode secret key - Salt
+                            { expiresIn: '24h' }
+                        )
+                    });
+                })
+                .catch(error => res.status(500).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error })); // for connection issues, server error
 };
