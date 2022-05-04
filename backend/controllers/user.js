@@ -20,7 +20,21 @@ exports.signup = (req, res) => {
                 email: emailCryptoJs,
                 password: hash
             })
-                .then(() => res.status(201).json({ message: 'User Successfully created !' }))
+                .then((user) => res.status(201).json({
+                    message: 'User Successfully created !',
+                    token: jwt.sign( // Encode token 
+                        {
+                            userId: user.id,
+                            isAdmin: user.isAdmin
+                        }, // Check userId Request & if Admin - Payload
+                        process.env.JWT_KEY, // Encode secret key - Salt
+                        { expiresIn: '24h' }
+                    ),
+                    profile: {
+                        userId: user.id, // userId in DB
+                        pseudo: user.pseudo,
+                    }
+                }))
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
@@ -40,8 +54,6 @@ exports.login = (req, res) => {
                         return res.status(401).json({ error: 'Wrong Password !' });
                     }
                     res.status(200).json({
-                        userId: user.id, // userId in DB
-                        pseudo: user.pseudo,
                         token: jwt.sign( // Encode token 
                             {
                                 userId: user.id,
@@ -49,7 +61,11 @@ exports.login = (req, res) => {
                             }, // Check userId Request & if Admin - Payload
                             process.env.JWT_KEY, // Encode secret key - Salt
                             { expiresIn: '24h' }
-                        )
+                        ),
+                        profile: {
+                            userId: user.id, // userId in DB
+                            pseudo: user.pseudo,
+                        }
                     });
                 })
                 .catch(error => res.status(500).json({ error }));
