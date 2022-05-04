@@ -1,11 +1,13 @@
 const express = require('express');
-// const sequelize = require('./config/db_sequelize');
 // Import File System Path 
 const path = require('path');
 // Import Helmet for headers security
 const helmet = require("helmet");
 // Import express-rate-limit to protect from force brute attacks
 const rateLimit = require('express-rate-limit');
+// Environment variables
+const dotenv = require("dotenv");
+dotenv.config();
 // Import Logger
 const morgan = require('morgan');
 // Import Routes
@@ -19,6 +21,8 @@ const limiter = rateLimit({
     max: 100, // Limit each IP to 100 requests per `window` (here, per 30 minutes)
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    message: "Too many request from this IP",
+    skip: (request, response) => process.env.ALLOWLIST.includes(request.ip),
 });
 
 const app = express();

@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         pseudo: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true
         },
         firstname: {
             type: DataTypes.STRING,
