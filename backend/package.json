@@ -40,6 +40,7 @@
     "mysql2": "^2.3.3",
     "password-validator": "^5.2.1",
     "sequelize": "^6.19.0",
+    "uuid": "^8.3.2",
     "validator": "^13.7.0"
   }
 }

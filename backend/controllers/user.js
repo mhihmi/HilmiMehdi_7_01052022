@@ -97,7 +97,7 @@ exports.updateProfile = (req, res) => {
                 })
             };
 
-            const filename = user.photo.split('/images/')[1];
+            const filename = user.photo;
             console.log(filename);
             if (req.file && (user.photo !== "defaultUserPhoto.png")) {
                 fs.unlink(`images/${filename}`, (err) => {
@@ -116,7 +116,7 @@ exports.updateProfile = (req, res) => {
                 lastname: parsedUser.lastname,
             }
             if (req.file) {
-                userObject.photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                userObject.photo = `${req.file.filename}`
             }
 
             db.users.update({ ...userObject, id: req.params.id }, { where: { id: req.params.id } })

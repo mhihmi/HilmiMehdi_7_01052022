@@ -1,5 +1,6 @@
 // import de Multer
 const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 
 const MIME_TYPES = { // File Ext Dictionary
     'image/jpg': 'jpg',
@@ -13,8 +14,10 @@ const storage = multer.diskStorage({ // multer storage setup
     },
     filename: (req, file, callback) => {
         const name = file.originalname.split(' ').join('_'); // replace space by underscore
+        const normalizeName = name.replace(/[^\w]/gi, "");
         const extension = MIME_TYPES[file.mimetype]; // possible extensions
-        callback(null, name + Date.now() + '.' + extension); // unique file with timestamp
+        const normalizeFile = normalizeName.replace(extension, "_");
+        callback(null, normalizeFile + uuidv4() + '.' + extension); // unique file with timestamp
     }
 });
 
