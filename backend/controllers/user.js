@@ -98,7 +98,6 @@ exports.updateProfile = (req, res) => {
             };
 
             const filename = user.photo;
-            console.log(filename);
             if (req.file && (user.photo !== "defaultUserPhoto.png")) {
                 fs.unlink(`images/${filename}`, (err) => {
                     if (err) {
@@ -115,9 +114,22 @@ exports.updateProfile = (req, res) => {
                 firstname: parsedUser.firstname,
                 lastname: parsedUser.lastname,
             }
+
             if (req.file) {
                 userObject.photo = `${req.file.filename}`
             }
+
+            // if (req.body.password) {
+            //     bcrypt.hash(req.body.password, 10)
+            //         .then(hash => {
+            //             db.users.update({ password: hash, id: req.params.id }, { where: { id: req.params.id } })
+            //                 .then(() => res.status(201).json({
+            //                     message: 'User Password updated successfully!',
+            //                 }))
+            //                 .catch(error => res.status(400).json({ error }));
+            //         })
+            //         .catch(error => res.status(500).json({ error }));
+            // }
 
             db.users.update({ ...userObject, id: req.params.id }, { where: { id: req.params.id } })
                 .then(() => res.status(200).json({ message: 'User updated successfully!' }))
