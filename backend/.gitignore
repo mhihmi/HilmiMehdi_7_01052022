@@ -44,6 +44,7 @@ build/Release
 # Images/Assets
 images/*
 !images/Readme
+!images/defaultUserPhoto.png
 
 # Dependency directories
 node_modules/
