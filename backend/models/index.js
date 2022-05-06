@@ -27,7 +27,6 @@ sequelize.authenticate()
 
 const db = {}
 
-db.sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.users = require('./User.js')(sequelize, DataTypes);

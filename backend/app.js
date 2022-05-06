@@ -11,8 +11,8 @@ dotenv.config();
 // Import Logger
 const morgan = require('morgan');
 // Import Routes
-const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
 const commentRoutes = require('./routes/comment');
 
 // Setup rate-limit

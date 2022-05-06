@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Post.init({
         title: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.STRING,
             allowNull: false
         },
         content: {
