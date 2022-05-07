@@ -3,21 +3,21 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
         static associate(models) {
-            models.User.hasMany(models.Post, {
-                foreignKey: { name: 'userId', allowNull: false },
-                onDelete: 'CASCADE',
-                hooks: true
-            });
-            models.User.hasMany(models.Comment, {
-                foreignKey: { name: 'userId', allowNull: false },
-                onDelete: 'CASCADE',
-                hooks: true
-            });
-            models.User.hasMany(models.Like, {
-                foreignKey: { name: 'userId', allowNull: false },
-                onDelete: 'CASCADE',
-                hooks: true
-            });
+            // models.User.hasMany(models.Post, {
+            //     foreignKey: { name: 'userId', allowNull: false },
+            //     onDelete: 'CASCADE',
+            //     hooks: true
+            // });
+            // models.User.hasMany(models.Comment, {
+            //     foreignKey: { name: 'userId', allowNull: false },
+            //     onDelete: 'CASCADE',
+            //     hooks: true
+            // });
+            // models.User.hasMany(models.Like, {
+            //     foreignKey: { name: 'userId', allowNull: false },
+            //     onDelete: 'CASCADE',
+            //     hooks: true
+            // });
         }
     };
 

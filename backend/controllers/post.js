@@ -1,5 +1,6 @@
 const db = require('../models');
 const fs = require('fs'); // File System
+const User = require('../models/User');
 
 exports.createPost = (req, res) => {
     if (!req.body.content || !req.body.title) {
@@ -22,9 +23,9 @@ exports.createPost = (req, res) => {
 
 exports.getAllPosts = (req, res) => {
     db.posts.findAll({
-        // include: [{
-        //     model: db.User
-        // }]
+        include: [{
+            model: db.users
+        }]
     })
         .then(posts => res.status(201).json({ posts: posts }))
         .catch(error => res.status(400).json({ error }));
