@@ -53,6 +53,6 @@ app.use('/api/auth', userRoutes);
 //  Use Routes of postRoutes for : /api/post
 app.use('/api/post', postRoutes);
 //  Use Routes of commentRoutes for : /api/comment
-// app.use('/api/comment', commentRoutes);
+app.use('/api/comment', commentRoutes);
 
 module.exports = app;
