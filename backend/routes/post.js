@@ -13,6 +13,7 @@ router.post('/create', auth, multer, postCtrl.createPost);
 router.get("/", auth, postCtrl.getAllPosts);
 router.get("/:id", auth, postCtrl.getPost);
 router.put("/:id", auth, multer, postCtrl.updatePost);
+router.put("/:id/image", auth, multer, postCtrl.deletePostImg);
 router.delete("/:id", auth, postCtrl.deletePost);
 
 // CRUD for likes

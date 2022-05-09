@@ -59,7 +59,7 @@ exports.updatePost = (req, res) => {
         where: { id: req.params.id }, include: [{ model: db.users }]
     })
         .then(post => {
-            if (post.userId !== req.token.userId) { // Compare db post userId /w token id
+            if ((post.userId !== req.token.userId) && (req.token.isAdmin !== true)) { // Compare db post userId /w token id
                 return res.status(403).json({
                     error: new Error('Unauthorized Request !')
                 })
@@ -85,13 +85,47 @@ exports.updatePost = (req, res) => {
             if (req.file) {
                 postObject.media = `${req.file.filename}`
             }
-
+            // if DB UserId & token userId are the same + isAdmin = true, we can update it !
             db.posts.update({ ...postObject, id: req.params.id }, { where: { id: req.params.id } })
                 .then(() => res.status(200).json({ message: 'Post updated successfully!' }))
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(400).json({ error }));
 };
+
+exports.deletePostImg = (req, res) => {
+    db.posts.findOne({ where: { id: req.params.id } })
+        .then(post => {
+            if (!post) { // If no user
+                return res.status(404).json({
+                    error: new Error('Post not found !')
+                })
+            };
+            if (post.media === null) { // If no user
+                return res.status(404).json({
+                    error: new Error('Image to delete not found !')
+                })
+            };
+            if ((post.userId !== req.token.userId) && (req.token.isAdmin !== true)) { // Compare db post userId /w token id
+                return res.status(403).json({
+                    error: new Error('Unauthorized Request !')
+                })
+            };
+            const filename = post.media;
+            fs.unlink(`images/${filename}`, (err) => {
+                if (err) {
+                    console.log(err);
+                } // Delete media in db
+            })
+            let postObject = {
+                media: null
+            }
+            db.posts.update({ ...postObject, id: req.params.id }, { where: { id: req.params.id } })
+                .then(() => res.status(200).json({ message: 'Image deleted successfully!' }))
+                .catch(error => res.status(400).json({ error }));
+        })
+        .catch(error => res.status(400).json({ error }));
+}
 
 exports.deletePost = (req, res) => {
     db.posts.findOne({ where: { id: req.params.id } })
