@@ -1,6 +1,5 @@
 const db = require('../models');
 const fs = require('fs'); // File System
-const User = require('../models/User');
 
 exports.createPost = (req, res) => {
     if (!req.body.content || !req.body.title) {
@@ -24,10 +23,99 @@ exports.createPost = (req, res) => {
 exports.getAllPosts = (req, res) => {
     db.posts.findAll({
         include: [{
-            model: db.users
+            model: db.users, attributes: { exclude: ['password', 'email'] }
+        },
+        {
+            model: db.comments
+        },
+        {
+            model: db.likes
         }]
     })
         .then(posts => res.status(201).json({ posts: posts }))
         .catch(error => res.status(400).json({ error }));
 
+};
+
+exports.getPost = (req, res) => {
+    db.posts.findOne({
+        where: { id: req.params.id },
+        include: [{
+            model: db.users, attributes: { exclude: ['password', 'email'] }
+        },
+        {
+            model: db.comments
+        },
+        {
+            model: db.likes
+        }]
+    })
+        .then(post => res.status(201).json({ post: post }))
+        .catch(error => res.status(400).json({ error }));
+};
+
+exports.updatePost = (req, res) => {
+    db.posts.findOne({
+        where: { id: req.params.id }, include: [{ model: db.users }]
+    })
+        .then(post => {
+            if (post.userId !== req.token.userId) { // Compare db post userId /w token id
+                return res.status(403).json({
+                    error: new Error('Unauthorized Request !')
+                })
+            };
+
+            const filename = post.media;
+            if (req.file && (post.media !== null)) {
+                fs.unlink(`images/${filename}`, (err) => {
+                    if (err) {
+                        console.log(err);
+                    } // Delete Old media if file in req & file !== null
+                })
+            };
+
+            const parsedPost = JSON.parse(req.body.post);
+
+            let postObject = {
+                id: parsedPost.id,
+                content: parsedPost.content,
+                title: parsedPost.title,
+            }
+
+            if (req.file) {
+                postObject.media = `${req.file.filename}`
+            }
+
+            db.posts.update({ ...postObject, id: req.params.id }, { where: { id: req.params.id } })
+                .then(() => res.status(200).json({ message: 'Post updated successfully!' }))
+                .catch(error => res.status(400).json({ error }));
+        })
+        .catch(error => res.status(400).json({ error }));
+};
+
+exports.deletePost = (req, res) => {
+    db.posts.findOne({ where: { id: req.params.id } })
+        .then(post => {
+            if (!post) { // If no user
+                return res.status(404).json({
+                    error: new Error('Post not found !')
+                })
+            }
+            // console.log(req.token);
+            // Ask Mentor :
+            // ((post.userId !== req.token.userId) || (req.token.isAdmin !== false)) 
+            if ((post.userId !== req.token.userId) && (req.token.isAdmin !== true)) { // Compare db post userId /w token id
+                return res.status(403).json({
+                    error: new Error('Unauthorized Request !')
+                })
+            };
+            // if DB UserId & token userId are the same + isAdmin = true, we can delete it
+            const filename = post.media;
+            fs.unlink(`images/${filename}`, () => {
+                db.posts.destroy({ where: { id: req.params.id } })
+                    .then(() => res.status(200).json({ message: 'Post deleted !' }))
+                    .catch(error => res.status(404).json({ error }));
+            })
+        })
+        .catch(error => res.status(400).json({ error }));
 };

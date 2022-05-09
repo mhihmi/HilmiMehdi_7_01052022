@@ -3,17 +3,17 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
         static associate(models) {
-            // models.User.hasMany(models.Post, {
+            // this.hasMany(models.posts, {
             //     foreignKey: { name: 'userId', allowNull: false },
             //     onDelete: 'CASCADE',
             //     hooks: true
             // });
-            // models.User.hasMany(models.Comment, {
+            // this.hasMany(models.comments, {
             //     foreignKey: { name: 'userId', allowNull: false },
             //     onDelete: 'CASCADE',
             //     hooks: true
             // });
-            // models.User.hasMany(models.Like, {
+            // this.hasMany(models.likes, {
             //     foreignKey: { name: 'userId', allowNull: false },
             //     onDelete: 'CASCADE',
             //     hooks: true

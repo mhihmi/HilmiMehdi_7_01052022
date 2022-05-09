@@ -11,9 +11,9 @@ const authAdmin = require('../middleware/authAdmin');
 // CRUD for posts
 router.post('/create', auth, multer, postCtrl.createPost);
 router.get("/", auth, postCtrl.getAllPosts);
-// router.get("/:id", auth, postCtrl.getOnePost);
-// router.put("/:id", auth, multer, postCtrl.updatePost);
-// router.delete("/:id", auth, postCtrl.deletePost);
+router.get("/:id", auth, postCtrl.getPost);
+router.put("/:id", auth, multer, postCtrl.updatePost);
+router.delete("/:id", auth, postCtrl.deletePost);
 
 // CRUD for likes
 // router.post('/:id/like', auth, multer, likeCtrl.addLike);

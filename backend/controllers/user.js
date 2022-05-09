@@ -19,6 +19,7 @@ exports.signup = (req, res) => {
                 lastname: req.body.lastname,
                 email: emailCryptoJs,
                 password: hash
+                // isAdmin: true
             })
                 .then((user) => res.status(201).json({
                     message: 'User Successfully created !',

@@ -61,7 +61,7 @@ db.users.hasMany(db.likes, {
     hooks: true
 });
 
-
+/* Posts associations */
 db.posts.belongsTo(db.users, {
     foreignKey: { name: 'userId', allowNull: false },
     onDelete: 'CASCADE',
@@ -73,6 +73,30 @@ db.posts.hasMany(db.comments, {
     hooks: true
 });
 db.posts.hasMany(db.likes, {
+    foreignKey: { name: 'postId', allowNull: false },
+    onDelete: 'CASCADE',
+    hooks: true
+});
+
+/* Comments associations */
+db.comments.belongsTo(db.users, {
+    foreignKey: { name: 'userId', allowNull: false },
+    onDelete: 'CASCADE',
+    hooks: true
+});
+db.comments.belongsTo(db.posts, {
+    foreignKey: { name: 'postId', allowNull: false },
+    onDelete: 'CASCADE',
+    hooks: true
+});
+
+/* Likes associations */
+db.likes.belongsTo(db.users, {
+    foreignKey: { name: 'userId', allowNull: false },
+    onDelete: 'CASCADE',
+    hooks: true
+});
+db.likes.belongsTo(db.posts, {
     foreignKey: { name: 'postId', allowNull: false },
     onDelete: 'CASCADE',
     hooks: true
