@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             // this.hasMany(models.posts, {
             //     foreignKey: { name: 'userId', allowNull: false },
             //     onDelete: 'CASCADE',
-            //     hooks: true
+            //     hooks: true   // ==> The beforeDestroy and afterDestroy hooks will only be called on associations that have onDelete: 'CASCADE' and hooks: true.
             // });
             // this.hasMany(models.comments, {
             //     foreignKey: { name: 'userId', allowNull: false },
