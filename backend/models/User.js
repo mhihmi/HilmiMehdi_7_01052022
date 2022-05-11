@@ -2,22 +2,7 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
-        static associate(models) {
-            // this.hasMany(models.posts, {
-            //     foreignKey: { name: 'userId', allowNull: false },
-            //     onDelete: 'CASCADE',
-            //     hooks: true   // ==> The beforeDestroy and afterDestroy hooks will only be called on associations that have onDelete: 'CASCADE' and hooks: true.
-            // });
-            // this.hasMany(models.comments, {
-            //     foreignKey: { name: 'userId', allowNull: false },
-            //     onDelete: 'CASCADE',
-            //     hooks: true
-            // });
-            // this.hasMany(models.likes, {
-            //     foreignKey: { name: 'userId', allowNull: false },
-            //     onDelete: 'CASCADE',
-            //     hooks: true
-            // });
+        static associate() {
         }
     };
 

@@ -106,7 +106,7 @@ The server should run on `localhost` with default port `3000`. If the server run
         <tr>
             <td>DELETE</td>
             <td><code>/api/comment/:id</code></td>
-            <td>Delete Comment by Id - <b>Admin Only</b></td>
+            <td>Delete Comment by Id</b></td>
         </tr>
         <tr>
             <td rowspan=4><b>LIKES</b></td>

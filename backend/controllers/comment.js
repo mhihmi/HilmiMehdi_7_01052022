@@ -25,7 +25,7 @@ exports.updateComment = (req, res) => {
                 res.status(400).json({ error: 'Content can not be empty !' });
                 return;
             };
-            if ((comment.userId !== req.token.userId) && (req.token.isAdmin !== true)) { // Compare db comment userId /w token id
+            if ((comment.userId !== req.token.userId) && (!req.token.isAdmin)) { // Compare db comment userId /w token id
                 return res.status(403).json({
                     error: new Error('Unauthorized Request !')
                 })
@@ -53,15 +53,15 @@ exports.deleteComment = (req, res) => {
                     error: new Error('Comment not found !')
                 })
             }
-            if (req.token.isAdmin !== true) { // check is isAdmin
+            if ((comment.userId !== req.token.userId) && (!req.token.isAdmin)) { // Compare db post userId /w token id
                 return res.status(403).json({
                     error: new Error('Unauthorized Request !')
                 })
-            }
+            };
             // if User isAdmin, he can delete it
             db.comments.destroy({ where: { id: req.params.id } })
                 .then(() => res.status(200).json({ message: 'Bad Comment successfully deleted !' }))
                 .catch(error => res.status(404).json({ error }));
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ error: console.log(error) }));
 };

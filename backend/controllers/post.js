@@ -28,10 +28,12 @@ exports.getAllPosts = (req, res) => {
     db.posts.findAll({
         where: condition,
         include: [{
-            model: db.users, attributes: { exclude: ['password', 'email'] }
+            model: db.users, attributes: ['pseudo', 'photo']
         },
         {
-            model: db.comments
+            model: db.comments, include: [{
+                model: db.users, attributes: ['pseudo', 'photo']
+            }]
         },
         {
             model: db.likes
@@ -63,7 +65,7 @@ exports.updatePost = (req, res) => {
         where: { id: req.params.id }, include: [{ model: db.users }]
     })
         .then(post => {
-            if ((post.userId !== req.token.userId) && (req.token.isAdmin !== true)) { // Compare db post userId /w token id
+            if ((post.userId !== req.token.userId) && (!req.token.isAdmin)) { // Compare db post userId /w token id
                 return res.status(403).json({
                     error: new Error('Unauthorized Request !')
                 })
@@ -110,7 +112,7 @@ exports.deletePostImg = (req, res) => {
                     error: new Error('Image to delete not found !')
                 })
             };
-            if ((post.userId !== req.token.userId) && (req.token.isAdmin !== true)) { // Compare db post userId /w token id
+            if ((post.userId !== req.token.userId) && (!req.token.isAdmin)) { // Compare db post userId /w token id
                 return res.status(403).json({
                     error: new Error('Unauthorized Request !')
                 })
@@ -139,10 +141,8 @@ exports.deletePost = (req, res) => {
                     error: new Error('Post not found !')
                 })
             }
-            // console.log(req.token);
-            // Ask Mentor :
-            // ((post.userId !== req.token.userId) || (req.token.isAdmin !== false)) 
-            if ((post.userId !== req.token.userId) && (req.token.isAdmin !== true)) { // Compare db post userId /w token id
+
+            if ((post.userId !== req.token.userId) && (!req.token.isAdmin)) { // Compare db post userId /w token id
                 return res.status(403).json({
                     error: new Error('Unauthorized Request !')
                 })

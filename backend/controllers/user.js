@@ -136,7 +136,7 @@ exports.updateProfile = (req, res) => {
                 .then(() => res.status(200).json({ message: 'User updated successfully!' }))
                 .catch(error => res.status(400).json({ error }));
         })
-        .catch(error => res.status(404).json({ error }));
+        .catch(error => res.status(404).json({ error: console.log(error) }));
 };
 exports.deleteProfile = (req, res) => {
     db.users.findOne({ where: { id: req.params.id } })

@@ -6,7 +6,6 @@ const likeCtrl = require('../controllers/like');
 
 const multer = require('../middleware/multer-config');
 const auth = require('../middleware/auth');
-const authAdmin = require('../middleware/authAdmin');
 
 // CRUD for posts
 router.post('/create', auth, multer, postCtrl.createPost);

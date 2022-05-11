@@ -37,7 +37,7 @@ db.posts = require('./Post.js')(sequelize, DataTypes);
 db.comments = require('./Comment.js')(sequelize, DataTypes);
 db.likes = require('./Like.js')(sequelize, DataTypes);
 
-db.sequelize.sync({ force: false }) // Avoid rewrite every Table, just sync it.
+db.sequelize.sync({ force: false }) // Avoid rewrite every Table, just sync it.   alter to keep data and drop tables
     .then(() => {
         console.log('re-sync done !');
     });
