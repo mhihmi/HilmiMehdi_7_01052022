@@ -20,11 +20,11 @@ The server should run on `localhost` with default port `3000`. If the server run
 
 <table style = "text-align:center">
     <thead>
-        <tr style = "border-bottom: 2px solid">
+        <tr>
             <th style = "text-align:center" width = 10%>TABLE</th>
             <th style = "text-align:center" width = 10%>METHOD</th>
-            <th style = "text-align:center" width = 40%>URL</th>
-            <th style = "text-align:center" width = 50%> ACTION </th>
+            <th style = "text-align:center" width = 30%>URL</th>
+            <th style = "text-align:center" width = 40%> ACTION </th>
         </tr>
     </thead>
     <tbody>
@@ -54,7 +54,7 @@ The server should run on `localhost` with default port `3000`. If the server run
             <td><code>/api/auth/profile/:id</code></td>
             <td>Edit Profile</td>
         </tr>
-        <tr style = "border-bottom: 2px solid">
+        <tr>
             <td>DELETE</td>
             <td><code>/api/auth/profile/:id</code></td>
             <td>Delete Profile</td>
@@ -85,7 +85,7 @@ The server should run on `localhost` with default port `3000`. If the server run
             <td><code>/api/post/:id/image</code></td>
             <td>Delete Post Image</td>
         </tr>
-        <tr style = "border-bottom: 2px solid">
+        <tr>
             <td>DELETE</td>
             <td><code>/api/post/:id</code></td>
             <td>Delete Post by Id</td>
@@ -103,7 +103,7 @@ The server should run on `localhost` with default port `3000`. If the server run
             <td><code>/api/comment/:id</code></td>
             <td>Edit Comment by Id</td>
         </tr>
-        <tr style = "border-bottom: 2px solid">
+        <tr>
             <td>DELETE</td>
             <td><code>/api/comment/:id</code></td>
             <td>Delete Comment by Id - <b>Admin Only</b></td>
