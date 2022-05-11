@@ -1,5 +1,6 @@
 const db = require('../models');
 const fs = require('fs'); // File System
+const Op = db.Sequelize.Op;
 
 exports.createPost = (req, res) => {
     if (!req.body.content || !req.body.title) {
@@ -21,7 +22,11 @@ exports.createPost = (req, res) => {
 };
 
 exports.getAllPosts = (req, res) => {
+    const title = req.query.title;
+    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+
     db.posts.findAll({
+        where: condition,
         include: [{
             model: db.users, attributes: { exclude: ['password', 'email'] }
         },
@@ -32,9 +37,8 @@ exports.getAllPosts = (req, res) => {
             model: db.likes
         }]
     })
-        .then(posts => res.status(201).json({ posts: posts }))
-        .catch(error => res.status(400).json({ error }));
-
+        .then(post => res.status(201).json({ post }))
+        .catch(error => res.status(400).json({ error: 'Error occurred while retrieving the post' }));
 };
 
 exports.getPost = (req, res) => {
