@@ -38,7 +38,7 @@ exports.getAllPosts = (req, res) => {
         }]
     })
         .then(post => res.status(201).json({ post }))
-        .catch(error => res.status(400).json({ error: 'Error occurred while retrieving the post' }));
+        .catch(error => res.status(400).json({ error }));
 };
 
 exports.getPost = (req, res) => {

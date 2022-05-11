@@ -6,8 +6,7 @@ const helmet = require("helmet");
 // Import express-rate-limit to protect from force brute attacks
 const rateLimit = require('express-rate-limit');
 // Environment variables
-const dotenv = require("dotenv");
-dotenv.config();
+require('dotenv').config()
 // Import Logger
 const morgan = require('morgan');
 // Import Routes
