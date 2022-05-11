@@ -132,5 +132,5 @@ The server should run on `localhost` with default port `3000`. If the server run
 ## Database Diagram
 
 <p align="center">
-    <img src="https://github.com/mhihmi/HilmiMehdi_7_01052022/blob/main/backend/images/Readme/Db_diagram.png" width="50%"/>
+    <img src="https://github.com/mhihmi/HilmiMehdi_7_01052022/blob/main/backend/images/Readme/Db_Diagram.png" width="50%"/>
 </p>
