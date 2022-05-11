@@ -1,0 +1,72 @@
+// Default browser valuer
+
+$browser-context: 16;
+
+// Font-size 
+
+$font-ssm: 0.5rem; // 8px
+$font-sm: 0.6875rem; // 11px
+$font-xsm: 0.8125rem; // 13px
+
+$font-smed: 1rem; // 16px
+$font-med: 1.125rem; // 18px
+$font-xmed: 1.3125rem; // 21px
+
+$font-slg: 1.625rem; // 26px 
+$font-lg: 1.9375rem; // 31px
+$font-xlg: 2.5625rem; // 41px
+$font-xxlg: 2.9375rem; // 47px
+$font-xxxlg: 3.9375rem; // 63px
+
+// Spaces
+
+$layout-padding: 2rem;
+$padding-top-bot: 0.875rem;
+
+// Gap & Layout Margin/Padding
+
+// $wrapper-margin: 6rem;
+// $wrapper-padding: $wrapper-margin * .25;
+
+// $heading-shadow-size: .55rem;
+
+// COLORS 
+$color-light: rgb(242, 242, 242);
+$color-light-hover: lighten($color-light, 10%);
+$color-light-shadow: rgba(242, 242, 242, 0.05);
+$color-light-overlay: rgba(242, 242, 242, 0.95);
+
+$color-dark: rgb(6, 11, 20);
+$color-dark-hover: lighten($color-dark, 10%);
+$color-dark-shadow: rgba(16, 27, 45, .06);
+$color-dark-overlay: rgba(6, 11, 20, .95);
+
+
+$colors: (1: #61AFEF,
+  2: #E5C07C,
+  3: #81A46A,
+  4: #DF6C75,
+  5: #56B6C2,
+);
+
+
+// COLOR STYLING 
+// Light theme coloring
+:root {
+  --color-page-bg: #{$color-light};
+  --color-text: #{$color-dark};
+  --color-text-hover: #{$color-dark-hover};
+  --color-border: #{$color-dark-hover};
+  --color-shadow: #{$color-dark-shadow};
+  --color-overlay: #{$color-light-overlay};
+}
+
+// Dark theme coloring
+:root[data-theme="dark"] {
+  --color-page-bg: #{$color-dark};
+  --color-text: #{$color-light};
+  --color-text-hover: #{$color-light-hover};
+  --color-border: #{$color-light-hover};
+  --color-shadow: #{$color-light-shadow};
+  --color-overlay: #{$color-dark-overlay};
+}

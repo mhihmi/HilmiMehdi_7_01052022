@@ -1,0 +1,120 @@
+// Utiliser les mixins avec des paramètres, sinon utiliser les placeholders !
+// S'utilise avec @include
+
+@use 'breakpoints'as *;
+
+@use 'sass:math';
+
+@mixin breakpoint-up($size) {
+  @media (min-width: map-get($breakpoints-up, $size)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($size) {
+  @media (max-width: map-get($breakpoints-down, $size)) {
+    @content;
+  }
+}
+
+// FLUID TYPE
+
+@mixin fluid-type($min-vw, $max-vw, $min-value, $max-value) {
+  $factor: math.div(1, $max-vw - $min-vw) * ($max-value - $min-value);
+  $calc-value: unquote("#{ $min-value - ($min-vw * $factor) } + #{ 100vw * $factor }");
+  font-size: $min-value; // Fallback for older browsers
+  font-size: clamp(#{ if($min-value > $max-value, $max-value, $min-value) }, #{ $calc-value }, #{ if($min-value > $max-value, $min-value, $max-value) });
+}
+
+// LINKS
+
+@mixin linx ($link, $visit, $hover, $active) {
+  a {
+    color: $link;
+    text-decoration: none;
+
+    &:visited {
+      color: $visit;
+    }
+
+    &:hover {
+      color: $hover;
+      font-weight: 600;
+      transition: 300ms;
+    }
+
+    &:active {
+      color: $active;
+      font-weight: 600;
+    }
+  }
+}
+
+// BOX SHADOW 
+
+@mixin box_shadow ($level) {
+
+  @if $level==1 {
+    box-shadow: 0 1px 3px var(--color-shadow);
+  }
+
+  @else if $level==2 {
+    box-shadow: 0 3px 6px var(--color-shadow);
+  }
+
+  @else if $level==3 {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+
+  @else if $level==4 {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+
+  @else if $level==5 {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+  }
+
+}
+
+// ANIMATIONS 
+
+@mixin keyframes($animation-name) {
+  // @-webkit-keyframes #{$animation-name} {
+  //   @content;
+  // }
+
+  // @-moz-keyframes #{$animation-name} {
+  //   @content;
+  // }
+
+  // @-ms-keyframes #{$animation-name} {
+  //   @content;
+  // }
+
+  // @-o-keyframes #{$animation-name} {
+  //   @content;
+  // }
+
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  // -webkit-animation: #{$str};
+  // -moz-animation: #{$str};
+  // -ms-animation: #{$str};
+  // -o-animation: #{$str};
+  animation: #{$str};
+}
+
+// Absolute element
+
+@mixin absolute-el ($top, $right, $bottom, $left, $x, $y) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  transform: translate($x, $y);
+}

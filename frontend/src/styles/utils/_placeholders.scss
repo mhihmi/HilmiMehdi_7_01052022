@@ -1,0 +1,19 @@
+// Lorsqu'on a pas de paramètres sur une mixin, plutôt utiliser des placeholders !
+// S'utilise avec @extend
+
+%flex-jc-sb {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+%flex-jc-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+%flex-ai-c {
+    display: flex;
+    align-items: center;
+}
