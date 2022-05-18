@@ -31,26 +31,25 @@ $padding-top-bot: 0.875rem;
 // $heading-shadow-size: .55rem;
 
 // COLORS 
-$color-light: rgb(242, 242, 242);
+$color-light: rgb(212, 212, 212);
 $color-light-hover: lighten($color-light, 10%);
-$color-light-shadow: rgba(242, 242, 242, 0.05);
-$color-light-overlay: rgba(242, 242, 242, 0.95);
+$color-light-shadow: rgba(0, 0, 0, 0.05);
+$color-light-overlay: rgba(212, 212, 212, .3);
 
-$color-dark: rgb(6, 11, 20);
+$color-dark: rgb(9, 31, 67);
 $color-dark-hover: lighten($color-dark, 10%);
-$color-dark-shadow: rgba(16, 27, 45, .06);
-$color-dark-overlay: rgba(6, 11, 20, .95);
+$color-dark-shadow: rgba(47, 65, 96, .05);
+$color-dark-overlay: rgba(47, 65, 96, .4);
 
 
-$colors: (1: #61AFEF,
-  2: #E5C07C,
-  3: #81A46A,
-  4: #DF6C75,
-  5: #56B6C2,
+$colors: (1: #9AACCB,
+  2: #FA8E95,
+  3: #525252,
+  4: #94282F,
 );
 
 
-// COLOR STYLING 
+// COLOR THEMES 
 // Light theme coloring
 :root {
   --color-page-bg: #{$color-light};
