@@ -1,17 +1,20 @@
 <template>
-  <div class="home">
-    <img alt="Grouporama logo" src="../assets/logo.svg" />
-    <HelloWorld msg="Grouporama" />
-  </div>
+  <home-header msg="Groupomania" />
+  <home-main />
+  <main-footer />
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld.vue";
+import HomeHeader from "@/components/HomeHeader.vue";
+import HomeMain from "@/components/HomeMain.vue";
+import MainFooter from "@/components/Footer.vue";
 
 export default {
   name: "LoginView",
   components: {
-    HelloWorld,
+    HomeHeader,
+    HomeMain,
+    MainFooter,
   },
 };
 </script>

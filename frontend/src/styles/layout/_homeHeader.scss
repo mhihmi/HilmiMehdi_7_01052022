@@ -1,0 +1,16 @@
+.home-header {
+    @extend %flex-jc-c;
+    flex-direction: column;
+    padding: $layout-padding*2 0 $layout-padding 0;
+
+    &__logo {
+
+        @include breakpoint-down(medium) {
+            height: calculateEm(46px)
+        }
+
+        @include breakpoint-down(small) {
+            height: calculateEm(40px)
+        }
+    }
+}

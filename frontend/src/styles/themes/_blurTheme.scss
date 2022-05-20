@@ -1,0 +1,12 @@
+.blur-theme {
+    backdrop-filter: blur(250px);
+    -webkit-backdrop-filter: blur(250px);
+    z-index: -2;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .blur-theme {
+        -webkit-backdrop-filter: blur(250px);
+        backdrop-filter: blur(250px);
+    }
+}

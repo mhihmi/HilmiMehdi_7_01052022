@@ -1,6 +1,7 @@
 // Utiliser les mixins avec des paramètres, sinon utiliser les placeholders !
 // S'utilise avec @include
 
+@use 'variables'as *;
 @use 'breakpoints'as *;
 
 @use 'sass:math';
@@ -55,11 +56,11 @@
 @mixin box_shadow ($level) {
 
   @if $level==1 {
-    box-shadow: 0 1px 3px var(--color-shadow);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 
   @else if $level==2 {
-    box-shadow: 0 3px 6px var(--color-shadow);
+    box-shadow: 0 3px 6px $color-light-shadow, 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 
   @else if $level==3 {

@@ -5,14 +5,12 @@
       <router-link to="/signup">Signup</router-link> |
       <router-link to="/feeds">Feeds</router-link>
     </nav> -->
-    <main>
-      <router-view />
-    </main>
-    <footer>pour essayer !</footer>
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
 @import "@/styles/base";
 @import "@/styles/layout/container";
+// @import "@/styles/themes";
 </style>
