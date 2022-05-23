@@ -1,0 +1,30 @@
+.btn {
+    @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+    color: var(--color-text);
+    padding: calculateRem(8px) calculateRem(15px);
+    border-radius: calculateRem(20px);
+    background-color: var(--color-page-bg);
+    border: none;
+    position: relative;
+    z-index: 1;
+    @include box_shadow(2);
+
+    &:hover {
+        cursor: pointer;
+        color: var(--color-page-bg);
+
+        &::after {
+            opacity: 1;
+        }
+    }
+
+    &::after {
+        content: "";
+        opacity: 0;
+        border-radius: calculateRem(20px);
+        @include absolute-el(0, 0, 0, 0, 0, 0);
+        background-color: var(--color-text-hover);
+        z-index: -1;
+        transition: opacity 250ms;
+    }
+}

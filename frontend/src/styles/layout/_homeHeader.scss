@@ -3,7 +3,7 @@
     padding: $layout-padding*2 0 $layout-padding 0;
 
     &__logo {
-        display: block;
+        display: inline-block;
         width: calculateEm(59px);
         height: calculateEm(59px);
 

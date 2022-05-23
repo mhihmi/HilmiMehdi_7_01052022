@@ -45,4 +45,5 @@ export default {
 @import "@/styles/layout/homeMain";
 @import "@/styles/layout/formContainer";
 @import "@/styles/components/loginForm";
+@import "@/styles/components/buttons";
 </style>

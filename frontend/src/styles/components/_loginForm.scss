@@ -2,11 +2,12 @@
     @extend %flex-ai-c;
     flex-direction: column;
     padding: $layout-padding*2 $layout-padding;
-    row-gap: 5px;
+    row-gap: 15px;
     align-content: center;
 
     @include breakpoint-down(medium) {
         padding: $layout-padding*1.5 $layout-padding;
+        row-gap: 10px;
     }
 
     @include breakpoint-down(small) {
@@ -17,8 +18,9 @@
 
     &__input {
         font-weight: normal; // 400
-        width: 17vw;
+        width: 16vw;
         min-width: calculateRem(220px);
+        // min-width: calculateRem(350px);
         @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
         color: var(--color-text);
         background-color: var(--color-input);
@@ -73,5 +75,17 @@
         @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
         align-self: flex-end;
         margin-top: calculateRem(6px);
+    }
+}
+
+.btn {
+    margin-top: calculateEm(70px);
+
+    @include breakpoint-down(medium) {
+        margin-top: calculateEm(50px);
+    }
+
+    @include breakpoint-down(small) {
+        margin-top: calculateEm(40px);
     }
 }
