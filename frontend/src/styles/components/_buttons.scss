@@ -25,6 +25,14 @@
         @include absolute-el(0, 0, 0, 0, 0, 0);
         background-color: var(--color-text-hover);
         z-index: -1;
-        transition: opacity 250ms;
+        transition: opacity 300ms;
+    }
+
+    &:focus {
+        outline-color: var(--color-input);
+    }
+
+    &:focus-visible {
+        outline-color: var(--color-input);
     }
 }

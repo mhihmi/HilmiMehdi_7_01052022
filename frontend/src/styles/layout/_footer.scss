@@ -1,1 +1,4 @@
-@use "../utils/"as *;
+.home-footer {
+    @extend %flex-ai-fe-jc-fe;
+    padding: calculateRem(20px) calculateRem(30px);
+}
