@@ -3,12 +3,24 @@
     padding: $layout-padding*2 0 $layout-padding 0;
 
     &__logo {
+        display: block;
+        width: calculateEm(59px);
+        height: calculateEm(59px);
+
         @include breakpoint-down(medium) {
-            height: calculateEm(46px)
+            // height: calculateEm(50px);
+            // width: calculateEm(50px);
         }
 
         @include breakpoint-down(small) {
-            height: calculateEm(40px)
+            height: calculateRem(35px);
+            width: calculateRem(35px);
         }
     }
+
+    // &__title {
+    //     @include breakpoint-down(small) {
+    //         margin-top: calculateEm(5px);
+    //     }
+    // }
 }
