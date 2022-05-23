@@ -119,3 +119,15 @@
   left: $left;
   transform: translate($x, $y);
 }
+
+// Flexbox
+
+@mixin enableFlex($direction: false) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @if $direction {
+    flex-direction: column;
+  }
+}

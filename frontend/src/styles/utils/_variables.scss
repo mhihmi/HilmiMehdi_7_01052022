@@ -35,12 +35,15 @@ $color-light: rgb(212, 212, 212);
 $color-light-hover: lighten($color-light, 10%);
 $color-light-shadow: rgba(0, 0, 0, 0.05);
 $color-light-overlay: rgba(212, 212, 212, .3);
+$color-light-input: rgba(227, 227, 227, .8);
+$color-light-placeholder: rgba(9, 31, 67, .3);
 
 $color-dark: rgb(9, 31, 67);
 $color-dark-hover: lighten($color-dark, 10%);
 $color-dark-shadow: rgba(47, 65, 96, .05);
 $color-dark-overlay: rgba(47, 65, 96, .4);
-
+$color-dark-input: rgba(9, 31, 67, .25);
+$color-dark-placeholder: rgb(212, 212, 212, .7);
 
 $colors: (1: #9AACCB,
   2: #FA8E95,
@@ -58,6 +61,8 @@ $colors: (1: #9AACCB,
   --color-border: #{$color-dark-hover};
   --color-shadow: #{$color-dark-shadow};
   --color-overlay: #{$color-light-overlay};
+  --color-input: #{$color-light-input};
+  --color-placeholder: #{$color-light-placeholder};
 }
 
 // Dark theme coloring
@@ -68,4 +73,6 @@ $colors: (1: #9AACCB,
   --color-border: #{$color-light-hover};
   --color-shadow: #{$color-light-shadow};
   --color-overlay: #{$color-dark-overlay};
+  --color-input: #{$color-dark-input};
+  --color-placeholder: #{$color-dark-placeholder};
 }

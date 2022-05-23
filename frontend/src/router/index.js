@@ -1,23 +1,25 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Login from "../views/LoginView.vue";
-import Signup from "../views/SignupView.vue";
-import Feeds from "../views/FeedsView.vue";
 
 const routes = [
   {
     path: "/",
+    name: "root",
+    redirect: "/login",
+  },
+  {
+    path: "/login",
     name: "login",
-    component: Login,
+    component: () => import("../views/LoginView.vue"),
   },
   {
     path: "/signup",
     name: "signup",
-    component: Signup,
+    component: () => import("../views/SignupView.vue"),
   },
   {
     path: "/feeds",
     name: "feeds",
-    component: Feeds,
+    component: () => import("../views/FeedsView.vue"),
   },
 ];
 

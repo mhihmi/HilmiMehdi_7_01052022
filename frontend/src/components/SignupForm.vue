@@ -2,7 +2,7 @@
   <main class="home-main">
     <div class="signupContainer">
       <h2 class="signupContainer__title">
-        Bienvenue sur le réseau social de votre entreprise !
+        {{ msg }}
       </h2>
       <form action="" class="signupContainer__form">
         <label for="uname"><b>Email ou Pseudo</b></label>
@@ -17,17 +17,15 @@
 
 <script>
 export default {
-  name: "HomeMain",
+  name: "SignupForm",
+  props: {
+    msg: String,
+  },
 };
 </script>
 
 <style scoped lang="scss">
-// @import "@/styles/layout/homeMain";
-.home-main {
-  @extend %flex-ai-c;
-  flex-direction: column;
-  padding: $padding-top-bot;
-}
+@import "@/styles/layout/homeMain";
 
 .signupContainer {
   text-align: center;

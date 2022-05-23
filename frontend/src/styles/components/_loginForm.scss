@@ -1,0 +1,77 @@
+.loginForm {
+    @extend %flex-ai-c;
+    flex-direction: column;
+    padding: $layout-padding*2 $layout-padding;
+    row-gap: 5px;
+    align-content: center;
+
+    @include breakpoint-down(medium) {
+        padding: $layout-padding*1.5 $layout-padding;
+    }
+
+    @include breakpoint-down(small) {
+        padding: $layout-padding $layout-padding;
+        row-gap: 5px;
+    }
+
+
+    &__input {
+        font-weight: normal; // 400
+        width: 17vw;
+        min-width: calculateRem(220px);
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+        color: var(--color-text);
+        background-color: var(--color-input);
+        border: unset;
+        border-radius: 12.5px;
+        padding: calculateEm(12px);
+        margin-top: calculateRem(12px);
+        outline-color: var(--color-input);
+
+        &:focus {
+            outline-color: var(--color-input);
+        }
+
+        &:focus-visible {
+            outline-color: var(--color-input);
+        }
+
+        &::placeholder {
+            color: var(--color-placeholder);
+        }
+
+        @include breakpoint-down(medium) {
+            margin-top: calculateRem(10px);
+        }
+
+        @include breakpoint-down(small) {
+            margin-top: calculateRem(6px);
+        }
+    }
+
+    &__label {
+        align-self: flex-start;
+        font-weight: normal; // 400
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+        margin-top: $layout-padding*1.5;
+
+        @include breakpoint-down(medium) {
+            margin-top: $layout-padding*1.25;
+        }
+
+        @include breakpoint-down(small) {
+            margin-top: $layout-padding;
+        }
+    }
+
+    &__box {
+        @extend %flex-ai-c;
+        flex-direction: column;
+    }
+
+    &__forgotPsw {
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
+        align-self: flex-end;
+        margin-top: calculateRem(6px);
+    }
+}

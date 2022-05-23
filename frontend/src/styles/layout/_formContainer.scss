@@ -1,0 +1,36 @@
+.formContainer {
+    text-align: center;
+    width: 65vw;
+    min-width: calculateRem(300px);
+    max-width: calculateRem(850px);
+    padding: $layout-padding $layout-padding*2;
+    background-color: var(--color-overlay);
+    @include box_shadow(2);
+    border-radius: 25px;
+
+    @include breakpoint-down(medium) {
+        padding: $layout-padding $layout-padding;
+        min-width: calculateRem(400px);
+        width: 70vw;
+    }
+
+    @include breakpoint-down(small) {
+        padding: $layout-padding $layout-padding;
+        min-width: calculateRem(300px);
+        width: 80vw;
+    }
+
+    &__title {
+        margin-top: $layout-padding*2.5;
+        display: inline-block;
+        max-width: 650px;
+
+        @include breakpoint-down(medium) {
+            margin-top: $layout-padding*2;
+        }
+
+        @include breakpoint-down(small) {
+            margin-top: $layout-padding;
+        }
+    }
+}

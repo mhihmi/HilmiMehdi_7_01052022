@@ -7,11 +7,12 @@
     align-items: center;
 }
 
-%flex-jc-c {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+// => See Mixin : @include enableFlex();
+// %flex-jc-c {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
 
 %flex-ai-c {
     display: flex;
