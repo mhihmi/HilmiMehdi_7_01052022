@@ -13,4 +13,8 @@
 @import "@/styles/base";
 @import "@/styles/layout/container";
 // @import "@/styles/themes";
+
+body {
+  transition: background-color 0.4s;
+}
 </style>

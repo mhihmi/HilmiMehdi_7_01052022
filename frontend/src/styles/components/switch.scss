@@ -1,60 +1,88 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 100px;
-    height: 34px;
-}
+    width: 76px;
+    height: 32px;
 
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
+    @include breakpoint-down(medium) {
+        width: 60px;
+        height: 25px;
+    }
 
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: darkblue;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
+    @include breakpoint-down(small) {
+        width: 44px;
+        height: 18px;
+    }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: rgb(214, 186, 59);
-    -webkit-transition: .4s;
-    transition: .4s;
-}
+    &:focus-visible {
+        outline: none;
+    }
 
-input:checked+.slider {
-    background-color: rgb(212, 212, 212);
-}
+    &__input {
+        opacity: 0;
+        width: 0;
+        height: 0;
 
-// input:focus+.slider {
-//     box-shadow: 0 0 1px darkblue;
-// }
+        &:focus+.switch__slider {
+            border: 1px solid var(--color-input);
+            transition: none;
+        }
 
-input:checked+.slider:before {
-    transform: scale(0.8) translateX(70px) translateY(-5px) rotate(120deg);
-    border-radius: -15px 15px 0 5px;
-    background: transparent;
-    box-shadow: 0 -10px 0 0 rgb(6, 6, 101);
-}
+        &:checked+.switch__slider {
+            background-color: rgb(212, 212, 212);
+        }
 
-/* Rounded sliders */
-.slider.round {
-    border-radius: 34px;
-}
+        &:checked+.switch__slider::before {
+            transform: scale(0.8) translateX(45px) translateY(-5px) rotate(120deg);
+            background: transparent;
+            box-shadow: 0 -10px 0 0 rgb(6, 6, 101);
 
-.slider.round:before {
-    border-radius: 50%;
+            @include breakpoint-down(medium) {
+                transform: scale(0.8) translateX(35px) translateY(-3px) rotate(120deg);
+                box-shadow: 0 -8px 0 0 rgb(6, 6, 101);
+            }
+
+            @include breakpoint-down(small) {
+                transform: scale(0.8) translateX(26px) translateY(-1px) rotate(120deg);
+                box-shadow: 0 -5px 0 0 rgb(6, 6, 101);
+            }
+        }
+    }
+
+    &__slider {
+        @include absolute-el(0, 0, 0, 0, 0, 0);
+        cursor: pointer;
+        @include box_shadow(2);
+        background-color: rgb(9, 29, 61);
+        border-radius: 34px;
+        -webkit-transition: .4s;
+        transition: .4s ease;
+
+        &:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 4px;
+            bottom: 4px;
+            background-color: rgb(194, 174, 75);
+            -webkit-transition: .4s;
+            transition: .4s ease;
+            border-radius: 50%;
+
+            @include breakpoint-down(medium) {
+                width: 17px;
+                height: 17px;
+            }
+
+            @include breakpoint-down(small) {
+                width: 12px;
+                height: 12px;
+            }
+        }
+
+        &:focus-visible {
+            outline: none;
+        }
+    }
 }
