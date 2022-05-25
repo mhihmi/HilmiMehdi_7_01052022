@@ -82,6 +82,14 @@
             cursor: pointer;
         }
     }
+
+    &__joke {
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
+        align-self: flex-end;
+        text-align: end;
+        width: 180px;
+        margin-top: calculateRem(4px);
+    }
 }
 
 .btn {

@@ -24,7 +24,13 @@
             required
             class="loginForm__input"
           />
-          <a class="loginForm__forgotPsw">Mot de passe oublié ?</a>
+          <a class="loginForm__forgotPsw" v-on:click="data = !data"
+            >Mot de passe oublié ?</a
+          >
+          <span v-if="data" class="loginForm__joke"
+            >Bah fallait s'en souvenir ! Cette fonctionnalité n'est pas encore
+            disponible.</span
+          >
         </div>
         <button type="submit" class="btn">Se connecter</button>
       </form>
@@ -47,6 +53,11 @@ export default {
   name: "LoginForm",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      data: false,
+    };
   },
 };
 </script>
