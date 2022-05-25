@@ -1,16 +1,54 @@
 <template>
   <main class="home-main">
-    <div class="signupContainer">
-      <h2 class="signupContainer__title">
+    <div class="formContainer">
+      <h2 class="formContainer__title">
         {{ msg }}
       </h2>
-      <form action="" class="signupContainer__form">
-        <label for="uname"><b>Email ou Pseudo</b></label>
-        <input type="mail" placeholder="test@gmail.com" name="uname" required />
-        <label for="psw"><b>Mot de Passe</b></label>
-        <input type="mail" placeholder="********" name="psw" required />
-        <button type="submit">Se connecter</button>
+      <form action="" class="loginForm">
+        <div class="loginForm__box">
+          <label for="mail" class="loginForm__label">Email</label>
+          <input
+            type="mail"
+            placeholder="test@gmail.com"
+            name="mail"
+            required
+            class="loginForm__input"
+          />
+          <label for="psw" class="loginForm__label">Mot de Passe</label>
+          <input
+            type="password"
+            placeholder="********"
+            name="psw"
+            required
+            class="loginForm__input"
+          />
+        </div>
+        <div class="loginForm__box">
+          <label for="pseudo" class="loginForm__label">Pseudo</label>
+          <input
+            type="text"
+            placeholder="********"
+            name="pseudo"
+            required
+            class="loginForm__input"
+          />
+          <label for="fname" class="loginForm__label">Nom de famille</label>
+          <input
+            type="text"
+            placeholder="********"
+            name="fname"
+            required
+            class="loginForm__input"
+          />
+        </div>
+        <button type="submit" class="btn">S'inscrire</button>
       </form>
+      <p class="formContainer__message">
+        Vous avez déjà un compte ?
+        <router-link to="/login"
+          ><a class="formContainer__messageLink">Se Connecter</a></router-link
+        >
+      </p>
     </div>
   </main>
 </template>
@@ -26,27 +64,7 @@ export default {
 
 <style scoped lang="scss">
 @import "@/styles/layout/homeMain";
-
-.signupContainer {
-  text-align: center;
-  width: 60vw;
-  min-width: calculateRem(300px);
-  max-width: calculateRem(850px);
-  padding: $layout-padding $layout-padding;
-  background-color: $color-light-overlay;
-  @include box_shadow(2);
-  border-radius: 25px;
-
-  &__title {
-    margin-top: $layout-padding;
-    display: inline-block;
-    max-width: 650px;
-  }
-
-  &__form {
-    @extend %flex-ai-c;
-    flex-direction: column;
-    padding: $layout-padding $layout-padding;
-  }
-}
+@import "@/styles/layout/formContainer";
+@import "@/styles/components/Forms";
+@import "@/styles/components/buttons";
 </style>

@@ -18,7 +18,7 @@
 
     &__input {
         font-weight: normal; // 400
-        width: 16vw;
+        width: 25vw;
         min-width: calculateRem(220px);
         // min-width: calculateRem(350px);
         @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
@@ -75,17 +75,25 @@
         @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
         align-self: flex-end;
         margin-top: calculateRem(6px);
+        margin-right: calculateRem(4px);
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
 
 .btn {
     margin-top: calculateEm(70px);
+    margin-bottom: calculateEm(30px);
 
     @include breakpoint-down(medium) {
         margin-top: calculateEm(50px);
+        margin-bottom: calculateEm(20px);
     }
 
     @include breakpoint-down(small) {
         margin-top: calculateEm(40px);
+        margin-bottom: calculateEm(20px);
     }
 }

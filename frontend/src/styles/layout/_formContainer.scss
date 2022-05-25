@@ -5,6 +5,7 @@
     max-width: calculateRem(850px);
     padding: $layout-padding $layout-padding*2;
     background-color: var(--color-overlay);
+    position: relative;
     @include box_shadow(2);
     border-radius: 25px;
 
@@ -32,5 +33,12 @@
         @include breakpoint-down(small) {
             margin-top: $layout-padding;
         }
+    }
+
+    &__message {
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
+        position: absolute;
+        right: calculateRem(10px);
+        bottom: calculateRem(10px);
     }
 }

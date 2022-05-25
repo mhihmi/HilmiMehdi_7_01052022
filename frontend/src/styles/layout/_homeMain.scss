@@ -1,5 +1,3 @@
 .home-main {
-    @extend %flex-ai-c;
-    flex-direction: column;
-    padding: $padding-top-bot;
+    @include enableFlex();
 }

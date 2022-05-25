@@ -33,6 +33,7 @@
   a {
     color: $link;
     text-decoration: none;
+    font-weight: 600;
 
     &:visited {
       color: $visit;
@@ -40,13 +41,12 @@
 
     &:hover {
       color: $hover;
-      font-weight: 600;
-      transition: 300ms;
+      transition: 300ms ease-in-out;
+      text-decoration: underline;
     }
 
     &:active {
       color: $active;
-      font-weight: 600;
     }
   }
 }

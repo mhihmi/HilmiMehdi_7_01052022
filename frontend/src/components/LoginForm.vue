@@ -24,10 +24,16 @@
             required
             class="loginForm__input"
           />
-          <p class="loginForm__forgotPsw">Mot de passe oublié ?</p>
+          <a class="loginForm__forgotPsw">Mot de passe oublié ?</a>
         </div>
         <button type="submit" class="btn">Se connecter</button>
       </form>
+      <p class="formContainer__message">
+        Vous n'avez pas de compte ?
+        <router-link to="/signup"
+          ><a class="formContainer__messageLink">S'inscrire</a></router-link
+        >
+      </p>
     </div>
   </main>
 </template>
@@ -44,6 +50,6 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/layout/homeMain";
 @import "@/styles/layout/formContainer";
-@import "@/styles/components/loginForm";
+@import "@/styles/components/Forms";
 @import "@/styles/components/buttons";
 </style>
