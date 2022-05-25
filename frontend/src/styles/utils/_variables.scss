@@ -45,6 +45,8 @@ $colors: (1: #9AACCB,
   --color-overlay: #{$color-light-overlay};
   --color-input: #{$color-light-input};
   --color-placeholder: #{$color-light-placeholder};
+  --color-shape1: #{map-get($colors, 1)};
+  --color-shape2: #{map-get($colors, 2)};
 }
 
 // Dark theme coloring
@@ -57,4 +59,6 @@ $colors: (1: #9AACCB,
   --color-overlay: #{$color-dark-overlay};
   --color-input: #{$color-dark-input};
   --color-placeholder: #{$color-dark-placeholder};
+  --color-shape1: #{map-get($colors, 3)};
+  --color-shape2: #{map-get($colors, 4)};
 }

@@ -5,6 +5,7 @@
     max-width: calculateRem(850px);
     padding: $layout-padding $layout-padding*2;
     background-color: var(--color-overlay);
+    transition: background-color 0.4s;
     position: relative;
     @include box_shadow(2);
     border-radius: 25px;

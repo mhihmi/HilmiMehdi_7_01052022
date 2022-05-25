@@ -4,6 +4,7 @@
     padding: calculateRem(8px) calculateRem(15px);
     border-radius: calculateRem(20px);
     background-color: var(--color-page-bg);
+    transition: background-color 0.4s;
     border: none;
     position: relative;
     z-index: 1;
@@ -24,6 +25,7 @@
         border-radius: calculateRem(20px);
         @include absolute-el(0, 0, 0, 0, 0, 0);
         background-color: var(--color-text-hover);
+        transition: background-color 0.4s;
         z-index: -1;
         transition: opacity 300ms ease-in-out;
     }

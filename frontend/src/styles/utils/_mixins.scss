@@ -112,7 +112,7 @@
 
 // Absolute element
 
-@mixin absolute-el ($top, $right, $bottom, $left, $x, $y) {
+@mixin absolute-el ($top: null, $right: null, $bottom: null, $left: null, $x: null, $y: null) {
   position: absolute;
   top: $top;
   right: $right;

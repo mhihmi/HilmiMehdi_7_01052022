@@ -42,6 +42,10 @@
           />
         </div>
         <button type="submit" class="btn">S'inscrire</button>
+        <div class="shape-1"></div>
+        <div class="shape-2"></div>
+        <div class="shape-3"></div>
+        <div class="shape-4"></div>
       </form>
       <p class="formContainer__message">
         Vous avez déjà un compte ?
@@ -67,4 +71,5 @@ export default {
 @import "@/styles/layout/formContainer";
 @import "@/styles/components/Forms";
 @import "@/styles/components/buttons";
+@import "@/styles/themes/shapesBackground";
 </style>

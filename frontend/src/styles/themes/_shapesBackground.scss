@@ -1,0 +1,60 @@
+// .blur-theme {
+//     backdrop-filter: blur(250px);
+//     -webkit-backdrop-filter: blur(250px);
+//     z-index: -2;
+// }
+
+// @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+//     .blur-theme {
+//         -webkit-backdrop-filter: blur(250px);
+//         backdrop-filter: blur(250px);
+//     }
+// }
+
+.shape-1,
+.shape-2,
+.shape-3,
+.shape-4 {
+    mix-blend-mode: color;
+    transition: background-color 0.3s;
+}
+
+.shape-1 {
+    background-color: var(--color-shape1);
+    width: 33%;
+    height: 33%;
+    @include absolute-el ($top: 0, $left: 0); // @mixin absolute-el ($top, $right, $bottom, $left, $x, $y)
+    z-index: -1;
+    filter: blur(calculateEm(80px));
+    border-radius: 0 0 50% 0;
+}
+
+.shape-2 {
+    background-color: var(--color-shape2);
+    width: 33%;
+    height: 33%;
+    @include absolute-el ($top: 0, $right: 0);
+    z-index: -1;
+    filter: blur(calculateEm(80px));
+    border-radius: 0 0 0 50%;
+}
+
+.shape-3 {
+    background-color: var(--color-shape2);
+    width: 33%;
+    height: 33%;
+    @include absolute-el ($bottom: 0, $left: 0);
+    z-index: -1;
+    filter: blur(calculateEm(80px));
+    border-radius: 0 50% 0 0;
+}
+
+.shape-4 {
+    background-color: var(--color-shape1);
+    width: 33%;
+    height: 33%;
+    @include absolute-el ($bottom: 0, $right: 0);
+    z-index: -1;
+    filter: blur(calculateEm(80px));
+    border-radius: 50% 0 0 0;
+}
