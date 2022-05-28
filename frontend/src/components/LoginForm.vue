@@ -4,35 +4,41 @@
       <h2 class="formContainer__title">
         {{ msg }}
       </h2>
-      <form action="" class="loginForm">
+      <form @submit.prevent="submitForm" class="loginForm" autocomplete="off">
         <div class="loginForm__box">
-          <label for="pmail" class="loginForm__label">Email ou Pseudo</label>
+          <label for="email" class="loginForm__label">Email :</label>
           <input
             type="mail"
             placeholder="test@gmail.com"
-            name="pmail"
-            required
+            name="email"
             class="loginForm__input"
+            v-model="form.email"
           />
+          <p v-if="v$.form.email.$invalid" class="loginForm__errorMessage">
+            Email valide requis
+          </p>
         </div>
         <div class="loginForm__box">
-          <label for="psw" class="loginForm__label">Mot de Passe</label>
+          <label for="psw" class="loginForm__label">Mot de Passe :</label>
           <input
             type="password"
             placeholder="********"
             name="psw"
-            required
             class="loginForm__input"
+            v-model="form.password"
           />
-          <a class="loginForm__forgotPsw" v-on:click="data = !data"
+          <p v-if="v$.form.password.$invalid" class="loginForm__errorMessage">
+            Mot de passe requis
+          </p>
+          <a class="loginForm__forgotPsw" v-on:click="forgotPsw = !forgotPsw"
             >Mot de passe oublié ?</a
           >
-          <span v-if="data" class="loginForm__joke"
-            >Bah fallait s'en souvenir ! Cette fonctionnalité n'est pas encore
+          <span v-if="forgotPsw" class="loginForm__joke"
+            >Il fallait s'en souvenir ! Cette fonctionnalité n'est pas encore
             disponible.</span
           >
         </div>
-        <button type="submit" class="btn">Se connecter</button>
+        <button :disabled="v$.form.$invalid" class="btn">Se connecter</button>
       </form>
       <p class="formContainer__message">
         Vous n'avez pas de compte ?
@@ -49,6 +55,16 @@
 </template>
 
 <script>
+import { useVuelidate } from "@vuelidate/core";
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+  helpers,
+} from "@vuelidate/validators";
+// const alphaNumAndDotValidator = helpers.regex('alphaNumAndDot', /^[a-z\d.]*$/i);
+
 export default {
   name: "LoginForm",
   props: {
@@ -56,8 +72,41 @@ export default {
   },
   data() {
     return {
-      data: false,
+      forgotPsw: false,
+      v$: useVuelidate(), // convention for vuelidate Object
+      form: {
+        email: null,
+        password: null, //5 - 15 letters with 2 digits, 1 uppercase & lowercase letters`
+      },
     };
+  },
+
+  validations() {
+    return {
+      form: {
+        email: {
+          required, // v$.form.email.required
+          email, // v$.form.email.email
+        },
+        password: {
+          required, // v$.form.password.required
+          minLengthValue: minLength(5), // v$.form.password.minLengthValue
+          maxLengthValue: maxLength(15), // v$.form.password.maxLengthValue
+        },
+      },
+    };
+  },
+
+  methods: {
+    submitForm() {
+      // console.log(this.v$); // check vuelidate object
+      if (!this.v$.form.$invalid) {
+        // $invalid is false when all rules are met
+        console.log("📝 Form Submitted", this.form);
+      } else {
+        console.log("❌ Invalid form");
+      }
+    },
   },
 };
 </script>

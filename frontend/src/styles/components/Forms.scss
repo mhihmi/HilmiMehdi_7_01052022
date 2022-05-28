@@ -90,6 +90,12 @@
         width: 180px;
         margin-top: calculateRem(4px);
     }
+
+    &__errorMessage {
+        margin-top: calculateRem(3px);
+        display: block;
+        color: #f57f6c;
+    }
 }
 
 .btn {

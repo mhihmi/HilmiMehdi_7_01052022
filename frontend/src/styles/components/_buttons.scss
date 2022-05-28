@@ -37,4 +37,18 @@
     &:focus-visible {
         outline-color: var(--color-input);
     }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    &:disabled::after {
+        background-color: var(--color-page-bg);
+        color: var(--color-text);
+    }
+
+    &:disabled:hover {
+        background-color: var(--color-page-bg);
+        color: var(--color-text);
+    }
 }
