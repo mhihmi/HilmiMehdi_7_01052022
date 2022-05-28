@@ -29,14 +29,15 @@
         border-radius: 12.5px;
         padding: calculateEm(12px);
         margin-top: calculateRem(12px);
-        outline-color: var(--color-input);
+        // outline-color: var(--color-input);
 
-        &:focus {
-            outline-color: var(--color-input);
-        }
+        // &:focus {
+        //     outline-color: var(--color-input);
+        // }
 
         &:focus-visible {
             outline-color: var(--color-input);
+            outline: dotted;
         }
 
         &::placeholder {
@@ -49,6 +50,18 @@
 
         @include breakpoint-down(small) {
             margin-top: calculateRem(6px);
+        }
+
+        &.error,
+        &.error:focus {
+            outline-color: var(--color-input-error);
+            outline-width: 3px;
+        }
+
+        &.valid,
+        &.valid:focus {
+            outline-color: var(--color-input-valid);
+            outline-width: 3px;
         }
     }
 
@@ -92,9 +105,10 @@
     }
 
     &__errorMessage {
-        margin-top: calculateRem(3px);
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
+        margin-top: calculateRem(5px);
         display: block;
-        color: #f57f6c;
+        color: #c21e29;
     }
 }
 

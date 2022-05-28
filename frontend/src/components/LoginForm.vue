@@ -12,9 +12,14 @@
             placeholder="test@gmail.com"
             name="email"
             class="loginForm__input"
-            v-model="form.email"
+            :class="{
+              error: v$.form.email.$error,
+              valid: !v$.form.email.$invalid,
+            }"
+            v-model="v$.form.email.$model"
           />
-          <p v-if="v$.form.email.$invalid" class="loginForm__errorMessage">
+          <!-- show this message when required validator fails -->
+          <p v-if="v$.form.email.$error" class="loginForm__errorMessage">
             Email valide requis
           </p>
         </div>
@@ -25,11 +30,40 @@
             placeholder="********"
             name="psw"
             class="loginForm__input"
-            v-model="form.password"
+            :class="{
+              error: v$.form.password.$error,
+              valid: !v$.form.password.$invalid,
+            }"
+            v-model="v$.form.password.$model"
           />
-          <p v-if="v$.form.password.$invalid" class="loginForm__errorMessage">
-            Mot de passe requis
-          </p>
+          <div v-if="v$.form.password.$error">
+            <p v-if="v$.form.password.required" class="loginForm__errorMessage">
+              Mot de passe requis
+            </p>
+            <p
+              v-else-if="
+                (v$.form.password.LeastOneUppercaseValidator,
+                v$.form.password.LeastOneLowercaseValidator,
+                v$.form.password.Least2NumberValidator,
+                v$.form.password.NoSpaceValidator)
+              "
+              class="loginForm__errorMessage"
+            >
+              Aucun espace, une Majuscule, <br />
+              Minuscule, 2 chiffres
+            </p>
+            <p
+              v-else-if="
+                (v$.form.password.minLengthValue,
+                v$.form.password.maxLengthValue)
+              "
+              class="loginForm__errorMessage"
+            >
+              Compris entre
+              {{ v$.form.password.minLengthValue.$params.min }} et
+              {{ v$.form.password.maxLengthValue.$params.max }} caractères
+            </p>
+          </div>
           <a class="loginForm__forgotPsw" v-on:click="forgotPsw = !forgotPsw"
             >Mot de passe oublié ?</a
           >
@@ -38,7 +72,8 @@
             disponible.</span
           >
         </div>
-        <button :disabled="v$.form.$invalid" class="btn">Se connecter</button>
+        <!-- <button :disabled="v$.form.$invalid" class="btn">Se connecter</button> -->
+        <button class="btn">Se connecter</button>
       </form>
       <p class="formContainer__message">
         Vous n'avez pas de compte ?
@@ -63,17 +98,25 @@ import {
   maxLength,
   helpers,
 } from "@vuelidate/validators";
-// const alphaNumAndDotValidator = helpers.regex('alphaNumAndDot', /^[a-z\d.]*$/i);
+const LeastOneUppercaseValidator = helpers.regex(/(?:.*?[A-Z])/);
+const LeastOneLowercaseValidator = helpers.regex(/(?:.*?[a-z])/);
+const Least2NumberValidator = helpers.regex(/(?:.*?[0-9]){2}/);
+const NoSpaceValidator = helpers.regex(/^\S*$/);
 
 export default {
   name: "LoginForm",
   props: {
     msg: String,
   },
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
+  },
   data() {
     return {
       forgotPsw: false,
-      v$: useVuelidate(), // convention for vuelidate Object
+      // v$: useVuelidate(), // convention for vuelidate Object
       form: {
         email: null,
         password: null, //5 - 15 letters with 2 digits, 1 uppercase & lowercase letters`
@@ -92,6 +135,10 @@ export default {
           required, // v$.form.password.required
           minLengthValue: minLength(5), // v$.form.password.minLengthValue
           maxLengthValue: maxLength(15), // v$.form.password.maxLengthValue
+          LeastOneUppercaseValidator,
+          LeastOneLowercaseValidator,
+          Least2NumberValidator,
+          NoSpaceValidator,
         },
       },
     };
@@ -99,6 +146,7 @@ export default {
 
   methods: {
     submitForm() {
+      this.v$.form.$touch();
       // console.log(this.v$); // check vuelidate object
       if (!this.v$.form.$invalid) {
         // $invalid is false when all rules are met

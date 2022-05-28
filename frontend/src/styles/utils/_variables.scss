@@ -18,6 +18,8 @@ $color-light-hover: lighten($color-light, 15%);
 $color-light-shadow: rgba(47, 65, 96, 0.05);
 $color-light-overlay: rgba(212, 212, 212, .3);
 $color-light-input: rgba(227, 227, 227, .8);
+$color-light-input-error: rgba(183, 32, 32, 0.7);
+$color-light-input-valid: rgba(74, 187, 36, 0.7);
 $color-light-placeholder: rgba(9, 31, 67, .3);
 
 $color-dark: rgb(9, 31, 67);
@@ -25,6 +27,8 @@ $color-dark-hover: lighten($color-dark, 15%);
 $color-dark-shadow: rgba(9, 31, 67, .05);
 $color-dark-overlay: rgba(47, 65, 96, .4);
 $color-dark-input: rgba(9, 31, 67, .25);
+$color-dark-input-error: rgba(236, 22, 22, 0.7);
+$color-dark-input-valid: rgba(79, 248, 23, 0.7);
 $color-dark-placeholder: rgb(212, 212, 212, .7);
 
 $colors: (1: #9AACCB,
@@ -44,6 +48,8 @@ $colors: (1: #9AACCB,
   --color-shadow: #{$color-dark-shadow};
   --color-overlay: #{$color-light-overlay};
   --color-input: #{$color-light-input};
+  --color-input-error: #{$color-light-input-error};
+  --color-input-valid: #{$color-light-input-valid};
   --color-placeholder: #{$color-light-placeholder};
   --color-shape1: #{map-get($colors, 1)};
   --color-shape2: #{map-get($colors, 2)};
@@ -58,6 +64,8 @@ $colors: (1: #9AACCB,
   --color-shadow: #{$color-light-shadow};
   --color-overlay: #{$color-dark-overlay};
   --color-input: #{$color-dark-input};
+  --color-input-error: #{$color-dark-input-error};
+  --color-input-valid: #{$color-dark-input-valid};
   --color-placeholder: #{$color-dark-placeholder};
   --color-shape1: #{map-get($colors, 3)};
   --color-shape2: #{map-get($colors, 4)};
