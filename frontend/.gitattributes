@@ -1,2 +1,2 @@
 # Exclude Scss from Stats
-front/src/** linguist-documentation
+front/src/styles/** linguist-documentation
