@@ -24,20 +24,15 @@
         @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
         color: var(--color-text);
         background-color: var(--color-input);
-        transition: background-color 0.4s;
-        border: unset;
+        transition: background-color 0.4s ease;
+        transition: border .1s ease;
+        border: 1px solid var(--color-input);
         border-radius: 12.5px;
         padding: calculateEm(12px);
         margin-top: calculateRem(12px);
-        // outline-color: var(--color-input);
-
-        // &:focus {
-        //     outline-color: var(--color-input);
-        // }
 
         &:focus-visible {
-            outline-color: var(--color-input);
-            outline: dotted;
+            outline: none;
         }
 
         &::placeholder {
@@ -54,14 +49,12 @@
 
         &.error,
         &.error:focus {
-            outline-color: var(--color-input-error);
-            outline-width: 3px;
+            border-color: var(--color-input-error);
         }
 
         &.valid,
         &.valid:focus {
-            outline-color: var(--color-input-valid);
-            outline-width: 3px;
+            border-color: var(--color-input-valid);
         }
     }
 

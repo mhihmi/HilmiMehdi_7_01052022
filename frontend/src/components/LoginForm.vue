@@ -13,10 +13,11 @@
             name="email"
             class="loginForm__input"
             :class="{
-              error: v$.form.email.$error,
-              valid: !v$.form.email.$invalid,
+              error: shouldAppendErrorClass(v$.form.email),
+              valid: shouldAppendValidClass(v$.form.email),
             }"
-            v-model="v$.form.email.$model"
+            v-model="form.email"
+            @blur="v$.form.email.$touch"
           />
           <!-- show this message when required validator fails -->
           <p v-if="v$.form.email.$error" class="loginForm__errorMessage">
@@ -31,14 +32,15 @@
             name="psw"
             class="loginForm__input"
             :class="{
-              error: v$.form.password.$error,
-              valid: !v$.form.password.$invalid,
+              error: shouldAppendErrorClass(v$.form.password),
+              valid: shouldAppendValidClass(v$.form.password),
             }"
-            v-model="v$.form.password.$model"
+            v-model="form.password"
+            @blur="v$.form.password.$touch"
           />
           <div v-if="v$.form.password.$error">
             <p v-if="v$.form.password.required" class="loginForm__errorMessage">
-              Mot de passe requis
+              {{ v$.form.password.$errors[0].$message }}
             </p>
             <p
               v-else-if="
@@ -48,21 +50,14 @@
                 v$.form.password.NoSpaceValidator)
               "
               class="loginForm__errorMessage"
-            >
-              Aucun espace, une Majuscule, <br />
-              Minuscule, 2 chiffres
-            </p>
+            ></p>
             <p
               v-else-if="
                 (v$.form.password.minLengthValue,
                 v$.form.password.maxLengthValue)
               "
               class="loginForm__errorMessage"
-            >
-              Compris entre
-              {{ v$.form.password.minLengthValue.$params.min }} et
-              {{ v$.form.password.maxLengthValue.$params.max }} caractères
-            </p>
+            ></p>
           </div>
           <a class="loginForm__forgotPsw" v-on:click="forgotPsw = !forgotPsw"
             >Mot de passe oublié ?</a
@@ -77,8 +72,8 @@
       </form>
       <p class="formContainer__message">
         Vous n'avez pas de compte ?
-        <router-link to="/signup"
-          ><a class="formContainer__messageLink">S'inscrire</a></router-link
+        <router-link to="/signup" class="formContainer__messageLink"
+          >S'inscrire</router-link
         >
       </p>
       <div class="shape-1"></div>
@@ -132,22 +127,46 @@ export default {
           email, // v$.form.email.email
         },
         password: {
-          required, // v$.form.password.required
-          minLengthValue: minLength(5), // v$.form.password.minLengthValue
-          maxLengthValue: maxLength(15), // v$.form.password.maxLengthValue
-          LeastOneUppercaseValidator,
-          LeastOneLowercaseValidator,
-          Least2NumberValidator,
-          NoSpaceValidator,
+          required: helpers.withMessage("Mot de passe requis", required), // v$.form.password.required
+          minLengthValue: helpers.withMessage(
+            "Nombre de caractères insuffisants",
+            minLength(5)
+          ), // v$.form.password.minLengthValue
+          maxLengthValue: helpers.withMessage(
+            "Trop de caractères",
+            maxLength(15)
+          ), // v$.form.password.maxLengthValue
+          LeastOneUppercaseValidator: helpers.withMessage(
+            "Ajouter une Majuscule",
+            LeastOneUppercaseValidator
+          ),
+          LeastOneLowercaseValidator: helpers.withMessage(
+            "Ajouter une Minuscule",
+            LeastOneLowercaseValidator
+          ),
+          Least2NumberValidator: helpers.withMessage(
+            "Ajouter des chiffres",
+            Least2NumberValidator
+          ),
+          NoSpaceValidator: helpers.withMessage(
+            "Espaces non  autorisés",
+            NoSpaceValidator
+          ),
         },
       },
     };
   },
 
   methods: {
+    shouldAppendValidClass(field) {
+      return !field.$invalid && field.$model;
+    },
+    shouldAppendErrorClass(field) {
+      return field.$error;
+    },
     submitForm() {
       this.v$.form.$touch();
-      // console.log(this.v$); // check vuelidate object
+      console.log(this.v$); // check vuelidate object
       if (!this.v$.form.$invalid) {
         // $invalid is false when all rules are met
         console.log("📝 Form Submitted", this.form);
