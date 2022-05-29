@@ -42,22 +42,6 @@
             <p v-if="v$.form.password.required" class="loginForm__errorMessage">
               {{ v$.form.password.$errors[0].$message }}
             </p>
-            <p
-              v-else-if="
-                (v$.form.password.LeastOneUppercaseValidator,
-                v$.form.password.LeastOneLowercaseValidator,
-                v$.form.password.Least2NumberValidator,
-                v$.form.password.NoSpaceValidator)
-              "
-              class="loginForm__errorMessage"
-            ></p>
-            <p
-              v-else-if="
-                (v$.form.password.minLengthValue,
-                v$.form.password.maxLengthValue)
-              "
-              class="loginForm__errorMessage"
-            ></p>
           </div>
           <a class="loginForm__forgotPsw" v-on:click="forgotPsw = !forgotPsw"
             >Mot de passe oublié ?</a
@@ -86,13 +70,7 @@
 
 <script>
 import { useVuelidate } from "@vuelidate/core";
-import {
-  required,
-  email,
-  minLength,
-  maxLength,
-  helpers,
-} from "@vuelidate/validators";
+import { required, email, helpers } from "@vuelidate/validators";
 const LeastOneUppercaseValidator = helpers.regex(/(?:.*?[A-Z])/);
 const LeastOneLowercaseValidator = helpers.regex(/(?:.*?[a-z])/);
 const Least2NumberValidator = helpers.regex(/(?:.*?[0-9]){2}/);
@@ -105,16 +83,15 @@ export default {
   },
   setup() {
     return {
-      v$: useVuelidate(),
+      v$: useVuelidate(), // convention for vuelidate Object
     };
   },
   data() {
     return {
       forgotPsw: false,
-      // v$: useVuelidate(), // convention for vuelidate Object
       form: {
         email: null,
-        password: null, //5 - 15 letters with 2 digits, 1 uppercase & lowercase letters`
+        password: null,
       },
     };
   },
@@ -128,30 +105,6 @@ export default {
         },
         password: {
           required: helpers.withMessage("Mot de passe requis", required), // v$.form.password.required
-          minLengthValue: helpers.withMessage(
-            "Nombre de caractères insuffisants",
-            minLength(5)
-          ), // v$.form.password.minLengthValue
-          maxLengthValue: helpers.withMessage(
-            "Trop de caractères",
-            maxLength(15)
-          ), // v$.form.password.maxLengthValue
-          LeastOneUppercaseValidator: helpers.withMessage(
-            "Ajouter une Majuscule",
-            LeastOneUppercaseValidator
-          ),
-          LeastOneLowercaseValidator: helpers.withMessage(
-            "Ajouter une Minuscule",
-            LeastOneLowercaseValidator
-          ),
-          Least2NumberValidator: helpers.withMessage(
-            "Ajouter des chiffres",
-            Least2NumberValidator
-          ),
-          NoSpaceValidator: helpers.withMessage(
-            "Espaces non  autorisés",
-            NoSpaceValidator
-          ),
         },
       },
     };
