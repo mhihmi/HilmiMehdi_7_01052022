@@ -5,8 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "preview": "serve -s dist",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "preview": "serve -s dist"
   },
   "dependencies": {
     "@vuelidate/core": "^2.0.0-alpha.41",
@@ -14,7 +14,8 @@
     "core-js": "^3.22.7",
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.36",
-    "vue-router": "^4.0.15"
+    "vue-router": "^4.0.15",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
@@ -23,6 +24,7 @@
     "@vue/cli-plugin-eslint": "~5.0.4",
     "@vue/cli-plugin-pwa": "~5.0.4",
     "@vue/cli-plugin-router": "~5.0.4",
+    "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.4",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
