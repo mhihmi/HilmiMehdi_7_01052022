@@ -46,10 +46,12 @@
           <a class="loginForm__forgotPsw" v-on:click="forgotPsw = !forgotPsw"
             >Mot de passe oublié ?</a
           >
-          <span v-if="forgotPsw" class="loginForm__joke"
-            >Il fallait s'en souvenir ! Cette fonctionnalité n'est pas encore
-            disponible.</span
-          >
+          <transition name="fading">
+            <span v-if="forgotPsw" class="loginForm__joke"
+              >Il fallait s'en souvenir ! Cette fonctionnalité n'est pas encore
+              disponible.</span
+            >
+          </transition>
         </div>
         <!-- <button :disabled="v$.form.$invalid" class="btn">Se connecter</button> -->
         <button class="btn">Se connecter</button>
@@ -71,10 +73,6 @@
 <script>
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
-const LeastOneUppercaseValidator = helpers.regex(/(?:.*?[A-Z])/);
-const LeastOneLowercaseValidator = helpers.regex(/(?:.*?[a-z])/);
-const Least2NumberValidator = helpers.regex(/(?:.*?[0-9]){2}/);
-const NoSpaceValidator = helpers.regex(/^\S*$/);
 
 export default {
   name: "LoginForm",
@@ -117,15 +115,29 @@ export default {
     shouldAppendErrorClass(field) {
       return field.$error;
     },
+    // submitForm() {
+    //   this.v$.form.$touch();
+    //   console.log(this.v$); // check vuelidate object
+    //   if (!this.v$.form.$invalid) {
+    //     // $invalid is false when all rules are met
+    //     console.log("📝 Form Submitted", this.form);
+    //   } else {
+    //     console.log("❌ Invalid form");
+    //   }
+    // },
     submitForm() {
-      this.v$.form.$touch();
-      console.log(this.v$); // check vuelidate object
-      if (!this.v$.form.$invalid) {
-        // $invalid is false when all rules are met
-        console.log("📝 Form Submitted", this.form);
-      } else {
-        console.log("❌ Invalid form");
-      }
+      fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.form.email,
+          password: this.form.password,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
     },
   },
 };
@@ -137,4 +149,16 @@ export default {
 @import "@/styles/components/Forms";
 @import "@/styles/components/buttons";
 @import "@/styles/themes/shapesBackground";
+
+.fading-enter-active,
+.fading-leave-active {
+  transition: all 0.5s ease;
+}
+
+.fading-enter-from,
+.fading-leave-to {
+  opacity: 0;
+  -webkit-transform: translateY(50px);
+  transform: translateY(50px);
+}
 </style>

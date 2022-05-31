@@ -1,6 +1,10 @@
 <template>
   <home-header msg="Groupomania" />
-  <signup-form msg="S'inscrire sur le réseau social de votre entreprise !" />
+  <Transition name="fromRight" mode="out-in" appear>
+    <signup-form
+      msg="S'inscrire sur le réseau social de votre entreprise !"
+    ></signup-form>
+  </Transition>
   <main-footer />
 </template>
 
@@ -18,3 +22,16 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.fromRight-enter-active,
+.fromRight-leave-active {
+  transition: all 0.4s ease-out;
+}
+
+.fromRight-enter-from,
+.fromRight-leave-to {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+</style>

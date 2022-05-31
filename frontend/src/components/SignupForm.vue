@@ -167,7 +167,6 @@ export default {
       },
     };
   },
-
   validations() {
     return {
       form: {
@@ -186,11 +185,11 @@ export default {
             maxLength(15)
           ), // v$.form.password.maxLengthValue
           LeastOneUppercaseValidator: helpers.withMessage(
-            "Ajouter une Majuscule",
+            "Ajouter une lettre Majuscule",
             LeastOneUppercaseValidator
           ),
           LeastOneLowercaseValidator: helpers.withMessage(
-            "Ajouter une Minuscule",
+            "Ajouter une lettre Minuscule",
             LeastOneLowercaseValidator
           ),
           Least2NumberValidator: helpers.withMessage(
@@ -249,4 +248,15 @@ export default {
 @import "@/styles/components/Forms";
 @import "@/styles/components/buttons";
 @import "@/styles/themes/shapesBackground";
+
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 5s ease-out;
+}
 </style>
