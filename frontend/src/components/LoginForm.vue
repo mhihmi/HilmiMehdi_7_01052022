@@ -115,6 +115,7 @@ export default {
     shouldAppendErrorClass(field) {
       return field.$error;
     },
+
     // submitForm() {
     //   this.v$.form.$touch();
     //   console.log(this.v$); // check vuelidate object
@@ -125,19 +126,35 @@ export default {
     //     console.log("❌ Invalid form");
     //   }
     // },
-    submitForm() {
-      fetch("http://localhost:3000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: this.form.email,
-          password: this.form.password,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+    async submitForm() {
+      this.v$.form.$touch();
+      if (!this.v$.form.$invalid) {
+        console.log("📝 Form Submitted", this.form);
+        await fetch(`${process.env.VUE_APP_API_URL}/api/auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: this.form.email,
+            password: this.form.password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // console.log(data);
+            localStorage.setItem("id", data.profile.userId);
+            localStorage.setItem("pseudo", data.profile.pseudo);
+            localStorage.setItem("token", data.token);
+            // navigate to a protected resource
+            this.$router.push("/feeds");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } else {
+        console.log("❌ Invalid form");
+      }
     },
   },
 };
