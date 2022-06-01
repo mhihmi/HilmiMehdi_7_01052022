@@ -74,14 +74,19 @@
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 
+import { useAuthStore } from "@/store/useAuth";
+
 export default {
   name: "LoginForm",
   props: {
     msg: String,
   },
   setup() {
+    const store = useAuthStore();
+
     return {
       v$: useVuelidate(), // convention for vuelidate Object
+      store,
     };
   },
   data() {

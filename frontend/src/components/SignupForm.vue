@@ -228,12 +228,34 @@ export default {
     shouldAppendErrorClass(field) {
       return field.$error;
     },
-    submitForm() {
+    async submitForm() {
       this.v$.form.$touch();
-      // console.log(this.v$); // check vuelidate object
       if (!this.v$.form.$invalid) {
-        // $invalid is false when all rules are met
         console.log("📝 Form Submitted", this.form);
+        await fetch(`${process.env.VUE_APP_API_URL}/api/auth/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: this.form.email,
+            password: this.form.password,
+            lastname: this.form.fname,
+            pseudo: this.form.pseudo,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            localStorage.setItem("id", data.profile.userId);
+            localStorage.setItem("pseudo", data.profile.pseudo);
+            localStorage.setItem("token", data.token);
+            // navigate to a protected resource
+            this.$router.push("/feeds");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       } else {
         console.log("❌ Invalid form");
       }

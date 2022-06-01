@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { createApp } from "vue";
 import App from "./App.vue";
 import "./registerServiceWorker";
