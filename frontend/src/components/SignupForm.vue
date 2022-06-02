@@ -139,6 +139,8 @@ import {
   helpers,
   sameAs,
 } from "@vuelidate/validators";
+import { useAuthStore } from "@/store/useAuth";
+
 const LeastOneUppercaseValidator = helpers.regex(/(?:.*?[A-Z])/);
 const LeastOneLowercaseValidator = helpers.regex(/(?:.*?[a-z])/);
 const Least2NumberValidator = helpers.regex(/(?:.*?[0-9]){2}/);
@@ -149,15 +151,14 @@ export default {
   props: {
     msg: String,
   },
-  setup() {
-    return {
-      v$: useVuelidate(),
-    };
-  },
+  // setup() {
+  //   return {
+  //     v$: useVuelidate(),
+  //   };
+  // },
   data() {
     return {
       forgotPsw: false,
-      // v$: useVuelidate(), // convention for vuelidate Object
       form: {
         email: null,
         password: null, //5 - 15 letters with 2 digits, 1 uppercase & lowercase letters`
@@ -165,6 +166,8 @@ export default {
         pseudo: null,
         fname: null,
       },
+      v$: useVuelidate(), // convention for vuelidate Object
+      storeAuth: useAuthStore(),
     };
   },
   validations() {
@@ -236,6 +239,7 @@ export default {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
           body: JSON.stringify({
             email: this.form.email,
@@ -250,10 +254,15 @@ export default {
             localStorage.setItem("id", data.profile.userId);
             localStorage.setItem("pseudo", data.profile.pseudo);
             localStorage.setItem("token", data.token);
+            // Update Pinia AuthState;
+            this.storeAuth.updateAuth(data);
+            // console.log(this.storeAuth.$state);
+            // console.log(this.storeAuth.loggedIn);
             // navigate to a protected resource
             this.$router.push("/feeds");
           })
           .catch((error) => {
+            // console.log(this.storeAuth.loggedIn);
             console.error(error);
           });
       } else {

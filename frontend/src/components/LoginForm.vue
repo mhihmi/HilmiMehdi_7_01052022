@@ -81,14 +81,14 @@ export default {
   props: {
     msg: String,
   },
-  setup() {
-    const store = useAuthStore();
+  // setup() {
+  //   const store = useAuthStore();
 
-    return {
-      v$: useVuelidate(), // convention for vuelidate Object
-      store,
-    };
-  },
+  //   return {
+  //     v$: useVuelidate(), // convention for vuelidate Object
+  //     store,
+  //   };
+  // },
   data() {
     return {
       forgotPsw: false,
@@ -96,6 +96,8 @@ export default {
         email: null,
         password: null,
       },
+      v$: useVuelidate(), // convention for vuelidate Object
+      storeAuth: useAuthStore(),
     };
   },
 
@@ -139,6 +141,7 @@ export default {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
           body: JSON.stringify({
             email: this.form.email,
@@ -151,10 +154,15 @@ export default {
             localStorage.setItem("id", data.profile.userId);
             localStorage.setItem("pseudo", data.profile.pseudo);
             localStorage.setItem("token", data.token);
+            // Update Pinia AuthState;
+            this.storeAuth.updateAuth(data);
+            // console.log(this.storeAuth.$state);
+            // console.log(this.storeAuth.loggedIn);
             // navigate to a protected resource
             this.$router.push("/feeds");
           })
           .catch((error) => {
+            // console.log(this.storeAuth.loggedIn);
             console.error(error);
           });
       } else {

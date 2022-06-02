@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "@/store/useAuth";
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -22,20 +23,17 @@ const router = createRouter({
       path: "/feeds",
       name: "feeds",
       component: () => import("../views/FeedsView.vue"),
+      meta: { requiresAuth: true },
     },
   ],
 });
 
 export default router;
 
-// router.beforeEach(async (to) => {
-//   // redirect to login page if not logged in and trying to access a restricted page
-//   const publicPages = ["/login"];
-//   const authRequired = !publicPages.includes(to.path);
-//   const auth = useAuthStore();
+// navigation guard
+router.beforeEach((to) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const storeAuth = useAuthStore();
 
-//   if (authRequired && !auth.user) {
-//     auth.returnUrl = to.fullPath;
-//     return "/login";
-//   }
-// });
+  if (to.meta.requiresAuth && !storeAuth.loggedIn) return "/login";
+});
