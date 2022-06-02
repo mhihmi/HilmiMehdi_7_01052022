@@ -23,7 +23,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .fromLeft-enter-active,
 .fromLeft-leave-active {
   transition: all 0.4s ease-out;
