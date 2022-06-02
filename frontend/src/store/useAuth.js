@@ -17,5 +17,8 @@ export const useAuthStore = defineStore("auth", {
       this.token = !!data.token;
       this.userId = data.profile.userId;
     },
+    clearAuth() {
+      this.$reset();
+    },
   },
 });

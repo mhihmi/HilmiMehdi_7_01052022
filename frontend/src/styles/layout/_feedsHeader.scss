@@ -1,0 +1,30 @@
+.feeds-header {
+    @extend %flex-jc-sb;
+    padding: calculateEm(20px) calculateEm(34px) calculateEm(24px) calculateEm(34px);
+
+    &__logo {
+        @include enableFlex;
+
+        svg {
+            width: calculateEm(50px);
+            height: calculateEm(50px);
+            margin-right: calculateEm(17px);
+
+            @include breakpoint-down(medium) {
+                height: calculateEm(46px);
+                width: calculateEm(46px);
+            }
+
+            @include breakpoint-down(small) {
+                height: calculateRem(27px);
+                width: calculateRem(27px);
+            }
+        }
+
+        h1 {
+            @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(20px), calculateRem(52px));
+            padding-bottom: calculateEm(10px);
+        }
+    }
+
+}

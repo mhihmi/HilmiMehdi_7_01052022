@@ -3,13 +3,24 @@
 </template>
 
 <script>
-// import ToggleSwitch from "@/components/Switch.vue";
+import { useAuthStore } from "@/store/useAuth";
 
 export default {
   name: "FeedsMain",
   props: {
     msg: String,
   },
+  data() {
+    return {
+      forgotPsw: false,
+      form: {
+        email: null,
+        password: null,
+      },
+      Authenticated: useAuthStore().loggedIn,
+    };
+  },
+  methods: {},
 };
 </script>
 
