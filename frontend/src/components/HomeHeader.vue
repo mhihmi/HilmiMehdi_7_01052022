@@ -30,10 +30,11 @@
           </svg>
         </a>
         <h1 class="feeds-header__title">{{ msg }}</h1>
-        <h2>{{ storeProfile.pseudo }}</h2>
       </div>
       <nav class="feeds-header__nav">
-        <button class="feeds-header__navProfile"><img src="" alt="" /></button>
+        <button class="feeds-header__navProfile">
+          <img :src="storeProfile.photo" :alt="storeProfile.pseudo" />
+        </button>
         <router-link to="/" @click="logOut()" class="feeds-header__navLogout">
           <svg
             width="24"
@@ -84,7 +85,6 @@ export default {
       // console.log(this.storeAuth.loggedIn);
     },
   },
-  // console.log(Authenticated),
 };
 </script>
 

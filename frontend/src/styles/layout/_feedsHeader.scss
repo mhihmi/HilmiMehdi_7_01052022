@@ -2,13 +2,14 @@
     @include box_shadow(3);
 
     &__container {
+        position: relative;
         max-width: 1500px;
         margin: 0 auto;
         @extend %flex-jc-sb;
         padding: $layout-padding $layout-padding*1.5 $layout-padding/2 $layout-padding*1.5;
 
         @include breakpoint-down(small) {
-            padding: $layout-padding/2 $layout-padding/2.5 $layout-padding/2 $layout-padding/2.5;
+            padding: $layout-padding/1.5 $layout-padding/1.6 $layout-padding/1.5 $layout-padding/1.6;
         }
     }
 
@@ -40,14 +41,37 @@
 
     &__nav {
         @extend %flex-jc-sb;
-        gap: calculateRem(40px);
+        gap: calculateEm(40px);
+
+        @include breakpoint-down(medium) {
+            gap: calculateEm(27px);
+        }
+
+        @include breakpoint-down(small) {
+            gap: calculateEm(19px);
+        }
     }
 
     &__navProfile {
+        background-color: transparent;
         border-radius: 100%;
         border: 1px solid var(--color-border);
         width: calculateRem(70px);
         height: calculateRem(70px);
+
+        @include breakpoint-down(medium) {
+            width: calculateRem(60px);
+            height: calculateRem(60px);
+        }
+
+        @include breakpoint-down(small) {
+            width: calculateRem(45px);
+            height: calculateRem(45px);
+        }
+
+        img {
+            width: 100%;
+        }
     }
 
     &__navLogout svg {

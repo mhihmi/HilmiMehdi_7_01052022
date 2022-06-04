@@ -2,6 +2,10 @@
   <home-header msg="Groupomania" />
   <feeds-main msg="Le futur forum deLaMortQuiTueTout"></feeds-main>
   <main-footer />
+  <div class="shape-1"></div>
+  <div class="shape-2"></div>
+  <div class="shape-3"></div>
+  <div class="shape-4"></div>
 </template>
 
 <script>
@@ -19,7 +23,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "@/styles/themes/shapesBackgroundFeeds";
 /* .fromLeft-enter-active,
 .fromLeft-leave-active {
   transition: all 0.4s ease-out;

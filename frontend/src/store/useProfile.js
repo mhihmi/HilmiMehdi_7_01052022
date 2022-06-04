@@ -8,8 +8,8 @@ export const useProfileStore = defineStore("profile", {
     firstname: null,
     lastname: null,
     photo: null,
-    isAdmin: "",
-    createdAt: Date,
+    isAdmin: null,
+    createdAt: null,
   }),
   // Access our state
   getters: {
@@ -32,13 +32,16 @@ export const useProfileStore = defineStore("profile", {
           },
         });
         const data = await result.json();
-        console.log(data);
-        this.pseudo = data.profile.pseudo;
-        this.firstname = data.profile.firstname;
-        this.lastname = data.profile.lastname;
-        this.photo = data.profile.photo;
-        this.isAdmin = data.profile.isAdmin;
-        this.createdAt = data.profile.createdAt;
+        // console.log(data);
+        // this.pseudo = data.profile.pseudo;
+        // this.firstname = data.profile.firstname;
+        // this.lastname = data.profile.lastname;
+        // this.photo = data.profile.photo;
+        // this.isAdmin = data.profile.isAdmin;
+        // this.createdAt = data.profile.createdAt;
+        this.$patch(data.profile);
+        this.photo =
+          `${process.env.VUE_APP_API_URL}/images/` + data.profile.photo;
       } catch (error) {
         console.log(error);
       }
