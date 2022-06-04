@@ -1,4 +1,8 @@
 .home-footer {
     @extend %flex-ai-fe-jc-fe;
     padding: calculateRem(20px) calculateRem(30px);
+
+    @include breakpoint-down(small) {
+        padding: $layout-padding/2 $layout-padding/2.5 $layout-padding/2 $layout-padding/2.5;
+    }
 }

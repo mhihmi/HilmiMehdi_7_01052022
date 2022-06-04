@@ -15,8 +15,17 @@
         row-gap: 5px;
     }
 
-
     &__input {
+
+        // disable chrome autofill styles
+        &:-webkit-autofill {
+            // border: 1px solid var(--color-input);
+            -webkit-text-fill-color: var(--color-text);
+            -webkit-box-shadow: 0 0 0px 1000px var(--color-input) inset;
+            box-shadow: 0 0 0px 1000px var(--color-input) inset;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
         font-weight: normal; // 400
         width: 25vw;
         min-width: calculateRem(220px);

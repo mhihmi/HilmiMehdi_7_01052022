@@ -1,6 +1,16 @@
 .feeds-header {
-    @extend %flex-jc-sb;
-    padding: calculateEm(20px) calculateEm(34px) calculateEm(24px) calculateEm(34px);
+    @include box_shadow(3);
+
+    &__container {
+        max-width: 1500px;
+        margin: 0 auto;
+        @extend %flex-jc-sb;
+        padding: $layout-padding $layout-padding*1.5 $layout-padding/2 $layout-padding*1.5;
+
+        @include breakpoint-down(small) {
+            padding: $layout-padding/2 $layout-padding/2.5 $layout-padding/2 $layout-padding/2.5;
+        }
+    }
 
     &__logo {
         @include enableFlex;
@@ -18,12 +28,35 @@
             @include breakpoint-down(small) {
                 height: calculateRem(27px);
                 width: calculateRem(27px);
+                margin-right: calculateEm(12px);
             }
         }
 
         h1 {
             @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(20px), calculateRem(52px));
             padding-bottom: calculateEm(10px);
+        }
+    }
+
+    &__nav {
+        @extend %flex-jc-sb;
+        gap: calculateRem(40px);
+    }
+
+    &__navProfile {
+        border-radius: 100%;
+        border: 1px solid var(--color-border);
+        width: calculateRem(70px);
+        height: calculateRem(70px);
+    }
+
+    &__navLogout svg {
+        width: calculateEm(27px);
+        height: calculateEm(27px);
+
+        &:hover path {
+            fill: var(--color-text-hover);
+            transition: fill .4s ease-in-out;
         }
     }
 

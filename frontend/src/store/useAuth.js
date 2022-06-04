@@ -14,8 +14,8 @@ export const useAuthStore = defineStore("auth", {
   // Update/Modify state
   actions: {
     updateAuth(data) {
-      this.token = !!data.token;
       this.userId = data.profile.userId;
+      this.token = data.token;
     },
     clearAuth() {
       this.$reset();
