@@ -81,14 +81,7 @@ export default {
   props: {
     msg: String,
   },
-  // setup() {
-  //   const store = useAuthStore();
 
-  //   return {
-  //     v$: useVuelidate(), // convention for vuelidate Object
-  //     store,
-  //   };
-  // },
   data() {
     return {
       forgotPsw: false,
@@ -96,7 +89,7 @@ export default {
         email: null,
         password: null,
       },
-      v$: useVuelidate(), // convention for vuelidate Object
+      v$: useVuelidate(),
       storeAuth: useAuthStore(),
     };
   },
@@ -105,8 +98,8 @@ export default {
     return {
       form: {
         email: {
-          required, // v$.form.email.required
-          email, // v$.form.email.email
+          required,
+          email,
         },
         password: {
           required: helpers.withMessage("Mot de passe requis", required), // v$.form.password.required
@@ -123,42 +116,19 @@ export default {
       return field.$error;
     },
 
-    // submitForm() {
-    //   this.v$.form.$touch();
-    //   console.log(this.v$); // check vuelidate object
-    //   if (!this.v$.form.$invalid) {
-    //     // $invalid is false when all rules are met
-    //     console.log("📝 Form Submitted", this.form);
-    //   } else {
-    //     console.log("❌ Invalid form");
-    //   }
-    // },
     submitForm() {
       this.v$.$touch();
       if (!this.v$.$invalid) {
         console.log("📝 Form Submitted", this.form);
-        // await fetch(`${process.env.VUE_APP_API_URL}/api/auth/login`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     Authorization: "Bearer " + localStorage.getItem("token"),
-        //   },
-        //   body: JSON.stringify({
-        //     email: this.form.email,
-        //     password: this.form.password,
-        //   }),
-        // })
+
         apiManager
           .post("/auth/login", this.form)
           .then((data) => {
-            // console.log(data);
             localStorage.setItem("id", data.profile.userId);
             localStorage.setItem("pseudo", data.profile.pseudo);
             localStorage.setItem("token", data.token);
             // Update Pinia AuthState;
             this.storeAuth.updateAuth(data);
-            // console.log(this.storeAuth.$state);
-            // console.log(this.storeAuth.loggedIn);
             // navigate to a protected resource
             this.$router.push("/feeds");
           })

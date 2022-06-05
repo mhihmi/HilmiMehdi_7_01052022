@@ -96,21 +96,21 @@
           <p v-if="v$.form.pseudo.$error" class="loginForm__errorMessage">
             {{ v$.form.pseudo.$errors[0].$message }}
           </p>
-          <label for="fname" class="loginForm__label">Nom de famille</label>
+          <label for="lastname" class="loginForm__label">Nom de famille</label>
           <input
             type="text"
             placeholder="********"
-            name="fname"
+            name="lastname"
             class="loginForm__input"
             :class="{
-              error: shouldAppendErrorClass(v$.form.fname),
-              valid: shouldAppendValidClass(v$.form.fname),
+              error: shouldAppendErrorClass(v$.form.lastname),
+              valid: shouldAppendValidClass(v$.form.lastname),
             }"
-            v-model="form.fname"
-            @blur="v$.form.fname.$touch"
+            v-model="form.lastname"
+            @blur="v$.form.lastname.$touch"
           />
-          <p v-if="v$.form.fname.$error" class="loginForm__errorMessage">
-            {{ v$.form.fname.$errors[0].$message }}
+          <p v-if="v$.form.lastname.$error" class="loginForm__errorMessage">
+            {{ v$.form.lastname.$errors[0].$message }}
           </p>
         </div>
         <button class="btn">S'inscrire</button>
@@ -139,6 +139,7 @@ import {
   helpers,
   sameAs,
 } from "@vuelidate/validators";
+import { apiManager } from "@/services/api";
 import { useAuthStore } from "@/store/useAuth";
 
 const LeastOneUppercaseValidator = helpers.regex(/(?:.*?[A-Z])/);
@@ -151,22 +152,18 @@ export default {
   props: {
     msg: String,
   },
-  // setup() {
-  //   return {
-  //     v$: useVuelidate(),
-  //   };
-  // },
+
   data() {
     return {
       forgotPsw: false,
+      confirmPassword: null,
       form: {
         email: null,
         password: null, //5 - 15 letters with 2 digits, 1 uppercase & lowercase letters`
-        confirmPassword: null,
         pseudo: null,
-        fname: null,
+        lastname: null,
       },
-      v$: useVuelidate(), // convention for vuelidate Object
+      v$: useVuelidate(),
       storeAuth: useAuthStore(),
     };
   },
@@ -174,19 +171,19 @@ export default {
     return {
       form: {
         email: {
-          required, // v$.form.email.required
-          email, // v$.form.email.email
+          required,
+          email,
         },
         password: {
           required: helpers.withMessage("Mot de passe requis", required), // v$.form.password.required
           minLengthValue: helpers.withMessage(
             "Nombre de caractères insuffisants",
             minLength(5)
-          ), // v$.form.password.minLengthValue
+          ),
           maxLengthValue: helpers.withMessage(
             "Trop de caractères",
             maxLength(15)
-          ), // v$.form.password.maxLengthValue
+          ),
           LeastOneUppercaseValidator: helpers.withMessage(
             "Ajouter une lettre Majuscule",
             LeastOneUppercaseValidator
@@ -214,7 +211,7 @@ export default {
         pseudo: {
           required: helpers.withMessage("Indiquez un pseudonyme", required),
         },
-        fname: {
+        lastname: {
           required: helpers.withMessage(
             "Indiquez votre nom de famille",
             required
@@ -231,24 +228,13 @@ export default {
     shouldAppendErrorClass(field) {
       return field.$error;
     },
-    async submitForm() {
-      this.v$.form.$touch();
-      if (!this.v$.form.$invalid) {
+    submitForm() {
+      this.v$.$touch();
+      if (!this.v$.$invalid) {
         console.log("📝 Form Submitted", this.form);
-        await fetch(`${process.env.VUE_APP_API_URL}/api/auth/signup`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-          body: JSON.stringify({
-            email: this.form.email,
-            password: this.form.password,
-            lastname: this.form.fname,
-            pseudo: this.form.pseudo,
-          }),
-        })
-          .then((response) => response.json())
+
+        apiManager
+          .post("/auth/signup", this.form)
           .then((data) => {
             console.log(data);
             localStorage.setItem("id", data.profile.userId);
@@ -256,13 +242,10 @@ export default {
             localStorage.setItem("token", data.token);
             // Update Pinia AuthState;
             this.storeAuth.updateAuth(data);
-            // console.log(this.storeAuth.$state);
-            // console.log(this.storeAuth.loggedIn);
             // navigate to a protected resource
             this.$router.push("/feeds");
           })
           .catch((error) => {
-            // console.log(this.storeAuth.loggedIn);
             console.error(error);
           });
       } else {
