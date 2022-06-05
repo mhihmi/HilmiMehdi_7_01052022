@@ -1,0 +1,74 @@
+.modal {
+    position: relative;
+    background: var(--color-post);
+    padding: calculateRem(55px) calculateRem(65px);
+    border-radius: calculateRem(25px);
+    box-shadow: 0px 10px 5px 2px var(--color-shadow2);
+    @include enableFlex();
+
+    @include breakpoint-down(medium) {
+        padding: calculateRem(30px) calculateRem(50px);
+    }
+
+    @include breakpoint-down(small) {
+        padding: calculateRem(15px) calculateRem(18px);
+    }
+
+    &-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba($color: #000000, $alpha: 0.3);
+        @include enableFlex();
+    }
+
+    .close-btn {
+        position: absolute;
+        color: var(--color-text);
+        top: calculateRem(15px);
+        right: calculateRem(15px);
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.3);
+            transition: transform .3s ease-in;
+        }
+    }
+
+    &-enter-active,
+    &-leave-active {
+        transition: all 0.3s ease;
+    }
+
+    &-enter-from,
+    &-leave-to {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+
+    &__profileForm {
+        @include enableFlex(true);
+        gap: calculateRem(15px);
+        padding: calculateRem(15px) calculateRem(30px);
+    }
+
+    &__profileCard {
+        @include enableFlex(true);
+        gap: calculateRem(15px);
+        padding: calculateRem(15px) calculateRem(30px);
+        border-right: 1px solid var(--color-border-thin);
+    }
+
+    &__profileCardMemberSince {
+        text-align: center;
+    }
+
+    &__profileCardTitle {
+        display: none;
+    }
+}
