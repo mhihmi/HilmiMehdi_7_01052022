@@ -73,7 +73,7 @@
 <script>
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
-
+import { apiManager } from "@/services/api";
 import { useAuthStore } from "@/store/useAuth";
 
 export default {
@@ -133,22 +133,23 @@ export default {
     //     console.log("❌ Invalid form");
     //   }
     // },
-    async submitForm() {
-      this.v$.form.$touch();
-      if (!this.v$.form.$invalid) {
+    submitForm() {
+      this.v$.$touch();
+      if (!this.v$.$invalid) {
         console.log("📝 Form Submitted", this.form);
-        await fetch(`${process.env.VUE_APP_API_URL}/api/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-          body: JSON.stringify({
-            email: this.form.email,
-            password: this.form.password,
-          }),
-        })
-          .then((response) => response.json())
+        // await fetch(`${process.env.VUE_APP_API_URL}/api/auth/login`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Authorization: "Bearer " + localStorage.getItem("token"),
+        //   },
+        //   body: JSON.stringify({
+        //     email: this.form.email,
+        //     password: this.form.password,
+        //   }),
+        // })
+        apiManager
+          .post("/auth/login", this.form)
           .then((data) => {
             // console.log(data);
             localStorage.setItem("id", data.profile.userId);
