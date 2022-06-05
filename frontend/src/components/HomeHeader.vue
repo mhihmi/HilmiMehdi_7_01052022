@@ -59,7 +59,7 @@
                   </h3>
                   <p class="modal__profileCardMemberSince">
                     Membre depuis le : <br />
-                    {{ date }}
+                    {{ storeProfile.createdAt }}
                   </p>
                 </div>
                 <div class="modal__profileForm">
@@ -125,28 +125,38 @@ export default {
   props: {
     msg: String,
   },
+
+  // Composition API
   setup() {
     let storeAuth = useAuthStore();
     let storeProfile = useProfileStore();
     storeProfile.getUserProfile();
-    let date = new Date(storeProfile.createdAt).toLocaleDateString();
-    return {
-      isModalOpen: ref(false),
-      modal: ref(null),
-      storeAuth,
-      storeProfile,
-      date,
-    };
-  },
-  methods: {
-    logOut() {
+    const logOut = () => {
       localStorage.clear();
       this.storeAuth.clearAuth();
       this.$router.push("/login");
       // console.log(this.storeAuth.$state);
       // console.log(this.storeAuth.loggedIn);
-    },
+    };
+
+    return {
+      isModalOpen: ref(false),
+      modal: ref(null),
+      storeAuth,
+      storeProfile,
+      logOut,
+    };
   },
+  // Option API
+  // methods: {
+  //   logOut() {
+  //     localStorage.clear();
+  //     this.storeAuth.clearAuth();
+  //     this.$router.push("/login");
+  //     // console.log(this.storeAuth.$state);
+  //     // console.log(this.storeAuth.loggedIn);
+  //   },
+  // },
 };
 </script>
 

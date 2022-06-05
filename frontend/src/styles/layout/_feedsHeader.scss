@@ -1,5 +1,5 @@
 .feeds-header {
-    @include box_shadow(3);
+    @include box_shadow(2);
 
     &__container {
         max-width: 1500px;

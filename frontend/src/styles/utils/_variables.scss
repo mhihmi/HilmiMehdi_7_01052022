@@ -15,8 +15,8 @@ $padding-top-bot: 1.25rem 0;
 // COLORS 
 $color-light: rgb(212, 212, 212);
 $color-light-hover: lighten($color-light, 15%);
-$color-light-shadow: rgba(47, 65, 96, 0.05);
-$color-light-shadow2: rgba(47, 65, 96, 0.45);
+$color-light-shadow: rgba(47, 65, 96, 0.1);
+$color-light-shadow2: none;
 $color-light-overlay: rgba(212, 212, 212, .3);
 $color-light-input: rgba(227, 227, 227, .8);
 $color-light-thin-border: rgba(246, 246, 246, .3);
@@ -53,7 +53,7 @@ $colors: (1: #9AACCB,
   --color-border: #{$color-dark-input};
   --color-border-thin: #{$color-dark-thin-border};
   --color-shadow: #{$color-dark-shadow};
-  --color-shadow2: #{$color-dark-shadow};
+  --color-shadow2: #{$color-dark-shadow2};
   --color-overlay: #{$color-light-overlay};
   --color-input: #{$color-light-input};
   --color-input-error: #{$color-light-input-error};
@@ -72,7 +72,7 @@ $colors: (1: #9AACCB,
   --color-border: #{$color-light-placeholder};
   --color-border-thin: #{$color-light-thin-border};
   --color-shadow: #{$color-light-shadow};
-  --color-shadow2: #{$color-light-shadow};
+  --color-shadow2: #{$color-light-shadow2};
   --color-overlay: #{$color-dark-overlay};
   --color-input: #{$color-dark-input};
   --color-input-error: #{$color-dark-input-error};

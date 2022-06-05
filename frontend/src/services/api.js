@@ -30,6 +30,24 @@ class ApiManager {
         let result = await data.json();
         return result;
     }
+
+    async get(endpoint) {
+        let data = await fetch(this.baseUrl + endpoint, {
+            // method: 'GET', //Default
+            headers: this.headers()
+        });
+        let result = await data.json();
+        return result;
+    }
+
+    async put(endpoint) {
+        let data = await fetch(this.baseUrl + endpoint, {
+            method: 'PUT',
+            headers: this.headers()
+        });
+        let result = await data.json();
+        return result;
+    }
 }
 
 export const apiManager = new ApiManager()

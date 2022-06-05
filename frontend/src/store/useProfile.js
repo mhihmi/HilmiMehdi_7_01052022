@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useAuthStore } from "@/store/useAuth";
+import { apiManager } from "@/services/api";
 
 export const useProfileStore = defineStore("profile", {
   state: () => ({
@@ -10,6 +11,7 @@ export const useProfileStore = defineStore("profile", {
     photo: null,
     isAdmin: null,
     createdAt: null,
+    updatedAt: null,
   }),
   // Access our state
   getters: {
@@ -21,28 +23,19 @@ export const useProfileStore = defineStore("profile", {
   actions: {
     async getUserProfile() {
       this.userId = useAuthStore().userId;
-      let api = `${process.env.VUE_APP_API_URL}/api/auth/profile/${this.userId}`;
       if (useAuthStore().token !== null) {
         try {
-          const token = useAuthStore().token;
-          const result = await fetch(api, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + `${token}`,
-            },
+          await apiManager.get(`/auth/profile/${this.userId}`).then((data) => {
+            this.$patch(data.profile);
+            this.createdAt = new Date(
+              data.profile.createdAt
+            ).toLocaleDateString();
+            this.updatedAt = new Date(
+              data.profile.updatedAt
+            ).toLocaleDateString();
+            this.photo =
+              `${process.env.VUE_APP_API_URL}/images/` + data.profile.photo;
           });
-          const data = await result.json();
-          // console.log(data);
-          // this.pseudo = data.profile.pseudo;
-          // this.firstname = data.profile.firstname;
-          // this.lastname = data.profile.lastname;
-          // this.photo = data.profile.photo;
-          // this.isAdmin = data.profile.isAdmin;
-          // this.createdAt = data.profile.createdAt;
-          this.$patch(data.profile);
-          this.photo =
-            `${process.env.VUE_APP_API_URL}/images/` + data.profile.photo;
         } catch (error) {
           console.log(error);
         }
