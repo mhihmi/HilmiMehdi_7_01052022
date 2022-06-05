@@ -51,35 +51,6 @@
         }
     }
 
-    &__navProfile {
-        background-color: transparent;
-        border-radius: 100%;
-        border: 1px solid var(--color-border);
-        width: calculateRem(70px);
-        height: calculateRem(70px);
-
-        &:hover {
-            border: 2px dashed var(--color-border);
-            transition: border .4s ease-in-out;
-            cursor: pointer;
-        }
-
-
-        @include breakpoint-down(medium) {
-            width: calculateRem(60px);
-            height: calculateRem(60px);
-        }
-
-        @include breakpoint-down(small) {
-            width: calculateRem(45px);
-            height: calculateRem(45px);
-        }
-
-        img {
-            width: 100%;
-        }
-    }
-
     &__navLogout svg {
         width: calculateEm(27px);
         height: calculateEm(27px);

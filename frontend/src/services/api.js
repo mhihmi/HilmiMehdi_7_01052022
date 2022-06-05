@@ -40,10 +40,11 @@ class ApiManager {
         return result;
     }
 
-    async put(endpoint) {
+    async put(endpoint, body, options = {}) {
         let data = await fetch(this.baseUrl + endpoint, {
             method: 'PUT',
-            headers: this.headers()
+            body: options.isFormData ? body : JSON.stringify(body),
+            headers: this.headers(options)
         });
         let result = await data.json();
         return result;

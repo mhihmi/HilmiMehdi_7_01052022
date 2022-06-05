@@ -32,66 +32,7 @@
         <h1 class="feeds-header__title">{{ msg }}</h1>
       </div>
       <nav class="feeds-header__nav">
-        <button class="feeds-header__navProfile" @click="isModalOpen = true">
-          <img :src="storeProfile.photo" :alt="storeProfile.pseudo" />
-        </button>
-        <teleport to="#modal">
-          <transition name="modal">
-            <div
-              class="modal-bg"
-              v-if="isModalOpen"
-              @click.self="isModalOpen = false"
-            >
-              <div class="modal" ref="modal">
-                <button class="close-btn" @click="isModalOpen = false">
-                  X
-                </button>
-                <div class="modal__profileCard">
-                  <h2 class="modal__profileCardTitle">Modifier votre Profil</h2>
-                  <img
-                    :src="storeProfile.photo"
-                    :alt="storeProfile.pseudo"
-                    class="modal__profileCardPhoto"
-                  />
-                  <h3 class="modal__profileCardName">
-                    {{ storeProfile.firstname }}
-                    {{ storeProfile.lastname }}
-                  </h3>
-                  <p class="modal__profileCardMemberSince">
-                    Membre depuis le : <br />
-                    {{ storeProfile.createdAt }}
-                  </p>
-                </div>
-                <div class="modal__profileForm">
-                  <h2 class="modal__profileFormTitle">Modifier votre Profil</h2>
-                  <label for="pseudo" class="loginForm__label">Pseudo :</label>
-                  <input
-                    type="text"
-                    placeholder="Votre pseudo"
-                    name="pseudo"
-                    class="modal__profileFormInput"
-                  />
-                  <label for="lastname" class="loginForm__label"
-                    >Nom de famille</label
-                  >
-                  <input
-                    type="text"
-                    placeholder="Votre nom de famille"
-                    name="lastname"
-                    class="modal__profileFormInput"
-                  />
-                  <label for="firstname" class="loginForm__label">Prénom</label>
-                  <input
-                    type="text"
-                    placeholder="Votre prénom"
-                    name="firstname"
-                    class="modal__profileFormInput"
-                  />
-                </div>
-              </div>
-            </div>
-          </transition>
-        </teleport>
+        <profile-modal />
         <router-link to="/" @click="logOut()" class="feeds-header__navLogout">
           <svg
             width="24"
@@ -116,14 +57,17 @@
 </template>
 
 <script>
-import { ref } from "vue";
 import { useAuthStore } from "@/store/useAuth";
 import { useProfileStore } from "@/store/useProfile";
+import ProfileModal from "./ProfileModal.vue";
 
 export default {
   name: "HomeHeader",
   props: {
     msg: String,
+  },
+  components: {
+    ProfileModal,
   },
 
   // Composition API
@@ -140,8 +84,6 @@ export default {
     };
 
     return {
-      isModalOpen: ref(false),
-      modal: ref(null),
       storeAuth,
       storeProfile,
       logOut,
@@ -163,5 +105,4 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/layout/homeHeader";
 @import "@/styles/layout/feedsHeader";
-@import "@/styles/components/modal";
 </style>
