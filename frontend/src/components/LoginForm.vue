@@ -134,7 +134,7 @@ export default {
           })
           .catch((error) => {
             // console.log(this.storeAuth.loggedIn);
-            console.error(error);
+            console.log(error);
           });
       } else {
         console.log("❌ Invalid form");

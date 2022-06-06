@@ -75,30 +75,30 @@ export default {
     let storeAuth = useAuthStore();
     let storeProfile = useProfileStore();
     storeProfile.getUserProfile();
-    const logOut = () => {
+    // const logOut = () => {
+    //   localStorage.clear();
+    //   this.storeAuth.clearAuth();
+    //   this.$router.push("/login");
+    //   // console.log(this.storeAuth.$state);
+    //   // console.log(this.storeAuth.loggedIn);
+    // };
+
+    return {
+      storeAuth,
+      storeProfile,
+      // logOut,
+    };
+  },
+  // Option API
+  methods: {
+    logOut() {
       localStorage.clear();
       this.storeAuth.clearAuth();
       this.$router.push("/login");
       // console.log(this.storeAuth.$state);
       // console.log(this.storeAuth.loggedIn);
-    };
-
-    return {
-      storeAuth,
-      storeProfile,
-      logOut,
-    };
+    },
   },
-  // Option API
-  // methods: {
-  //   logOut() {
-  //     localStorage.clear();
-  //     this.storeAuth.clearAuth();
-  //     this.$router.push("/login");
-  //     // console.log(this.storeAuth.$state);
-  //     // console.log(this.storeAuth.loggedIn);
-  //   },
-  // },
 };
 </script>
 

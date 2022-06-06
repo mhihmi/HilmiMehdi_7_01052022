@@ -1,29 +1,34 @@
 <template>
-  <h2 class="test">{{ msg }}</h2>
+  <main class="feeds">
+    <!-- Futur input -->
+    <div class="btn" @click="toggleModal">Ouvre la modale</div>
+    <post-modal :reveal="reveal" :toggleModal="toggleModal"></post-modal>
+  </main>
 </template>
 
 <script>
+import PostModal from "@/components/PostModal";
 import { useAuthStore } from "@/store/useAuth";
 
 export default {
   name: "FeedsMain",
-  props: {
-    msg: String,
+  components: {
+    PostModal,
   },
   data() {
     return {
-      forgotPsw: false,
-      form: {
-        email: null,
-        password: null,
-      },
       Authenticated: useAuthStore().loggedIn,
+      reveal: false,
     };
   },
-  methods: {},
+  methods: {
+    toggleModal: function () {
+      this.reveal = !this.reveal;
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
-// @import "@/styles/layout/footer";
+@import "@/styles/layout/feedsMain";
 </style>

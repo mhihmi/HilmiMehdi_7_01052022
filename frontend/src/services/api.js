@@ -49,6 +49,15 @@ class ApiManager {
         let result = await data.json();
         return result;
     }
+
+    async delete(endpoint) {
+        let data = await fetch(this.baseUrl + endpoint, {
+            method: 'DELETE',
+            headers: this.headers()
+        });
+        let result = await data.json();
+        return result;
+    }
 }
 
 export const apiManager = new ApiManager()

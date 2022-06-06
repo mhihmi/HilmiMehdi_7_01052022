@@ -65,11 +65,7 @@ import { useProfileStore } from "@/store/useProfile";
 
 export default {
   name: "ProfileModal",
-  props: {
-    msg: String,
-  },
 
-  // Composition API
   setup() {
     let storeProfile = useProfileStore();
     storeProfile.getUserProfile();
@@ -84,5 +80,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/styles/components/modal";
+@import "@/styles/components/profileModal";
 </style>
