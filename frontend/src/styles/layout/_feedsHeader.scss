@@ -5,10 +5,10 @@
         max-width: 1500px;
         margin: 0 auto;
         @extend %flex-jc-sb;
-        padding: $layout-padding $layout-padding*1.5 $layout-padding/2 $layout-padding*1.5;
+        padding: $layout-padding calc($layout-padding/1.5) calc($layout-padding/2) calc($layout-padding/1.5);
 
         @include breakpoint-down(small) {
-            padding: $layout-padding/1.5 $layout-padding/1.6 $layout-padding/1.5 $layout-padding/1.6;
+            padding: calc($layout-padding/1.5) calc($layout-padding/1.6) calc($layout-padding/1.5) calc($layout-padding/1.6);
         }
     }
 

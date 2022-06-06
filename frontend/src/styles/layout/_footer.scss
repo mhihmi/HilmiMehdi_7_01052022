@@ -3,6 +3,6 @@
     padding: calculateRem(20px) calculateRem(30px);
 
     @include breakpoint-down(small) {
-        padding: $layout-padding/2 $layout-padding/2.5 $layout-padding/2 $layout-padding/2.5;
+        padding: calc($layout-padding/2) calc($layout-padding/2.5) calc($layout-padding/2) calc($layout-padding/2.5);
     }
 }
