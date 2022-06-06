@@ -2,7 +2,7 @@
     @include box_shadow(2);
 
     &__container {
-        max-width: 1500px;
+        max-width: 1440px;
         margin: 0 auto;
         @extend %flex-jc-sb;
         padding: $layout-padding calc($layout-padding/1.5) calc($layout-padding/2) calc($layout-padding/1.5);

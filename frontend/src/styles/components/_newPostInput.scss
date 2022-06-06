@@ -1,0 +1,78 @@
+.newPost {
+    margin-top: calculateEm(35px);
+    cursor: pointer;
+    background: var(--color-post);
+    padding: calculateRem(18px) calculateRem(28px);
+    border-radius: calculateRem(25px);
+    height: calculateRem(80px);
+    @include enableFlex;
+    position: relative;
+
+    @include breakpoint-down(medium) {
+        height: calculateRem(70px);
+        padding: calculateRem(16px) calculateRem(22px);
+    }
+
+    @include breakpoint-down(small) {
+        height: calculateRem(45px);
+        padding: calculateRem(2px) calculateRem(12px);
+    }
+
+    &__Profile {
+        height: calculateRem(50px);
+        margin-right: calculateRem(15px);
+
+        @include breakpoint-down(small) {
+            height: calculateRem(30px);
+            margin-right: calculateRem(10px);
+        }
+    }
+
+    &__Input {
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+        border: none;
+        cursor: pointer;
+        position: relative;
+        font-weight: normal;
+        border-radius: calculateRem(50px);
+        padding: calculateEm(12px);
+        width: 40vw;
+        min-width: calculateRem(240px);
+
+        &:focus-visible {
+            outline-color: var(--color-post);
+        }
+
+        &:disabled {
+            background-color: $color-light;
+        }
+
+        &::placeholder {
+            color: $color-dark-input;
+        }
+
+        @include breakpoint-down(small) {
+            padding: calculateEm(5px);
+        }
+    }
+
+    &__Icon1 {
+        position: absolute;
+        right: calculateRem(35px);
+
+        @include breakpoint-down(small) {
+            right: calculateRem(16px);
+            width: calculateRem(14px);
+        }
+    }
+
+    &__Icon2 {
+        position: absolute;
+        right: calculateRem(65px);
+
+        @include breakpoint-down(small) {
+            right: calculateRem(38px);
+            width: calculateRem(14px);
+        }
+    }
+}

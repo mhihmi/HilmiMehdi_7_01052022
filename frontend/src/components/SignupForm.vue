@@ -259,7 +259,7 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/layout/homeMain";
 @import "@/styles/layout/formContainer";
-@import "@/styles/components/Forms";
+@import "@/styles/components/homeForms";
 @import "@/styles/components/buttons";
 @import "@/styles/themes/shapesBackground";
 
