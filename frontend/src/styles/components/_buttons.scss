@@ -51,4 +51,25 @@
         background-color: var(--color-page-bg);
         color: var(--color-text);
     }
+
+    &.success {
+        color: $color-dark;
+        background-color: $color-light-btn-success;
+        transition: background-color 0.4s;
+
+        &::after {
+            background-color: rgba($color-light-btn-success, 1);
+        }
+    }
+
+    &.danger {
+        color: $color-dark;
+        background-color: $color-light-btn-danger;
+        transition: background-color 0.4s;
+
+        &::after {
+            background-color: rgba($color-light-btn-danger, 1);
+        }
+    }
+
 }

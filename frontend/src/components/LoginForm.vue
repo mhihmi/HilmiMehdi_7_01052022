@@ -18,6 +18,7 @@
             }"
             v-model="form.email"
             @blur="v$.form.email.$touch"
+            autocomplete="off"
           />
           <!-- show this message when required validator fails -->
           <p v-if="v$.form.email.$error" class="loginForm__errorMessage">
@@ -37,6 +38,7 @@
             }"
             v-model="form.password"
             @blur="v$.form.password.$touch"
+            autocomplete="new-password"
           />
           <div v-if="v$.form.password.$error">
             <p v-if="v$.form.password.required" class="loginForm__errorMessage">

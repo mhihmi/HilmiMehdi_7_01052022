@@ -71,6 +71,7 @@
             }"
             v-model="form.confirmPassword"
             @blur="v$.form.confirmPassword.$touch"
+            autocomplete="new-password"
           />
           <p
             v-if="v$.form.confirmPassword.$error"

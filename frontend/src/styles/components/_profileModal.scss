@@ -1,17 +1,23 @@
 .modal {
-    position: relative;
+    position: fixed;
+    top: 28%;
     background: var(--color-post);
     padding: calculateRem(55px) calculateRem(65px);
     border-radius: calculateRem(25px);
     box-shadow: 0px 10px 5px 2px var(--color-shadow2);
     @include enableFlex();
+    gap: calculateRem(25px);
 
     @include breakpoint-down(medium) {
-        padding: calculateRem(30px) calculateRem(50px);
+        padding: calculateRem(25px) calculateRem(35px);
+        flex-direction: column;
+        gap: unset;
+        top: 22%;
     }
 
     @include breakpoint-down(small) {
-        padding: calculateRem(15px) calculateRem(18px);
+        padding: calculateRem(10px) calculateRem(10px);
+        top: 15%;
     }
 
     &-bg {
@@ -20,7 +26,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: rgba($color: #000000, $alpha: 0.3);
+        background-color: rgba($color: #000000, $alpha: 0.6);
         @include enableFlex();
     }
 
@@ -38,6 +44,16 @@
             transform: scale(1.3);
             transition: transform .3s ease-in;
         }
+
+        @include breakpoint-down(medium) {
+            top: calculateRem(20px);
+            right: calculateRem(20px);
+        }
+
+        @include breakpoint-down(small) {
+            top: calculateRem(12px);
+            right: calculateRem(15px);
+        }
     }
 
     &-enter-active,
@@ -52,24 +68,165 @@
     }
 
     &__profileForm {
-        @include enableFlex(true);
-        gap: calculateRem(15px);
-        padding: calculateRem(15px) calculateRem(30px);
+        @extend %flex-ai-c;
+        flex-direction: column;
+        row-gap: 5px;
+        align-content: center;
+        padding: 0 calculateRem(45px) calculateRem(15px) calculateRem(45px);
+        border-left: 1px solid var(--color-border-thin);
+
+        @include breakpoint-down(medium) {
+            border-left: none;
+            padding: 0 calculateRem(15px);
+        }
+    }
+
+    &__profileFormBox {
+        @extend %flex-ai-c;
+        flex-direction: column;
+        padding: $layout-padding $layout-padding 0 $layout-padding;
+
+        @include breakpoint-down(medium) {
+            padding: $layout-padding*.5 $layout-padding*.5;
+        }
+    }
+
+    &__profileFormTitle {
+        @include breakpoint-down(medium) {
+            display: none;
+        }
+    }
+
+    &__profileFormLabel {
+        margin-top: calculateRem(25px);
+        align-self: flex-start;
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+    }
+
+    &__profileFormInput {
+        font-weight: normal; // 400
+        width: 25vw;
+        min-width: calculateRem(220px);
+        // min-width: calculateRem(350px);
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+        color: var(--color-text);
+        background-color: $color-light;
+        transition: background-color 0.4s ease;
+        transition: border .1s ease;
+        border: 1px solid rgba($color-light-placeholder, .3);
+        border-radius: 12.5px;
+        padding: calculateEm(12px);
+        margin-top: calculateRem(8px);
+
+        &:focus-visible {
+            outline: none;
+        }
+
+        &::placeholder {
+            color: $color-dark-input;
+        }
+
+        @include breakpoint-down(medium) {
+            margin-top: calculateRem(10px);
+            padding: calculateEm(10px);
+        }
+
+        @include breakpoint-down(small) {
+            margin-top: calculateRem(6px);
+            padding: calculateEm(8px);
+        }
+    }
+
+    &__profileFormBtnContainer {
+        padding: calculateRem(6px) calculateRem(6px);
+        margin-top: calculateRem(35px);
+        @extend %flex-jc-se;
+        width: 100%;
+
+        button:first-child {
+            margin-right: calculateRem(25px);
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @include breakpoint-down(medium) {
+            button span>svg {
+                height: calculateRem(17px);
+                // width: calculateRem(px);
+            }
+        }
+
+        @include breakpoint-down(small) {
+            flex-direction: column;
+
+            button:first-child {
+                margin-right: 0;
+            }
+
+            :nth-child(2) {
+                margin-top: 20px;
+            }
+
+            button span>svg {
+                height: calculateRem(15px);
+            }
+        }
     }
 
     &__profileCard {
         @include enableFlex(true);
         gap: calculateRem(15px);
         padding: calculateRem(15px) calculateRem(30px);
-        border-right: 1px solid var(--color-border-thin);
+
+        @include breakpoint-down(medium) {
+            border-bottom: 1px solid var(--color-border-thin);
+        }
+
+        @include breakpoint-down(small) {
+            padding: calculateRem(15px) calculateRem(5px);
+        }
+    }
+
+    &__profileCardBox {
+        @include enableFlex(true);
+        gap: calculateRem(15px);
+
+        @include breakpoint-down(medium) {
+            flex-direction: row;
+        }
+    }
+
+    &__profileCardPhoto {
+        @include breakpoint-down(medium) {
+            width: calculateRem(150px);
+        }
+
+        @include breakpoint-down(small) {
+            width: calculateRem(100px);
+        }
+    }
+
+    &__profileCardText {
+        @include enableFlex(true);
+        gap: calculateRem(10px);
     }
 
     &__profileCardMemberSince {
         text-align: center;
+        line-height: -15px;
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
     }
 
     &__profileCardTitle {
         display: none;
+
+        @include breakpoint-down(medium) {
+            display: block;
+        }
     }
 
     &__btn {

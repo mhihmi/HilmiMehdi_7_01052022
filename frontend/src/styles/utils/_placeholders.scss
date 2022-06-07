@@ -7,6 +7,12 @@
     justify-content: space-between;
 }
 
+%flex-jc-se {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
 // => See Mixin : @include enableFlex();
 // %flex-jc-c {
 //     display: flex;
