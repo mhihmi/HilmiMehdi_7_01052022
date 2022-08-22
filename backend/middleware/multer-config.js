@@ -5,7 +5,8 @@ const { v4: uuidv4 } = require('uuid');
 const MIME_TYPES = { // File Ext Dictionary
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
-    'image/png': 'png'
+    'image/png': 'png',
+    'image/gif': 'gif'
 };
 
 const storage = multer.diskStorage({ // multer storage setup
