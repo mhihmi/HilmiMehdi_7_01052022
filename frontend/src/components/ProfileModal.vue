@@ -1,6 +1,10 @@
 <template>
   <button class="modal__btn" @click="isModalOpen = true">
-    <img :src="storeProfile.photo" :alt="storeProfile.pseudo" />
+    <img
+      :src="storeProfile.photo"
+      :alt="storeProfile.pseudo"
+      class="modal__btnPhoto"
+    />
   </button>
   <teleport to="#modal">
     <transition name="modal">
@@ -9,7 +13,12 @@
         v-if="isModalOpen"
         @click.self="isModalOpen = false"
       >
-        <div class="modal" ref="modal">
+        <form
+          @submit.prevent="updateProfile"
+          autocomplete="off"
+          class="modal"
+          ref="modal"
+        >
           <button class="close-btn" @click="isModalOpen = false">X</button>
           <div class="modal__profileCard">
             <h2 class="modal__profileCardTitle">Modifier votre Profil</h2>
@@ -19,6 +28,7 @@
                 :alt="storeProfile.pseudo"
                 class="modal__profileCardPhoto"
               />
+              <input type="file" @change="onFileSelected" />
               <div class="modal__profileCardText">
                 <h3 class="modal__profileCardName">
                   {{ storeProfile.firstname }}
@@ -44,7 +54,7 @@
                 class="modal__profileFormInput"
               />
               <label for="lastname" class="modal__profileFormLabel"
-                >Nom de famille</label
+                >Nom de famille :</label
               >
               <input
                 type="text"
@@ -53,7 +63,7 @@
                 class="modal__profileFormInput"
               />
               <label for="firstname" class="modal__profileFormLabel"
-                >Prénom</label
+                >Prénom :</label
               >
               <input
                 type="text"
@@ -79,7 +89,7 @@
                     </svg>
                   </span>
                 </button>
-                <button class="btn success">
+                <button class="btn success" type="submit">
                   Enregistrer
                   <span
                     ><svg
@@ -99,7 +109,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </transition>
   </teleport>
@@ -120,7 +130,17 @@ export default {
       isModalOpen: ref(false),
       modal: ref(null),
       storeProfile,
+      selectedFile: null,
     };
+  },
+  methods: {
+    onFileSelected(event) {
+      this.selectedFile = event.target.files[0];
+      // console.log(event);
+    },
+    // updateProfile() {
+    //   this.storeProfile.updateUserProfile();
+    // },
   },
 };
 </script>

@@ -41,5 +41,19 @@ export const useProfileStore = defineStore("profile", {
         }
       }
     },
+    // updateUserProfile(data) {
+    //   this.userId = data.profile.userId;
+    //   this.token = data.token;
+    //   // this.userId = useAuthStore().userId;
+    //   // if (useAuthStore().token !== null) {
+    //   //   try {
+    //   //     await apiManager.put(`/auth/profile/${this.userId}`).then((data) => {
+    //   //       this.$patch(data.profile);
+    //   //     });
+    //   //   } catch (error) {
+    //   //     console.log(error);
+    //   //   }
+    //   // }
+    // },
   },
 });

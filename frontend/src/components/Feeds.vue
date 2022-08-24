@@ -37,6 +37,7 @@
         />
       </svg>
     </div>
+    <!-- À Modifier pour teleport plutôt -->
     <post-modal :reveal="reveal" :toggleModal="toggleModal"></post-modal>
   </main>
 </template>

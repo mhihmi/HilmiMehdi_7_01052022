@@ -109,7 +109,7 @@
         min-width: calculateRem(220px);
         // min-width: calculateRem(350px);
         @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
-        color: var(--color-text);
+        color: $color-dark;
         background-color: $color-light;
         transition: background-color 0.4s ease;
         transition: border .1s ease;
@@ -257,4 +257,10 @@
             width: 100%;
         }
     }
+}
+
+:root[data-theme="dark"] .modal__btnPhoto,
+:root[data-theme="dark"] .modal__profileCardPhoto {
+    filter: invert(86%) sepia(28%) saturate(0%) hue-rotate(220deg) brightness(93%) contrast(96%);
+    transition: filter .2s ease-in;
 }
