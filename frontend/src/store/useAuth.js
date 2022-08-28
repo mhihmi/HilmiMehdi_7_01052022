@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
+import { useStorage } from "@vueuse/core";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     // userId: localStorage.getItem("id"),
-    userId: null,
-    // token: useLocalStorage("pinia/auth/", "token"),
-    token: localStorage.getItem("token"),
+    userId: useStorage("id", ""),
+    token: useStorage("token", ""),
+    // token: localStorage.getItem("token"),
   }),
   // Access our state
   getters: {

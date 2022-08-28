@@ -1,29 +1,33 @@
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    @include enableFlex();
+    top: 20%;
+    background: var(--color-post);
+    padding: calculateRem(55px) calculateRem(65px);
+    border-radius: calculateRem(25px);
+    box-shadow: 0px 10px 5px 2px var(--color-shadow2);
+    display: flex;
+    flex-direction: column;
+    gap: calculateRem(25px);
 
-    &-enter-active,
-    &-leave-active {
-        transition: all 0.3s ease;
+    @include breakpoint-down(medium) {
+        padding: calculateRem(25px) calculateRem(35px);
+        gap: unset;
+        top: 22%;
     }
 
-    &-enter-from,
-    &-leave-to {
-        opacity: 0;
-        transform: scale(1.1);
+    @include breakpoint-down(small) {
+        padding: calculateRem(10px) calculateRem(10px);
+        top: 15%;
     }
 
-    &__overlay {
+    &-bg {
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: rgba($color: #000000, $alpha: 0.3);
+        background-color: rgba($color: #000000, $alpha: 0.6);
+        @include enableFlex();
     }
 
     .close-btn {
@@ -38,7 +42,62 @@
 
         &:hover {
             transform: scale(1.3);
-            transition: transform 0.3s ease-in;
+            transition: transform .3s ease-in;
+        }
+
+        @include breakpoint-down(medium) {
+            top: calculateRem(20px);
+            right: calculateRem(20px);
+        }
+
+        @include breakpoint-down(small) {
+            top: calculateRem(12px);
+            right: calculateRem(15px);
         }
     }
+
+    &-enter-active,
+    &-leave-active {
+        transition: all 0.3s ease;
+    }
+
+    &-enter-from,
+    &-leave-to {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+
+    &__btn {
+        background-color: transparent;
+        border-radius: 100%;
+        border: 1px solid var(--color-border);
+        width: calculateRem(70px);
+        height: calculateRem(70px);
+
+        &:hover {
+            border: 2px dashed var(--color-border);
+            transition: border .4s ease-in-out;
+            cursor: pointer;
+        }
+
+
+        @include breakpoint-down(medium) {
+            width: calculateRem(60px);
+            height: calculateRem(60px);
+        }
+
+        @include breakpoint-down(small) {
+            width: calculateRem(45px);
+            height: calculateRem(45px);
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+}
+
+:root[data-theme="dark"] .modal__userAvatar {
+    filter: invert(86%) sepia(28%) saturate(0%) hue-rotate(220deg) brightness(93%) contrast(96%);
+    transition: filter .2s ease-in;
 }

@@ -5,11 +5,6 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "root",
-      redirect: "/login",
-    },
-    {
       path: "/login",
       name: "login",
       component: () => import("../views/LoginView.vue"),
@@ -20,7 +15,7 @@ const router = createRouter({
       component: () => import("../views/SignupView.vue"),
     },
     {
-      path: "/feeds",
+      path: "/",
       name: "feeds",
       component: () => import("../views/FeedsView.vue"),
       meta: { requiresAuth: true },
@@ -31,9 +26,13 @@ const router = createRouter({
 export default router;
 
 // navigation guard
-router.beforeEach((to) => {
+router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const storeAuth = useAuthStore();
 
-  if (to.meta.requiresAuth && !storeAuth.loggedIn) return "/login";
+  if (to.meta.requiresAuth && !storeAuth.loggedIn) {
+    next({ name: "login" });
+  } else {
+    next();
+  }
 });

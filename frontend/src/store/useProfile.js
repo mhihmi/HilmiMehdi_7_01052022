@@ -13,19 +13,13 @@ export const useProfileStore = defineStore("profile", {
     createdAt: null,
     updatedAt: null,
   }),
-  // Access our state
-  getters: {
-    isAdmin(state) {
-      return !!state.isAdmin;
-    },
-  },
   // Update/Modify state
   actions: {
-    async getUserProfile() {
+    getUserProfile() {
       this.userId = useAuthStore().userId;
       if (useAuthStore().token !== null) {
         try {
-          await apiManager.get(`/auth/profile/${this.userId}`).then((data) => {
+          apiManager.get(`/auth/profile/${this.userId}`).then((data) => {
             this.$patch(data.profile);
             this.createdAt = new Date(
               data.profile.createdAt

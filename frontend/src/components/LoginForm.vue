@@ -132,7 +132,7 @@ export default {
             // Update Pinia AuthState;
             this.storeAuth.updateAuth(data);
             // navigate to a protected resource
-            this.$router.push("/feeds");
+            this.$router.push({ name: "feeds" });
           })
           .catch((error) => {
             // console.log(this.storeAuth.loggedIn);

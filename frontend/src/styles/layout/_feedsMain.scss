@@ -1,4 +1,5 @@
 .feeds {
-    display: flex;
-    justify-content: center;
+    @extend %flex-ai-c;
+    flex-direction: column;
+    gap: calculateRem(40px);
 }
