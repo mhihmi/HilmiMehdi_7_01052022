@@ -23,12 +23,25 @@
           <div class="modal__profileCard">
             <h2 class="modal__profileCardTitle">Modifier votre Profil</h2>
             <div class="modal__profileCardBox">
-              <img
-                :src="storeProfile.photo"
-                :alt="storeProfile.pseudo"
-                class="modal__profileCardPhoto"
-              />
-              <input type="file" @change="onFileSelected" />
+              <div class="modal__profileCardAvatar">
+                <img
+                  :src="storeProfile.photo"
+                  :alt="storeProfile.pseudo"
+                  class="modal__profileCardPhoto"
+                />
+                <input
+                  type="file"
+                  @change="onFileSelected"
+                  class="modal__profileCardFileInput"
+                  ref="fileInput"
+                />
+                <button
+                  @click="$refs.fileInput.click()"
+                  class="modal__profileCardFileButton"
+                >
+                  Choisir un fichier
+                </button>
+              </div>
               <div class="modal__profileCardText">
                 <h3 class="modal__profileCardName">
                   {{ storeProfile.firstname }}
@@ -139,7 +152,7 @@ export default {
       // console.log(event);
     },
     // updateProfile() {
-    //   this.storeProfile.updateUserProfile();
+    //   this.storeProfile.photo = this.selectedFile;
     // },
   },
 };

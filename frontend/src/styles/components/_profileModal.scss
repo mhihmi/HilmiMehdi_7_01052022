@@ -191,6 +191,10 @@
         }
     }
 
+    &__profileCardAvatar {
+        @include enableFlex(true);
+    }
+
     &__profileCardBox {
         @include enableFlex(true);
         gap: calculateRem(15px);
@@ -210,9 +214,31 @@
         }
     }
 
+    &__profileCardFileInput {
+        display: none;
+    }
+
+    &__profileCardFileButton {
+        padding: calculateRem(3px) calculateRem(8px);
+        border-radius: calculateRem(20px);
+        border: 1px solid var(--color-border);
+        background-color: transparent;
+        transition: background-color 0.4s;
+        color: var(--color-text);
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
+        cursor: pointer;
+
+        &:hover {
+            cursor: pointer;
+            color: var(--color-page-bg);
+            background-color: var(--color-text);
+        }
+    }
+
     &__profileCardText {
         @include enableFlex(true);
         gap: calculateRem(10px);
+        text-align: center;
     }
 
     &__profileCardMemberSince {

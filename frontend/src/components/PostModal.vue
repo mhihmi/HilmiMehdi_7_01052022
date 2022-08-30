@@ -167,7 +167,7 @@ export default {
     // },
 
     createPost() {
-      console.log("blablabonjour");
+      console.log("checkIfItWork");
       console.log(this.form.content);
       /* Create Post without file is authorized but not without content */
       if (!this.form.content) {
