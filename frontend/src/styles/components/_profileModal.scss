@@ -285,8 +285,8 @@
     }
 }
 
-:root[data-theme="dark"] .modal__btnPhoto,
-:root[data-theme="dark"] .modal__profileCardPhoto {
-    filter: invert(86%) sepia(28%) saturate(0%) hue-rotate(220deg) brightness(93%) contrast(96%);
-    transition: filter .2s ease-in;
-}
+// :root[data-theme="dark"] .modal__btnPhoto,
+// :root[data-theme="dark"] .modal__profileCardPhoto {
+//     filter: invert(86%) sepia(28%) saturate(0%) hue-rotate(220deg) brightness(93%) contrast(96%);
+//     transition: filter .2s ease-in;
+// }

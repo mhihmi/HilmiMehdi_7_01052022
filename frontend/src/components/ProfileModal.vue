@@ -31,6 +31,7 @@
                 />
                 <input
                   type="file"
+                  accept=".png, .jpg, .jpeg, .gif"
                   @change="onFileSelected"
                   class="modal__profileCardFileInput"
                   ref="fileInput"
@@ -65,6 +66,7 @@
                 placeholder="Votre pseudo"
                 name="pseudo"
                 class="modal__profileFormInput"
+                v-model="form.pseudo"
               />
               <label for="lastname" class="modal__profileFormLabel"
                 >Nom de famille :</label
@@ -74,6 +76,7 @@
                 placeholder="Votre nom de famille"
                 name="lastname"
                 class="modal__profileFormInput"
+                v-model="form.lastname"
               />
               <label for="firstname" class="modal__profileFormLabel"
                 >Prénom :</label
@@ -83,6 +86,7 @@
                 placeholder="Votre prénom"
                 name="firstname"
                 class="modal__profileFormInput"
+                v-model="form.firstname"
               />
               <div class="modal__profileFormBtnContainer">
                 <button class="btn danger">
@@ -131,6 +135,7 @@
 <script>
 import { ref } from "vue";
 import { useProfileStore } from "@/store/useProfile";
+import { apiManager } from "@/services/api";
 
 export default {
   name: "ProfileModal",
@@ -144,6 +149,11 @@ export default {
       modal: ref(null),
       storeProfile,
       selectedFile: null,
+      form: {
+        pseudo: storeProfile.pseudo,
+        lastname: storeProfile.lastname,
+        firstname: storeProfile.firstname,
+      },
     };
   },
   methods: {
@@ -151,9 +161,26 @@ export default {
       this.selectedFile = event.target.files[0];
       // console.log(event);
     },
-    // updateProfile() {
-    //   this.storeProfile.photo = this.selectedFile;
-    // },
+    updateProfile() {
+      // this.storeProfile.photo = this.selectedFile;
+      let body = this.form;
+
+      const fd = !!this.selectedFile;
+
+      if (fd) {
+        const formData = new FormData();
+        formData.append("image", this.selectedFile);
+        formData.append("user", JSON.stringify(body));
+        body = formData;
+      }
+      apiManager
+        .put("/auth/profile/" + `${this.storeProfile.userId}`, body, { fd })
+        .then((res) => {
+          // console.log(res.userObject);
+          localStorage.setItem("pseudo", res.userObject.pseudo);
+          this.storeProfile.$patch(res.userObject);
+        });
+    },
   },
 };
 </script>

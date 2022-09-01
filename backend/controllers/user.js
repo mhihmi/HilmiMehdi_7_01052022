@@ -107,33 +107,21 @@ exports.updateProfile = (req, res) => {
                 }); // Delete Old photo if file in req & file !== default User Photo
             };
 
-            const parsedUser = JSON.parse(req.body.user);
+            // const parsedUser = JSON.parse(req.body.user);
 
             let userObject = {
                 id: req.token.userId,
-                pseudo: parsedUser.pseudo,
-                firstname: parsedUser.firstname,
-                lastname: parsedUser.lastname,
+                pseudo: req.body.pseudo,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
             }
 
             if (req.file) {
                 userObject.photo = `${req.file.filename}`
             }
 
-            // if (req.body.password) {
-            //     bcrypt.hash(req.body.password, 10)
-            //         .then(hash => {
-            //             db.users.update({ password: hash, id: req.params.id }, { where: { id: req.params.id } })
-            //                 .then(() => res.status(201).json({
-            //                     message: 'User Password updated successfully!',
-            //                 }))
-            //                 .catch(error => res.status(400).json({ error }));
-            //         })
-            //         .catch(error => res.status(500).json({ error }));
-            // }
-
             db.users.update({ ...userObject, id: req.params.id }, { where: { id: req.params.id } })
-                .then(() => res.status(200).json({ message: 'User updated successfully!' }))
+                .then(user => res.status(200).json({ userObject }))
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(404).json({ error: console.log(error) }));
