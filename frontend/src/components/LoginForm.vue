@@ -75,7 +75,7 @@
 <script>
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
-import { apiManager } from "@/services/api";
+// import { apiManager } from "@/services/api";
 import { useAuthStore } from "@/store/useAuth";
 
 export default {
@@ -123,10 +123,33 @@ export default {
       if (!this.v$.$invalid) {
         console.log("📝 Form Submitted", this.form);
 
-        apiManager
-          .post("/auth/login", this.form)
+        // apiManager
+        //   .post("/auth/login", this.form)
+        //   .then((data) => {
+        //     localStorage.setItem("id", data.profile.userId);
+        //     localStorage.setItem("pseudo", data.profile.pseudo);
+        //     localStorage.setItem("token", data.token);
+        //     // Update Pinia AuthState;
+        //     this.storeAuth.updateAuth(data);
+        //     // navigate to a protected resource
+        //     this.$router.push({ name: "feeds" });
+        //   })
+        //   .catch((error) => {
+        //     // console.log(this.storeAuth.loggedIn);
+        //     console.log(error);
+        //   });
+
+        fetch(`${process.env.VUE_APP_API_URL}/api/auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.form),
+        })
+          .then((res) => res.json())
           .then((data) => {
-            localStorage.setItem("id", data.profile.userId);
+            console.log(data);
+            localStorage.setItem("userId", data.profile.userId);
             localStorage.setItem("pseudo", data.profile.pseudo);
             localStorage.setItem("token", data.token);
             // Update Pinia AuthState;

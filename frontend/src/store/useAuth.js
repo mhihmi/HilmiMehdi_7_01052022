@@ -4,7 +4,7 @@ import { useStorage } from "@vueuse/core";
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     // userId: localStorage.getItem("id"),
-    userId: useStorage("id", ""),
+    userId: useStorage("userId", ""),
     token: useStorage("token", ""),
     // token: localStorage.getItem("token"),
   }),

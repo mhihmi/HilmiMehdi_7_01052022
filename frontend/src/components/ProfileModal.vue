@@ -148,7 +148,7 @@ export default {
       isModalOpen: ref(false),
       modal: ref(null),
       storeProfile,
-      selectedFile: null,
+      selectedFile: "",
       form: {
         pseudo: storeProfile.pseudo,
         lastname: storeProfile.lastname,
@@ -162,23 +162,34 @@ export default {
       // console.log(event);
     },
     updateProfile() {
-      // this.storeProfile.photo = this.selectedFile;
+      this.storeProfile.photo = this.selectedFile;
       let body = this.form;
+
+      // const user = JSON.stringify({
+      //   pseudo: body.pseudo,
+      //   lastname: body.lastname,
+      //   firstname: body.firstname,
+      // });
 
       const fd = !!this.selectedFile;
 
       if (fd) {
+        const image = this.selectedFile;
         const formData = new FormData();
-        formData.append("image", this.selectedFile);
-        formData.append("user", JSON.stringify(body));
+        formData.append("image", image);
+        formData.append("pseudo", body.pseudo);
+        formData.append("firstname", body.firstname);
+        formData.append("lastname", body.lastname);
         body = formData;
       }
       apiManager
         .put("/auth/profile/" + `${this.storeProfile.userId}`, body, { fd })
         .then((res) => {
-          // console.log(res.userObject);
-          localStorage.setItem("pseudo", res.userObject.pseudo);
           this.storeProfile.$patch(res.userObject);
+          localStorage.setItem("pseudo", this.storeProfile.pseudo);
+          console.log(res);
+          // console.log(this.selectedFile);
+          // console.log(res.userObject);
         });
     },
   },

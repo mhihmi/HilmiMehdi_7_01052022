@@ -90,6 +90,7 @@ exports.getAllUsersProfiles = (req, res) => {
         .catch(error => res.status(404).json({ error }));
 };
 exports.updateProfile = (req, res) => {
+    console.log(req.body);
     db.users.findOne({ where: { id: req.params.id } })
         .then(user => {
             if (user.id !== req.token.userId) { // Compare db user id /w token id
@@ -118,10 +119,12 @@ exports.updateProfile = (req, res) => {
 
             if (req.file) {
                 userObject.photo = `${req.file.filename}`
+            } else if (req.body.image) {
+                userObject.photo = `${req.body.image}`
             }
 
             db.users.update({ ...userObject, id: req.params.id }, { where: { id: req.params.id } })
-                .then(user => res.status(200).json({ userObject }))
+                .then(() => res.status(200).json({ userObject }))
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(404).json({ error: console.log(error) }));
