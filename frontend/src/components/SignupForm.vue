@@ -140,7 +140,6 @@ import {
   helpers,
   sameAs,
 } from "@vuelidate/validators";
-import { apiManager } from "@/services/api";
 import { useAuthStore } from "@/store/useAuth";
 
 const LeastOneUppercaseValidator = helpers.regex(/(?:.*?[A-Z])/);
@@ -176,7 +175,7 @@ export default {
           email,
         },
         password: {
-          required: helpers.withMessage("Mot de passe requis", required), // v$.form.password.required
+          required: helpers.withMessage("Mot de passe requis", required),
           minLengthValue: helpers.withMessage(
             "Nombre de caractères insuffisants",
             minLength(5)
@@ -234,8 +233,14 @@ export default {
       if (!this.v$.$invalid) {
         console.log("📝 Form Submitted", this.form);
 
-        apiManager
-          .post("/auth/signup", this.form)
+        fetch(`${process.env.VUE_APP_API_URL}/api/auth/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.form),
+        })
+          .then((res) => res.json())
           .then((data) => {
             console.log(data);
             localStorage.setItem("id", data.profile.userId);
@@ -244,10 +249,10 @@ export default {
             // Update Pinia AuthState;
             this.storeAuth.updateAuth(data);
             // navigate to a protected resource
-            this.$router.push("/feeds");
+            this.$router.push({ name: "feeds" });
           })
           .catch((error) => {
-            console.error(error);
+            console.log(error);
           });
       } else {
         console.log("❌ Invalid form");
