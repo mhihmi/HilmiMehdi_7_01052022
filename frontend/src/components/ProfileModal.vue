@@ -135,7 +135,6 @@
 <script>
 import { ref } from "vue";
 import { useProfileStore } from "@/store/useProfile";
-import { apiManager } from "@/services/api";
 
 export default {
   name: "ProfileModal",
@@ -159,7 +158,6 @@ export default {
   methods: {
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
-      // console.log(event);
     },
     updateProfile() {
       this.storeProfile.photo = this.selectedFile;
@@ -182,15 +180,15 @@ export default {
         formData.append("lastname", body.lastname);
         body = formData;
       }
-      apiManager
-        .put("/auth/profile/" + `${this.storeProfile.userId}`, body, { fd })
-        .then((res) => {
-          this.storeProfile.$patch(res.userObject);
-          localStorage.setItem("pseudo", this.storeProfile.pseudo);
-          console.log(res);
-          // console.log(this.selectedFile);
-          // console.log(res.userObject);
-        });
+      // apiManager
+      //   .put("/auth/profile/" + `${this.storeProfile.userId}`, body, { fd })
+      //   .then((res) => {
+      //     this.storeProfile.$patch(res.userObject);
+      //     localStorage.setItem("pseudo", this.storeProfile.pseudo);
+      //     console.log(res);
+      // console.log(this.selectedFile);
+      // console.log(res.userObject);
+      // });
     },
   },
 };

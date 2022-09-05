@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { useAuthStore } from "@/store/useAuth";
-import { apiManager } from "@/services/api";
 
 export const useProfileStore = defineStore("profile", {
   state: () => ({
@@ -18,8 +17,15 @@ export const useProfileStore = defineStore("profile", {
     getUserProfile() {
       this.userId = useAuthStore().userId;
       if (useAuthStore().token !== null) {
-        try {
-          apiManager.get(`/auth/profile/${this.userId}`).then((data) => {
+        fetch(
+          `${process.env.VUE_APP_API_URL}/api/auth/profile/${this.userId}`,
+          {
+            method: "GET",
+            headers: { Authorization: "Bearer " + useAuthStore().token },
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
             this.$patch(data.profile);
             this.createdAt = new Date(
               data.profile.createdAt
@@ -29,25 +35,11 @@ export const useProfileStore = defineStore("profile", {
             ).toLocaleDateString();
             this.photo =
               `${process.env.VUE_APP_API_URL}/images/` + data.profile.photo;
+          })
+          .catch((error) => {
+            console.log(error);
           });
-        } catch (error) {
-          console.log(error);
-        }
       }
     },
-    // updateUserProfile(data) {
-    //   this.userId = data.profile.userId;
-    //   this.token = data.token;
-    //   // this.userId = useAuthStore().userId;
-    //   // if (useAuthStore().token !== null) {
-    //   //   try {
-    //   //     await apiManager.put(`/auth/profile/${this.userId}`).then((data) => {
-    //   //       this.$patch(data.profile);
-    //   //     });
-    //   //   } catch (error) {
-    //   //     console.log(error);
-    //   //   }
-    //   // }
-    // },
   },
 });

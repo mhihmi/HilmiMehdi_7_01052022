@@ -136,7 +136,6 @@
 
 <script>
 import { useProfileStore } from "@/store/useProfile";
-import { apiManager } from "@/services/api";
 
 export default {
   name: "PostModal",
@@ -180,18 +179,18 @@ export default {
       // fd.append("content", this.form.content);
       // fd.append("title", this.form.title);
       // fd.append("file", this.form.file);
-      let obj = {
-        title: this.form.title,
-        content: this.form.content,
-      };
-      apiManager
-        .post("/auth/post", obj)
-        .then((res) => {
-          res;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      // let obj = {
+      //   title: this.form.title,
+      //   content: this.form.content,
+      // };
+      // apiManager
+      //   .post("/auth/post", obj)
+      //   .then((res) => {
+      //     res;
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     },
   },
 };
