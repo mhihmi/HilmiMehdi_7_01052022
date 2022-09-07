@@ -195,7 +195,12 @@
     }
 
     &__profileCardAvatar {
+        gap: calculateRem(15px);
         @include enableFlex(true);
+
+        @include breakpoint-down(small) {
+            gap: calculateRem(8px);
+        }
     }
 
     &__profileCardBox {
@@ -208,6 +213,9 @@
     }
 
     &__profileCardPhoto {
+        border-radius: 100%;
+        width: 95%;
+
         @include breakpoint-down(medium) {
             width: calculateRem(150px);
         }
@@ -284,6 +292,7 @@
 
         img {
             width: 100%;
+            border-radius: 100%;
         }
     }
 }

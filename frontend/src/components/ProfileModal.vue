@@ -35,6 +35,7 @@
                   @change="onFileSelected"
                   class="modal__profileCardFileInput"
                   ref="fileInput"
+                  aria-label="Modifier votre avatar"
                 />
                 <button
                   @click="$refs.fileInput.click()"
@@ -135,6 +136,7 @@
 <script>
 import { ref } from "vue";
 import { useProfileStore } from "@/store/useProfile";
+import { useAuthStore } from "@/store/useAuth";
 
 export default {
   name: "ProfileModal",
@@ -160,26 +162,33 @@ export default {
       this.selectedFile = event.target.files[0];
     },
     updateProfile() {
-      this.storeProfile.photo = this.selectedFile;
-      let body = this.form;
+      // this.storeProfile.photo = this.selectedFile;
 
-      // const user = JSON.stringify({
-      //   pseudo: body.pseudo,
-      //   lastname: body.lastname,
-      //   firstname: body.firstname,
-      // });
+      const formData = new FormData();
+      formData.append("image", this.selectedFile);
+      formData.append("pseudo", this.form.pseudo);
+      formData.append("firstname", this.form.firstname);
+      formData.append("lastname", this.form.lastname);
 
-      const fd = !!this.selectedFile;
+      fetch(
+        `${process.env.VUE_APP_API_URL}/api/auth/profile/${this.storeProfile.userId}`,
+        {
+          method: "PUT",
+          headers: { Authorization: "Bearer " + useAuthStore().token },
+          body: formData,
+        }
+      )
+        .then((res) => res.json())
+        .then((formData) => {
+          console.log(formData);
+          this.storeProfile.$patch(formData.userObject);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-      if (fd) {
-        const formData = new FormData();
-        formData.append("image", this.selectedFile);
-        formData.append("pseudo", this.form.pseudo);
-        formData.append("firstname", this.form.firstname);
-        formData.append("lastname", this.form.lastname);
-      }
       // apiManager
-      //   .put("/auth/profile/" + `${this.storeProfile.userId}`, body, { fd })
+      //   .put("api/auth/profile/" + `${this.storeProfile.userId}`, body, { fd })
       //   .then((res) => {
       //     this.storeProfile.$patch(res.userObject);
       //     localStorage.setItem("pseudo", this.storeProfile.pseudo);
