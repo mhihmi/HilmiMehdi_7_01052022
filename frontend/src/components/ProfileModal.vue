@@ -172,13 +172,11 @@ export default {
       const fd = !!this.selectedFile;
 
       if (fd) {
-        const image = this.selectedFile;
         const formData = new FormData();
-        formData.append("image", image);
-        formData.append("pseudo", body.pseudo);
-        formData.append("firstname", body.firstname);
-        formData.append("lastname", body.lastname);
-        body = formData;
+        formData.append("image", this.selectedFile);
+        formData.append("pseudo", this.form.pseudo);
+        formData.append("firstname", this.form.firstname);
+        formData.append("lastname", this.form.lastname);
       }
       // apiManager
       //   .put("/auth/profile/" + `${this.storeProfile.userId}`, body, { fd })

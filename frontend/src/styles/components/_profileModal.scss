@@ -1,6 +1,6 @@
 .modal {
     position: fixed;
-    top: 28%;
+    top: 20%;
     background: var(--color-post);
     padding: calculateRem(55px) calculateRem(65px);
     border-radius: calculateRem(25px);
@@ -12,12 +12,15 @@
         padding: calculateRem(25px) calculateRem(35px);
         flex-direction: column;
         gap: unset;
-        top: 22%;
+        top: 15%;
+        overflow-y: auto;
+        max-height: calc(100vh - 30px);
     }
 
     @include breakpoint-down(small) {
         padding: calculateRem(10px) calculateRem(10px);
-        top: 15%;
+        top: 10%;
+        max-height: calc(100vh - 20px);
     }
 
     &-bg {

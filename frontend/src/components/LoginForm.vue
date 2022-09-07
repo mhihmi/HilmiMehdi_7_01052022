@@ -130,7 +130,7 @@ export default {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             localStorage.setItem("userId", data.profile.userId);
             localStorage.setItem("pseudo", data.profile.pseudo);
             localStorage.setItem("token", data.token);
