@@ -2,4 +2,18 @@
     @extend %flex-ai-c;
     flex-direction: column;
     gap: calculateRem(40px);
+
+    &__filterMenu {
+        @extend %flex-jc-sb;
+        width: 60vw;
+        height: 70px;
+
+        @include breakpoint-down(medium) {
+            width: 70vw;
+        }
+
+        @include breakpoint-down(small) {
+            width: 90vw;
+        }
+    }
 }

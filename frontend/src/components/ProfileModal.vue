@@ -181,21 +181,15 @@ export default {
         .then((res) => res.json())
         .then((formData) => {
           console.log(formData);
+          formData.userObject.photo =
+            `${process.env.VUE_APP_API_URL}/images/` +
+            formData.userObject.photo;
+          console.log(formData.userObject);
           this.storeProfile.$patch(formData.userObject);
         })
         .catch((error) => {
           console.log(error);
         });
-
-      // apiManager
-      //   .put("api/auth/profile/" + `${this.storeProfile.userId}`, body, { fd })
-      //   .then((res) => {
-      //     this.storeProfile.$patch(res.userObject);
-      //     localStorage.setItem("pseudo", this.storeProfile.pseudo);
-      //     console.log(res);
-      // console.log(this.selectedFile);
-      // console.log(res.userObject);
-      // });
     },
   },
 };
