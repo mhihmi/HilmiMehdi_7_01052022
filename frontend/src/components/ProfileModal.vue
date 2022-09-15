@@ -19,7 +19,9 @@
           class="modal"
           ref="modal"
         >
-          <button class="close-btn" @click="isModalOpen = false">X</button>
+          <button class="close-btn" @click.prevent="isModalOpen = false">
+            X
+          </button>
           <div class="modal__profileCard">
             <h2 class="modal__profileCardTitle">Modifier votre Profil</h2>
             <div class="modal__profileCardBox">

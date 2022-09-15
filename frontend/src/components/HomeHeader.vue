@@ -75,13 +75,6 @@ export default {
     let storeAuth = useAuthStore();
     let storeProfile = useProfileStore();
     storeProfile.getUserProfile();
-    // const logOut = () => {
-    //   localStorage.clear();
-    //   this.storeAuth.clearAuth();
-    //   this.$router.push("/login");
-    //   // console.log(this.storeAuth.$state);
-    //   // console.log(this.storeAuth.loggedIn);
-    // };
 
     return {
       storeAuth,

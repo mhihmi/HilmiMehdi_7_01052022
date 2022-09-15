@@ -215,6 +215,7 @@
     &__profileCardPhoto {
         border-radius: 100%;
         width: 95%;
+        max-width: calculateRem(225px);
 
         @include breakpoint-down(medium) {
             width: calculateRem(150px);
