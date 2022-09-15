@@ -10,6 +10,7 @@
     width: 18vw;
     min-width: calculateRem(170px);
     background-color: $color-light;
+    text-indent: calculateRem(10px);
 
     &:focus-visible {
         outline-color: var(--color-post);

@@ -90,7 +90,7 @@
                 v-model="form.firstname"
               />
               <div class="modal__profileFormBtnContainer">
-                <button class="btn danger">
+                <button class="btn danger" @click.prevent="deleteProfile">
                   Supprimer mon compte
                   <span
                     ><svg
@@ -144,11 +144,13 @@ export default {
   setup() {
     let storeProfile = useProfileStore();
     storeProfile.getUserProfile();
+    let storeAuth = useAuthStore();
 
     return {
       isModalOpen: ref(false),
       modal: ref(null),
       storeProfile,
+      storeAuth,
       selectedFile: "",
       form: {
         pseudo: storeProfile.pseudo,
@@ -162,8 +164,6 @@ export default {
       this.selectedFile = event.target.files[0];
     },
     updateProfile() {
-      // this.storeProfile.photo = this.selectedFile;
-
       const formData = new FormData();
       formData.append("image", this.selectedFile);
       formData.append("pseudo", this.form.pseudo);
@@ -187,6 +187,24 @@ export default {
           console.log(formData.userObject);
           this.storeProfile.$patch(formData.userObject);
         })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deleteProfile() {
+      fetch(
+        `${process.env.VUE_APP_API_URL}/api/auth/profile/${this.storeProfile.userId}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: "Bearer " + useAuthStore().token },
+        }
+      )
+        .then(() => {
+          localStorage.clear();
+          this.storeProfile.clearProfile();
+          this.storeAuth.clearAuth();
+        })
+        .then(this.$router.push({ name: "login" }))
         .catch((error) => {
           console.log(error);
         });

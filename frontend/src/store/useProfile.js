@@ -43,5 +43,8 @@ export const useProfileStore = defineStore("profile", {
         this.loaded = true;
       }
     },
+    clearProfile() {
+      this.$reset();
+    },
   },
 });
