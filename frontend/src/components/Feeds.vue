@@ -1,14 +1,9 @@
 <template>
   <main class="feeds">
     <post-modal />
-    <!-- Filter Dropdown TODO -->
     <div class="feeds__filterMenu">
       <Dropdown />
-      <input
-        type="search"
-        placeholder="Rechercher un post..."
-        v-model="search"
-      />
+      <SearchPost />
     </div>
     <!-- <posts-template /> -->
   </main>
@@ -18,6 +13,7 @@
 import { useProfileStore } from "@/store/useProfile";
 import PostModal from "@/components/PostModal";
 import Dropdown from "@/components/Dropdown";
+import SearchPost from "@/components/SearchPost";
 // import PostsTemplate from "@/components/PostsTemplate";
 
 export default {
@@ -25,11 +21,11 @@ export default {
   components: {
     PostModal,
     Dropdown,
+    SearchPost,
   },
   data() {
     return {
       storeProfile: useProfileStore(),
-      search: "",
       // PostsTemplate: [],
     };
   },

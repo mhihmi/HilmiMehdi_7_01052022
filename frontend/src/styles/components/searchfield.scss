@@ -1,0 +1,35 @@
+.searchField {
+    @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+    border: 1px solid rgba($color-light-placeholder, .3);
+    color: $color-dark;
+    cursor: pointer;
+    position: relative;
+    font-weight: normal;
+    border-radius: calculateRem(50px);
+    padding: calculateEm(5px);
+    width: 18vw;
+    min-width: calculateRem(170px);
+    background-color: $color-light;
+
+    &:focus-visible {
+        outline-color: var(--color-post);
+    }
+
+    &:disabled {
+        background-color: $color-light;
+    }
+
+    &::placeholder {
+        color: $color-dark-input;
+        text-align: center;
+    }
+
+    @include breakpoint-down(medium) {
+        width: 18vw;
+    }
+
+    @include breakpoint-down(small) {
+        padding: calculateEm(4px);
+        min-width: calculateRem(230px);
+    }
+}

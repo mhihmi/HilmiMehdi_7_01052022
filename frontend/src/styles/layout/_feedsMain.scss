@@ -17,11 +17,12 @@
         height: 70px;
 
         @include breakpoint-down(medium) {
-            width: 70vw;
+            width: 90vw;
         }
 
         @include breakpoint-down(small) {
             width: 90vw;
+            flex-direction: column-reverse;
         }
     }
 }

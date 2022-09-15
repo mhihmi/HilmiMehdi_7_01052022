@@ -161,9 +161,6 @@ export default {
       this.selectedFile = event.target.files[0];
       // console.log(event);
     },
-    // updateProfile() {
-    //   this.storeProfile.updateUserProfile();
-    // },
 
     createPost() {
       console.log("checkIfItWork");
