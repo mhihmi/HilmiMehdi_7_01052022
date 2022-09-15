@@ -1,11 +1,15 @@
 <template>
-  <select v-model="selected">
-    <option disabled value="">Please select one</option>
-    <option>A</option>
-    <option>B</option>
-    <option>C</option>
-  </select>
-  <span>Selected: {{ selected }}</span>
+  <div class="customSelect">
+    <select v-model="selected">
+      <option value="Publications récentes" selected>
+        Publications récentes
+      </option>
+      <option value="+ ancienne à la + récente">
+        + ancienne à la + récente
+      </option>
+    </select>
+    <span class="customSelect__focus"></span>
+  </div>
 </template>
 
 <script>
@@ -14,7 +18,7 @@ export default {
 
   data() {
     return {
-      selected: "",
+      selected: "Publications récentes",
       select: "A",
     };
   },
@@ -22,4 +26,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/styles/components/dropdown";
+</style>

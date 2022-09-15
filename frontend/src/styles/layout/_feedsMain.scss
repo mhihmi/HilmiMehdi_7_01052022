@@ -3,6 +3,14 @@
     flex-direction: column;
     gap: calculateRem(40px);
 
+    @include breakpoint-down(medium) {
+        gap: calculateRem(35px);
+    }
+
+    @include breakpoint-down(small) {
+        gap: calculateRem(25px);
+    }
+
     &__filterMenu {
         @extend %flex-jc-sb;
         width: 60vw;
