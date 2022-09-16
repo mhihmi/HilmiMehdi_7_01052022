@@ -33,7 +33,11 @@
       </div>
       <nav class="feeds-header__nav">
         <profile-modal />
-        <router-link to="/" @click="logOut()" class="feeds-header__navLogout">
+        <router-link
+          to="/"
+          @click.prevent="logOut()"
+          class="feeds-header__navLogout"
+        >
           <svg
             width="24"
             height="22"
@@ -87,6 +91,7 @@ export default {
     logOut() {
       localStorage.clear();
       this.storeAuth.clearAuth();
+      this.storeProfile.clearProfile();
       this.$router.push("/login");
       // console.log(this.storeAuth.$state);
       // console.log(this.storeAuth.loggedIn);

@@ -3,7 +3,7 @@ import { useAuthStore } from "@/store/useAuth";
 
 export const useProfileStore = defineStore("profile", {
   state: () => ({
-    loaded: false,
+    // loaded: false,
     userId: null,
     pseudo: null,
     firstname: null,
@@ -17,7 +17,8 @@ export const useProfileStore = defineStore("profile", {
   actions: {
     getUserProfile() {
       this.userId = useAuthStore().userId;
-      if (useAuthStore().token !== null && !this.loaded) {
+      if (useAuthStore().token !== null) {
+        //&& this.loaded
         fetch(
           `${process.env.VUE_APP_API_URL}/api/auth/profile/${this.userId}`,
           {
@@ -40,7 +41,7 @@ export const useProfileStore = defineStore("profile", {
           .catch((error) => {
             console.log(error);
           });
-        this.loaded = true;
+        // this.loaded = true;
       }
     },
     clearProfile() {

@@ -51,6 +51,7 @@
                   {{ storeProfile.firstname }}
                   {{ storeProfile.lastname }}
                 </h3>
+                <p v-if="storeProfile.isAdmin">Vous êtes modérateur !</p>
                 <p class="modal__profileCardMemberSince">
                   <span>Membre depuis le :</span> <br />
                   {{ storeProfile.createdAt }}
