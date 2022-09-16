@@ -78,7 +78,9 @@ export default {
   setup() {
     let storeAuth = useAuthStore();
     let storeProfile = useProfileStore();
-    storeProfile.getUserProfile();
+    if (storeAuth.loggedIn) {
+      storeProfile.getUserProfile();
+    }
 
     return {
       storeAuth,

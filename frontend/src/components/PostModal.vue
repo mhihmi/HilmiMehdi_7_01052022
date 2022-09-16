@@ -49,7 +49,9 @@
           class="modal"
           ref="modal"
         >
-          <button class="close-btn" @click="isModalOpen = false">X</button>
+          <button class="close-btn" @click.prevent="isModalOpen = false">
+            X
+          </button>
           <h2 class="modal__title">Créer une publication</h2>
           <div class="modal_user">
             <img

@@ -40,7 +40,7 @@
                   aria-label="Modifier votre avatar"
                 />
                 <button
-                  @click="$refs.fileInput.click()"
+                  @click.prevent="$refs.fileInput.click()"
                   class="modal__profileCardFileButton"
                 >
                   Choisir un fichier
