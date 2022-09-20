@@ -22,12 +22,15 @@
 
     &__Profile {
         height: calculateRem(50px);
+        width: calculateRem(50px);
         margin-right: calculateRem(15px);
         border: 1px solid var(--color-border);
         border-radius: 100%;
+        object-fit: cover;
 
         @include breakpoint-down(small) {
             height: calculateRem(30px);
+            width: calculateRem(30px);
             margin-right: calculateRem(10px);
         }
     }

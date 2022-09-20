@@ -26,3 +26,89 @@
         }
     }
 }
+
+// .postsList {
+//     @extend %flex-ai-c;
+// }
+
+.postCard {
+    position: relative;
+    background: var(--color-post);
+    padding: $layout-padding;
+    border-radius: calculateRem(25px);
+    width: 65vw;
+    @include box_shadow(2);
+
+    @include breakpoint-down(medium) {
+        width: 85vw;
+    }
+
+    @include breakpoint-down(small) {
+        width: 90vw;
+    }
+
+    &__header {
+        display: flex;
+    }
+
+    &__profileAvatar {
+        height: calculateRem(60px);
+        width: calculateRem(60px);
+        margin-right: calculateRem(14px);
+        border: 1px solid var(--color-border);
+        border-radius: 100%;
+        object-fit: cover;
+    }
+
+    &__profilePseudo {
+        @include fluid-type(calculateRem(320px), calculateRem(1024px), calculateRem(16px), calculateRem(18px));
+        font-weight: 600; //semibold
+    }
+
+    &__postCreated {
+        @include fluid-type(calculateRem(320px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
+        font-weight: 200; //lightItalic
+        margin-top: calculateEm(3px);
+    }
+
+    &__editBtn {
+        position: absolute;
+        top: calculateRem(17px);
+        right: calculateRem(26px);
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.3);
+            transition: transform .3s ease-in;
+        }
+
+        &:hover path {
+            fill: var(--color-text-hover);
+        }
+
+        @include breakpoint-down(medium) {
+            top: calculateRem(15px);
+            right: calculateRem(24px);
+        }
+
+        @include breakpoint-down(small) {
+            width: 16px;
+            height: 16px;
+            top: calculateRem(13px);
+            right: calculateRem(18px);
+
+            &:hover {
+                transform: scale(1.2);
+                transition: transform .3s ease-in;
+            }
+        }
+    }
+
+    &__body {
+        @include enableFlex(true);
+    }
+
+    &__bodyContent {
+        align-self: flex-start;
+    }
+}
