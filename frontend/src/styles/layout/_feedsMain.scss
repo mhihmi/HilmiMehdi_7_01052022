@@ -221,7 +221,74 @@
         }
 
         @include breakpoint-down(small) {
-            left: -40px;
+            left: -35px;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        margin-top: calculateRem(10px);
+        padding-top: calculateRem(10px);
+        position: relative;
+        align-items: center;
+
+        &Avatar {
+            height: calculateRem(50px);
+            width: calculateRem(50px);
+            margin: 0 $layout-padding*.5;
+            border: 1px solid var(--color-border);
+            border-radius: 100%;
+            object-fit: cover;
+
+            @include breakpoint-down(small) {
+                height: calculateRem(35px);
+                width: calculateRem(35px);
+            }
+        }
+
+        &Field {
+            @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+            border: 1px solid rgba($color-light-placeholder, .3);
+            background: $color-light;
+            cursor: pointer;
+            font-weight: normal;
+            font-family: 'Montserrat',
+                sans-serif;
+            border-radius: calculateRem(50px);
+            padding: calculateEm(10px) calculateEm(43px) calculateEm(10px) calculateEm(25px);
+            margin-left: calculateRem(10px);
+            width: 100%;
+            height: calculateRem(40px);
+            overflow: hidden;
+            // min-height: calculateRem(60px);
+            box-sizing: border-box;
+            resize: none;
+
+            &:focus-visible {
+                outline-color: var(--color-post);
+            }
+
+            &:disabled {
+                background-color: $color-light;
+            }
+
+            &::placeholder {
+                color: $color-dark-input;
+            }
+
+            // @include breakpoint-down(small) {
+            //     padding: calculateEm(8px) calculateEm(43px) calculateEm(8px) calculateEm(25px);
+            // }
+        }
+
+        &Icon {
+            position: absolute;
+            right: calculateRem(10px);
+            top: 45%;
+
+            @include breakpoint-down(small) {
+                width: calculateRem(14px);
+            }
         }
     }
 }

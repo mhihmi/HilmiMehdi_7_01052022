@@ -53,8 +53,8 @@
                 </h3>
                 <p v-if="storeProfile.isAdmin">Vous êtes modérateur !</p>
                 <p class="modal__profileCardMemberSince">
-                  <span>Membre depuis le :</span> <br />
-                  {{ storeProfile.createdAt }}
+                  <span>Membre depuis le :</span>
+                  <span>{{ formatDate(storeProfile.createdAt) }}</span>
                 </p>
               </div>
             </div>
@@ -140,6 +140,7 @@
 import { ref } from "vue";
 import { useProfileStore } from "@/store/useProfile";
 import { useAuthStore } from "@/store/useAuth";
+import formatDateMixin from "@/mixins/formatDateMixin.js";
 
 export default {
   name: "ProfileModal",
@@ -162,6 +163,7 @@ export default {
       },
     };
   },
+  mixins: [formatDateMixin],
   methods: {
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];

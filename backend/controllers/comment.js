@@ -1,6 +1,7 @@
 const db = require('../models');
 
 exports.createComment = (req, res) => {
+    console.log(req.body)
     if (!req.body.content) {
         res.status(400).json({ error: 'Content can not be empty !' });
         return;

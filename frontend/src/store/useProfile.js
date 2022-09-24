@@ -29,12 +29,12 @@ export const useProfileStore = defineStore("profile", {
           .then((res) => res.json())
           .then((data) => {
             this.$patch(data.profile);
-            this.createdAt = new Date(
-              data.profile.createdAt
-            ).toLocaleDateString();
-            this.updatedAt = new Date(
-              data.profile.updatedAt
-            ).toLocaleDateString();
+            // this.createdAt = new Date(
+            //   data.profile.createdAt
+            // ).toLocaleDateString();
+            // this.updatedAt = new Date(
+            //   data.profile.updatedAt
+            // ).toLocaleDateString();
             this.photo =
               `${process.env.VUE_APP_API_URL}/images/` + data.profile.photo;
           })

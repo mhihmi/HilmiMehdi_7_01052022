@@ -6,22 +6,21 @@
       <SearchPost />
     </div>
     <div class="postsList">
-      <div class="postCard" v-for="post in posts" :key="post.id">
-        <div class="postCard__header">
+      <article class="postCard" v-for="post in posts" :key="post.id">
+        <header class="postCard__header">
           <img
-            :src="post.User.photo"
+            :src="baseUrl + '/images/' + post.User.photo"
             :alt="post.User.pseudo"
             class="postCard__profileAvatar"
           />
           <div class="postCard__profile">
             <span class="postCard__profilePseudo">{{ post.User.pseudo }}</span>
-            <p class="postCard__postCreated">Posté le {{ post.createdAt }}</p>
+            <p class="postCard__postCreated">
+              Posté le {{ formatDate(post.createdAt) }}
+            </p>
           </div>
           <svg
-            v-if="
-              post.userId === storeProfile.userId ||
-              storeProfile.isAdmin == true
-            "
+            v-if="post.userId === storeProfile.userId || storeProfile.isAdmin"
             class="postCard__editBtn"
             width="19"
             height="19"
@@ -34,12 +33,12 @@
               fill="var(--color-text)"
             />
           </svg>
-        </div>
+        </header>
         <div class="postCard__body">
           <h2 class="postCard__bodyTitle">{{ post.title }}</h2>
           <img
             v-if="post.media != null"
-            :src="post.media"
+            :src="baseUrl + '/images/' + post.media"
             :alt="`photo de la publication ` + post.title"
             class="postCard__bodyMedia"
           />
@@ -51,7 +50,7 @@
           :key="comment.id"
         >
           <img
-            :src="comment.User.photo"
+            :src="baseUrl + '/images/' + comment.User.photo"
             :alt="comment.User.pseudo"
             class="postCard__commentAvatar"
           />
@@ -60,14 +59,13 @@
               comment.User.pseudo
             }}</span>
             <p class="postCard__postCreated">
-              Posté le {{ comment.createdAt }}
+              Posté le {{ formatDate(comment.createdAt) }}
             </p>
             <p class="postCard__commentContent">
               {{ comment.content }}
               <svg
                 v-if="
-                  post.Comments.userId === storeProfile.userId ||
-                  storeProfile.isAdmin == true
+                  comment.userId === storeProfile.userId || storeProfile.isAdmin
                 "
                 class="postCard__commentEdit"
                 width="16"
@@ -84,7 +82,34 @@
             </p>
           </div>
         </div>
-      </div>
+        <footer class="postCard__footer">
+          <img
+            :src="baseUrl + '/images/' + post.User.photo"
+            :alt="post.User.pseudo"
+            class="postCard__footerAvatar"
+          />
+          <textarea
+            class="postCard__footerField"
+            placeholder="Écrivez un commentaire..."
+            @keydown.enter.exact.prevent="
+              createComment($event.target.value, post.id)
+            "
+            @input="resize($event)"
+          ></textarea>
+          <svg
+            width="21"
+            height="18"
+            viewBox="0 0 21 18"
+            xmlns="http://www.w3.org/2000/svg"
+            class="postCard__footerIcon"
+          >
+            <path
+              d="M2.00976 3.03L9.51976 6.25L1.99976 5.25L2.00976 3.03ZM9.50976 11.75L1.99976 14.97V12.75L9.50976 11.75ZM0.00975585 0L-0.000244141 7L14.9998 9L-0.000244141 11L0.00975585 18L20.9998 9L0.00975585 0Z"
+              fill="#091F43"
+            />
+          </svg>
+        </footer>
+      </article>
     </div>
   </main>
 </template>
@@ -95,6 +120,7 @@ import { useAuthStore } from "@/store/useAuth";
 import PostModal from "@/components/PostModal";
 import Dropdown from "@/components/Dropdown";
 import SearchPost from "@/components/SearchPost";
+import formatDateMixin from "@/mixins/formatDateMixin.js";
 
 export default {
   name: "FeedsMain",
@@ -107,8 +133,10 @@ export default {
     return {
       storeProfile: useProfileStore(),
       posts: [],
+      baseUrl: process.env.VUE_APP_API_URL,
     };
   },
+  mixins: [formatDateMixin],
   created() {
     fetch(`${process.env.VUE_APP_API_URL}/api/post`, {
       method: "GET",
@@ -118,41 +146,40 @@ export default {
       .then((data) => {
         // console.log(data.post);
         this.posts = data.post;
-        // ajout de l'url aux Avatars + Format Date
-        for (let i = 0; i < this.posts.length; i++) {
-          this.posts[i].User.photo =
-            `${process.env.VUE_APP_API_URL}/images/` + this.posts[i].User.photo;
-          this.posts[i].createdAt = new Date(
-            this.posts[i].createdAt
-          ).toLocaleDateString();
-          this.posts[i].updatedAt = new Date(
-            this.posts[i].updatedAt
-          ).toLocaleDateString();
-          // Si un media défini dans le post, ajout de l'url
-          if (this.posts[i].media != null) {
-            this.posts[i].media =
-              `${process.env.VUE_APP_API_URL}/images/` + this.posts[i].media;
-          }
-          // ajout de l'url aux Avatars des commentaires + Format Date
-          for (let y = 0; y < this.posts[i].Comments.length; y++) {
-            this.posts[i].Comments[y].User.photo =
-              `${process.env.VUE_APP_API_URL}/images/` +
-              this.posts[i].Comments[y].User.photo;
-            this.posts[i].Comments[y].createdAt = new Date(
-              this.posts[i].Comments[y].createdAt
-            ).toLocaleDateString();
-            this.posts[i].Comments[y].updatedAt = new Date(
-              this.posts[i].Comments[y].updatedAt
-            ).toLocaleDateString();
-          }
-        }
         console.log(this.posts);
       })
       .catch((error) => {
         console.log(error);
       });
   },
-  methods: {},
+  methods: {
+    resize(e) {
+      e.target.style.height = "auto";
+      e.target.style.height = `${e.target.scrollHeight}px`;
+    },
+    createComment(comment, postId) {
+      const data = {
+        content: comment,
+        postId: postId,
+      };
+      console.log(data);
+
+      if (comment !== null) {
+        fetch(`${process.env.VUE_APP_API_URL}/api/comment/create`, {
+          method: "POST",
+          headers: { Authorization: "Bearer " + useAuthStore().token },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+  },
 };
 </script>
 

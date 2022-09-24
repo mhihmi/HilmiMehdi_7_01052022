@@ -53,7 +53,7 @@
             X
           </button>
           <h2 class="modal__title">Créer une publication</h2>
-          <div class="modal_user">
+          <div class="modal__user">
             <img
               :src="storeProfile.photo"
               :alt="storeProfile.pseudo"
@@ -67,35 +67,32 @@
               <p class="modal__userPseudo">alias {{ storeProfile.pseudo }}</p>
             </div>
           </div>
-          <div class="modal_form">
-            <div class="modal__form">
+          <form class="modal__form">
+            <div class="modal__formLeft">
               <label for="title" class="modal__formTitle">Titre</label>
               <input
                 type="text"
-                placeholder="Indiquez un titre (facultatif)"
+                placeholder="Indiquez un titre (requis)"
                 name="title"
                 class="modal__formTitleInput"
                 v-model="form.title"
               />
-              <label for="content">Contenu</label>
+              <label for="content" class="modal__formTitle">Contenu</label>
               <textarea
                 v-model="form.content"
                 id="content"
                 name="content"
-                rows="5"
-                cols="50"
-                minlength="20"
-                maxlength="400"
-                placeholder="Laissez libre cours à votre imagination ici..."
+                class="modal__formField"
+                placeholder="Descriptif du post... (requis)"
               ></textarea>
               <p>{{ form.errorContent }}</p>
             </div>
-            <div class="modal__dropzone">
+            <div class="modal__formRight">
               <input type="file" @change="onFileSelected" />
             </div>
-          </div>
+          </form>
           <div class="modal__btnContainer">
-            <!-- <button class="btn danger">
+            <button class="btn danger" @click.prevent="isModalOpen = false">
               Annuler
               <span
                 ><svg
@@ -111,7 +108,7 @@
                   />
                 </svg>
               </span>
-            </button> -->
+            </button>
             <button class="btn success" type="submit">
               Publier
               <span

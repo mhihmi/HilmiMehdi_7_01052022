@@ -254,8 +254,10 @@
     }
 
     &__profileCardMemberSince {
+        display: flex;
+        flex-direction: column;
+        gap: calculateRem(3px);
         text-align: center;
-        line-height: -15px;
         @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
     }
 

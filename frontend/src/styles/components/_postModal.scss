@@ -2,12 +2,13 @@
     position: fixed;
     top: 20%;
     background: var(--color-post);
-    padding: calculateRem(55px) calculateRem(65px);
+    padding: $layout-padding $layout-padding*2;
     border-radius: calculateRem(25px);
     box-shadow: 0px 10px 5px 2px var(--color-shadow2);
     display: flex;
     flex-direction: column;
     gap: calculateRem(25px);
+    width: 80vw;
 
     @include breakpoint-down(medium) {
         padding: calculateRem(25px) calculateRem(35px);
@@ -28,6 +29,21 @@
         height: 100vh;
         background-color: rgba($color: #000000, $alpha: 0.6);
         @include enableFlex();
+    }
+
+    &__title {
+        padding: $layout-padding 0;
+        @include enableFlex(true);
+        position: relative;
+
+        &:before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            height: 1px;
+            width: 100%;
+            border-bottom: 1px solid var(--color-border-thin);
+        }
     }
 
     .close-btn {
@@ -56,6 +72,110 @@
         }
     }
 
+    &__user {
+        display: flex;
+        align-items: center;
+        gap: calculateRem(28px);
+    }
+
+    &__userAvatar {
+        border-radius: 100%;
+        width: calculateRem(100px);
+
+        // @include breakpoint-down(medium) {
+        //     width: calculateRem(150px);
+        // }
+
+        // @include breakpoint-down(small) {
+        //     width: calculateRem(100px);
+        // }
+    }
+
+    &__form {
+        display: flex;
+        gap: calculateRem(10px);
+    }
+
+    &__formLeft {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 69%;
+    }
+
+    &__formRight {
+        display: flex;
+        flex: 1;
+    }
+
+    &__formTitle {
+        padding: calculateRem(10px) 0;
+    }
+
+    &__formTitleInput {
+        font-weight: normal; // 400
+        width: 100%;
+        min-width: calculateRem(220px);
+        // min-width: calculateRem(350px);
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+        color: $color-dark;
+        background-color: $color-light;
+        transition: background-color 0.4s ease;
+        transition: border .1s ease;
+        border: 1px solid rgba($color-light-placeholder, .3);
+        border-radius: 12.5px;
+        padding: calculateEm(12px);
+        margin-top: calculateRem(8px);
+
+        &:focus-visible {
+            outline: none;
+        }
+
+        &::placeholder {
+            color: $color-dark-input;
+        }
+
+        @include breakpoint-down(medium) {
+            margin-top: calculateRem(10px);
+            padding: calculateEm(10px);
+        }
+
+        @include breakpoint-down(small) {
+            margin-top: calculateRem(6px);
+            padding: calculateEm(8px);
+        }
+    }
+
+    &__formField {
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
+        border: 1px solid rgba($color-light-placeholder, .3);
+        background: $color-light;
+        cursor: pointer;
+        font-weight: normal;
+        font-family: 'Montserrat',
+            sans-serif;
+        border-radius: 12.5px;
+        padding: calculateEm(10px) calculateEm(10px);
+        width: 100%;
+        height: calculateRem(300px);
+        overflow: hidden;
+        // min-height: calculateRem(60px);
+        box-sizing: border-box;
+        resize: none;
+
+        &:focus-visible {
+            outline-color: var(--color-post);
+        }
+
+        &:disabled {
+            background-color: $color-light;
+        }
+
+        &::placeholder {
+            color: $color-dark-input;
+        }
+    }
+
     &-enter-active,
     &-leave-active {
         transition: all 0.3s ease;
@@ -65,6 +185,10 @@
     &-leave-to {
         opacity: 0;
         transform: scale(1.1);
+    }
+
+    &__btnContainer {
+        @extend %flex-jc-se;
     }
 
     &__btn {
