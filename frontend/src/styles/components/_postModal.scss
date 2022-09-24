@@ -7,18 +7,22 @@
     box-shadow: 0px 10px 5px 2px var(--color-shadow2);
     display: flex;
     flex-direction: column;
-    gap: calculateRem(25px);
+    gap: calculateRem(5px);
     width: 80vw;
 
     @include breakpoint-down(medium) {
         padding: calculateRem(25px) calculateRem(35px);
         gap: unset;
-        top: 22%;
+        top: 18%;
+        overflow-y: auto;
+        max-height: calc(100vh - 150px);
     }
 
     @include breakpoint-down(small) {
         padding: calculateRem(10px) calculateRem(10px);
-        top: 15%;
+        top: 12%;
+        overflow-y: auto;
+        max-height: calc(100vh - 150px);
     }
 
     &-bg {
@@ -76,6 +80,7 @@
         display: flex;
         align-items: center;
         gap: calculateRem(28px);
+        margin-top: calculateRem(15px);
     }
 
     &__userAvatar {
@@ -93,7 +98,12 @@
 
     &__form {
         display: flex;
-        gap: calculateRem(10px);
+        gap: $layout-padding*.7;
+        padding: $layout-padding*.5 0;
+
+        @include breakpoint-down(medium) {
+            flex-direction: column;
+        }
     }
 
     &__formLeft {
@@ -101,11 +111,26 @@
         flex-direction: column;
         align-items: flex-start;
         width: 69%;
+
+        @include breakpoint-down(medium) {
+            width: 100%;
+        }
     }
 
     &__formRight {
-        display: flex;
-        flex: 1;
+        @extend %flex-jc-se;
+        flex-direction: column;
+        flex-grow: 1;
+        border: 3px dashed var(--color-border-thin);
+        border-radius: calculateRem(12.5px);
+        padding: $layout-padding*.5 $layout-padding;
+        margin-top: calculateRem(50px);
+
+        @include breakpoint-down(medium) {
+            margin-top: 0;
+            flex-direction: row;
+            gap: calculateRem(20px);
+        }
     }
 
     &__formTitle {
@@ -118,17 +143,16 @@
         min-width: calculateRem(220px);
         // min-width: calculateRem(350px);
         @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(14px), calculateRem(16px));
-        color: $color-dark;
         background-color: $color-light;
-        transition: background-color 0.4s ease;
-        transition: border .1s ease;
+        font-family: 'Montserrat',
+            sans-serif;
         border: 1px solid rgba($color-light-placeholder, .3);
         border-radius: 12.5px;
         padding: calculateEm(12px);
         margin-top: calculateRem(8px);
 
         &:focus-visible {
-            outline: none;
+            outline-color: var(--color-post);
         }
 
         &::placeholder {
@@ -151,7 +175,6 @@
         border: 1px solid rgba($color-light-placeholder, .3);
         background: $color-light;
         cursor: pointer;
-        font-weight: normal;
         font-family: 'Montserrat',
             sans-serif;
         border-radius: 12.5px;
@@ -159,7 +182,6 @@
         width: 100%;
         height: calculateRem(300px);
         overflow: hidden;
-        // min-height: calculateRem(60px);
         box-sizing: border-box;
         resize: none;
 
@@ -187,37 +209,45 @@
         transform: scale(1.1);
     }
 
-    &__btnContainer {
-        @extend %flex-jc-se;
-    }
-
-    &__btn {
-        background-color: transparent;
-        border-radius: 100%;
-        border: 1px solid var(--color-border);
-        width: calculateRem(70px);
-        height: calculateRem(70px);
-
-        &:hover {
-            border: 2px dashed var(--color-border);
-            transition: border .4s ease-in-out;
-            cursor: pointer;
-        }
-
-
-        @include breakpoint-down(medium) {
-            width: calculateRem(60px);
-            height: calculateRem(60px);
-        }
+    &__uploadIcon {
+        @include enableFlex(true);
+        text-align: center;
 
         @include breakpoint-down(small) {
-            width: calculateRem(45px);
-            height: calculateRem(45px);
+            display: none;
         }
 
-        img {
-            width: 100%;
+        &+span {
+            @include breakpoint-down(small) {
+                display: none;
+            }
         }
+    }
+
+    &__uploadFileInput {
+        display: none;
+    }
+
+    &__uploadButton {
+        padding: calculateRem(3px) calculateRem(8px);
+        border-radius: calculateRem(20px);
+        border: 1px solid var(--color-border);
+        background-color: transparent;
+        transition: background-color 0.4s;
+        color: var(--color-text);
+        @include fluid-type(calculateRem(360px), calculateRem(1024px), calculateRem(12px), calculateRem(14px));
+        cursor: pointer;
+
+        &:hover {
+            cursor: pointer;
+            color: var(--color-page-bg);
+            background-color: var(--color-text);
+        }
+    }
+
+    &__btnContainer {
+        @extend %flex-jc-se;
+        margin: $layout-padding*.5 0;
     }
 }
 
