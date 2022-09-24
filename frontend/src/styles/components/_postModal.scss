@@ -181,6 +181,7 @@
         padding: calculateEm(10px) calculateEm(10px);
         width: 100%;
         height: calculateRem(300px);
+        min-height: calculateRem(300px);
         overflow: hidden;
         box-sizing: border-box;
         resize: none;
@@ -195,6 +196,11 @@
 
         &::placeholder {
             color: $color-dark-input;
+        }
+
+        @include breakpoint-down(medium) {
+            height: calculateRem(200px);
+            min-height: calculateRem(200px);
         }
     }
 

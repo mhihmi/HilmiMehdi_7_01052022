@@ -84,6 +84,7 @@
                 name="content"
                 class="modal__formField"
                 placeholder="Descriptif du post... (requis)"
+                @input="resize($event)"
               ></textarea>
               <p>{{ form.errorContent }}</p>
             </div>
@@ -189,6 +190,10 @@ export default {
     };
   },
   methods: {
+    resize(e) {
+      e.target.style.height = "auto";
+      e.target.style.height = `${e.target.scrollHeight}px`;
+    },
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
       // console.log(event);
