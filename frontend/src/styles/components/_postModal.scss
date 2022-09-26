@@ -106,6 +106,13 @@
         }
     }
 
+    &__formError {
+        color: red;
+        align-self: center;
+        text-align: center;
+        margin-top: calculateRem(15px);
+    }
+
     &__formLeft {
         display: flex;
         flex-direction: column;
@@ -125,6 +132,7 @@
         border-radius: calculateRem(12.5px);
         padding: $layout-padding*.5 $layout-padding;
         margin-top: calculateRem(50px);
+        transition: .3s ease all;
 
         @include breakpoint-down(medium) {
             margin-top: 0;
@@ -223,7 +231,7 @@
             display: none;
         }
 
-        &+span {
+        &+.textOr {
             @include breakpoint-down(small) {
                 display: none;
             }
@@ -248,6 +256,28 @@
             cursor: pointer;
             color: var(--color-page-bg);
             background-color: var(--color-text);
+        }
+    }
+
+    &__ButtonGroup {
+        @include enableFlex(true);
+        gap: 5px;
+    }
+
+    &__fileInfo {
+        color: var(--color-text);
+        width: 15em;
+        text-overflow: ellipsis;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+
+        @include breakpoint-down(medium) {
+            width: 7em;
+        }
+
+        @include breakpoint-down(small) {
+            width: 10em;
         }
     }
 

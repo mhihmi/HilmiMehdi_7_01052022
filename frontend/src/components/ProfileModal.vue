@@ -62,15 +62,15 @@
           <div class="modal__profileForm">
             <h2 class="modal__profileFormTitle">Modifier votre Profil</h2>
             <div class="modal__profileFormBox">
-              <label for="pseudo" class="modal__profileFormLabel"
-                >Pseudo :</label
+              <label for="firstname" class="modal__profileFormLabel"
+                >Prénom :</label
               >
               <input
                 type="text"
-                placeholder="Votre pseudo"
-                name="pseudo"
+                placeholder="Votre prénom"
+                name="firstname"
                 class="modal__profileFormInput"
-                v-model="form.pseudo"
+                v-model="form.firstname"
               />
               <label for="lastname" class="modal__profileFormLabel"
                 >Nom de famille :</label
@@ -82,15 +82,15 @@
                 class="modal__profileFormInput"
                 v-model="form.lastname"
               />
-              <label for="firstname" class="modal__profileFormLabel"
-                >Prénom :</label
+              <label for="pseudo" class="modal__profileFormLabel"
+                >Pseudo :</label
               >
               <input
                 type="text"
-                placeholder="Votre prénom"
-                name="firstname"
+                placeholder="Votre pseudo"
+                name="pseudo"
                 class="modal__profileFormInput"
-                v-model="form.firstname"
+                v-model="form.pseudo"
               />
               <div class="modal__profileFormBtnContainer">
                 <button class="btn danger" @click.prevent="deleteProfile">
@@ -137,7 +137,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
 import { useProfileStore } from "@/store/useProfile";
 import { useAuthStore } from "@/store/useAuth";
 import formatDateMixin from "@/mixins/formatDateMixin.js";
@@ -145,14 +144,14 @@ import formatDateMixin from "@/mixins/formatDateMixin.js";
 export default {
   name: "ProfileModal",
 
-  setup() {
+  data() {
     let storeProfile = useProfileStore();
-    storeProfile.getUserProfile();
+    // storeProfile.getUserProfile();
     let storeAuth = useAuthStore();
 
     return {
-      isModalOpen: ref(false),
-      modal: ref(null),
+      isModalOpen: false,
+      modal: null,
       storeProfile,
       storeAuth,
       selectedFile: "",
@@ -185,7 +184,7 @@ export default {
       )
         .then((res) => res.json())
         .then((formData) => {
-          console.log(formData);
+          // console.log(formData);
           formData.userObject.photo =
             `${process.env.VUE_APP_API_URL}/images/` +
             formData.userObject.photo;

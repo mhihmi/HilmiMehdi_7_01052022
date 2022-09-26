@@ -176,7 +176,7 @@ export default {
           },
           body: JSON.stringify(data),
         })
-          .then((res) => res.json(console.log(data)))
+          .then((res) => res.json())
           .then((response) => {
             console.log(response);
           })

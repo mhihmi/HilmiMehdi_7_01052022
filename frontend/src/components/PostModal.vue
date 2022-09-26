@@ -86,7 +86,7 @@
                 placeholder="Descriptif du post... (requis)"
                 @input="resize($event)"
               ></textarea>
-              <p>{{ form.errorContent }}</p>
+              <p class="modal__formError">{{ errorContent }}</p>
             </div>
             <div class="modal__formRight">
               <div class="modal__uploadIcon">
@@ -108,21 +108,24 @@
                 </svg>
                 <span>Glisser / Déposer</span>
               </div>
-              <span>OU</span>
+              <span class="textOr">OU</span>
               <input
                 type="file"
                 accept=".png, .jpg, .jpeg, .gif"
                 @change="onFileSelected"
                 class="modal__uploadFileInput"
                 ref="fileInput"
-                aria-label="Modifier votre avatar"
+                aria-label="Ajouter une image"
               />
-              <button
-                @click.prevent="$refs.fileInput.click()"
-                class="modal__uploadButton"
-              >
-                Choisir un fichier
-              </button>
+              <div class="modal__ButtonGroup">
+                <button
+                  @click.prevent="$refs.fileInput.click()"
+                  class="modal__uploadButton"
+                >
+                  Choisir un fichier
+                </button>
+                <p class="modal__fileInfo">{{ form.selectedFile.name }}</p>
+              </div>
             </div>
           </form>
           <div class="modal__btnContainer">
@@ -169,23 +172,26 @@
 
 <script>
 import { useProfileStore } from "@/store/useProfile";
+import { useAuthStore } from "@/store/useAuth";
 
 export default {
   name: "PostModal",
 
   data() {
     let storeProfile = useProfileStore();
-    storeProfile.getUserProfile();
+    // storeProfile.getUserProfile();
+    let storeAuth = useAuthStore();
 
     return {
-      storeProfile,
       isModalOpen: false,
       modal: null,
+      storeProfile,
+      storeAuth,
+      errorContent: null,
       form: {
         title: null,
         content: null,
-        file: "",
-        errorContent: null,
+        selectedFile: "",
       },
     };
   },
@@ -195,36 +201,33 @@ export default {
       e.target.style.height = `${e.target.scrollHeight}px`;
     },
     onFileSelected(event) {
-      this.selectedFile = event.target.files[0];
-      // console.log(event);
+      this.form.selectedFile = event.target.files[0];
     },
-
     createPost() {
-      console.log("checkIfItWork");
-      console.log(this.form.content);
-      /* Create Post without file is authorized but not without content */
-      if (!this.form.content) {
-        this.form.errorContent =
-          "Vous devez remplir le champ <contenu> pour créer une nouvelle publication !";
+      // console.log(this.form.content);
+      /* Create Post without file is authorized but not without content or title */
+      if (!this.form.content || !this.form.title) {
+        this.errorContent =
+          "Merci d'indiquer un titre et un contenu pour créer une nouvelle publication !";
         return;
       }
-      /* on créé un objet formData afin de pouvoir ajouter le texte et surtout le file choisi */
-      // let fd = new FormData();
-      // fd.append("content", this.form.content);
-      // fd.append("title", this.form.title);
-      // fd.append("file", this.form.file);
-      // let obj = {
-      //   title: this.form.title,
-      //   content: this.form.content,
-      // };
-      // apiManager
-      //   .post("/auth/post", obj)
-      //   .then((res) => {
-      //     res;
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
+      const formData = new FormData();
+      formData.append("image", this.form.selectedFile);
+      formData.append("title", this.form.title);
+      formData.append("content", this.form.content);
+
+      fetch(`${process.env.VUE_APP_API_URL}/api/post/create`, {
+        method: "POST",
+        headers: { Authorization: "Bearer " + useAuthStore().token },
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((response) => {
+          console.log(JSON.stringify(response));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
