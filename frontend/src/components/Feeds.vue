@@ -5,7 +5,7 @@
       <Dropdown />
       <SearchPost />
     </div>
-    <div class="postsList">
+    <section class="postsList">
       <article class="postCard" v-for="post in posts" :key="post.id">
         <header class="postCard__header">
           <img
@@ -91,12 +91,14 @@
           <textarea
             class="postCard__footerField"
             placeholder="Écrivez un commentaire..."
+            v-model="newComment"
             @keydown.enter.exact.prevent="
               createComment($event.target.value, post.id)
             "
             @input="resize($event)"
           ></textarea>
           <svg
+            @click="createComment(newComment, post.id)"
             width="21"
             height="18"
             viewBox="0 0 21 18"
@@ -110,7 +112,7 @@
           </svg>
         </footer>
       </article>
-    </div>
+    </section>
   </main>
 </template>
 
@@ -134,6 +136,7 @@ export default {
       storeProfile: useProfileStore(),
       posts: [],
       baseUrl: process.env.VUE_APP_API_URL,
+      newComment: "",
     };
   },
   mixins: [formatDateMixin],
@@ -146,7 +149,7 @@ export default {
       .then((data) => {
         // console.log(data.post);
         this.posts = data.post;
-        console.log(this.posts);
+        // console.log(this.posts);
       })
       .catch((error) => {
         console.log(error);
@@ -162,15 +165,18 @@ export default {
         content: comment,
         postId: postId,
       };
-      console.log(data);
+      // console.log(data);
 
       if (comment !== null) {
         fetch(`${process.env.VUE_APP_API_URL}/api/comment/create`, {
           method: "POST",
-          headers: { Authorization: "Bearer " + useAuthStore().token },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + useAuthStore().token,
+          },
           body: JSON.stringify(data),
         })
-          .then((res) => res.json())
+          .then((res) => res.json(console.log(data)))
           .then((response) => {
             console.log(response);
           })

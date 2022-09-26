@@ -119,7 +119,7 @@ export default {
     submitForm() {
       this.v$.$touch();
       if (!this.v$.$invalid) {
-        console.log("📝 Form Submitted", this.form);
+        // console.log("📝 Form Submitted", this.form);
 
         fetch(`${process.env.VUE_APP_API_URL}/api/auth/login`, {
           method: "POST",

@@ -40,7 +40,7 @@
     padding: $layout-padding;
     border-radius: calculateRem(25px);
     width: 65vw;
-    max-width: 950px;
+    max-width: 750px;
     margin: 1rem;
 
     @include box_shadow(2);
@@ -285,6 +285,7 @@
             position: absolute;
             right: calculateRem(10px);
             top: 45%;
+            cursor: pointer;
 
             @include breakpoint-down(small) {
                 width: calculateRem(14px);
