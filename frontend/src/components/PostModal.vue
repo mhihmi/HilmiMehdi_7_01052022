@@ -86,7 +86,6 @@
                 placeholder="Descriptif du post... (requis)"
                 @input="resize($event)"
               ></textarea>
-              <p class="modal__formError">{{ errorContent }}</p>
             </div>
             <div class="modal__formRight">
               <div class="modal__uploadIcon">
@@ -164,6 +163,7 @@
               </span>
             </button>
           </div>
+          <p class="modal__formError">{{ errorContent }}</p>
         </form>
       </div>
     </transition>
@@ -176,6 +176,7 @@ import { useAuthStore } from "@/store/useAuth";
 
 export default {
   name: "PostModal",
+  emits: ["reloadIt"],
 
   data() {
     let storeProfile = useProfileStore();
@@ -222,9 +223,14 @@ export default {
         body: formData,
       })
         .then((res) => res.json())
-        .then((response) => {
-          console.log(JSON.stringify(response));
+        .then(() => {
+          this.isModalOpen = false;
+          this.$emit("reloadIt");
+          // this.$router.push({ name: "feeds" });
         })
+        // .then((response) => {
+        //   console.log(JSON.stringify(response));
+        // })
         .catch((error) => {
           console.log(error);
         });

@@ -1,6 +1,6 @@
 <template>
   <main class="feeds">
-    <post-modal />
+    <post-modal @reload-it="loadIt" />
     <div class="feeds__filterMenu">
       <Dropdown />
       <SearchPost />
@@ -84,8 +84,8 @@
         </div>
         <footer class="postCard__footer">
           <img
-            :src="baseUrl + '/images/' + post.User.photo"
-            :alt="post.User.pseudo"
+            :src="storeProfile.photo"
+            :alt="storeProfile.pseudo"
             class="postCard__footerAvatar"
           />
           <textarea
@@ -141,24 +141,29 @@ export default {
   },
   mixins: [formatDateMixin],
   created() {
-    fetch(`${process.env.VUE_APP_API_URL}/api/post`, {
-      method: "GET",
-      headers: { Authorization: "Bearer " + useAuthStore().token },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data.post);
-        this.posts = data.post;
-        // console.log(this.posts);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.loadIt();
   },
   methods: {
     resize(e) {
       e.target.style.height = "auto";
       e.target.style.height = `${e.target.scrollHeight}px`;
+    },
+    loadIt() {
+      {
+        fetch(`${process.env.VUE_APP_API_URL}/api/post`, {
+          method: "GET",
+          headers: { Authorization: "Bearer " + useAuthStore().token },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // console.log(data.post);
+            this.posts = data.post;
+            // console.log(this.posts);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
     createComment(comment, postId) {
       const data = {
@@ -179,6 +184,7 @@ export default {
           .then((res) => res.json())
           .then((response) => {
             console.log(response);
+            this.loadIt();
           })
           .catch((error) => {
             console.log(error);
