@@ -143,6 +143,7 @@ import formatDateMixin from "@/mixins/formatDateMixin.js";
 
 export default {
   name: "ProfileModal",
+  // emits: ["reloadIt"],
 
   data() {
     let storeProfile = useProfileStore();
@@ -190,28 +191,31 @@ export default {
             formData.userObject.photo;
           console.log(formData.userObject);
           this.storeProfile.$patch(formData.userObject);
+          // this.$emit("reloadIt");
         })
         .catch((error) => {
           console.log(error);
         });
     },
     deleteProfile() {
-      fetch(
-        `${process.env.VUE_APP_API_URL}/api/auth/profile/${this.storeProfile.userId}`,
-        {
-          method: "DELETE",
-          headers: { Authorization: "Bearer " + useAuthStore().token },
-        }
-      )
-        .then(() => {
-          localStorage.clear();
-          this.storeProfile.clearProfile();
-          this.storeAuth.clearAuth();
-        })
-        .then(this.$router.push({ name: "login" }))
-        .catch((error) => {
-          console.log(error);
-        });
+      if (confirm("Voulez vraiment supprimer votre profil ?")) {
+        fetch(
+          `${process.env.VUE_APP_API_URL}/api/auth/profile/${this.storeProfile.userId}`,
+          {
+            method: "DELETE",
+            headers: { Authorization: "Bearer " + useAuthStore().token },
+          }
+        )
+          .then(() => {
+            localStorage.clear();
+            this.storeProfile.clearProfile();
+            this.storeAuth.clearAuth();
+          })
+          .then(this.$router.push({ name: "login" }))
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
   },
 };
