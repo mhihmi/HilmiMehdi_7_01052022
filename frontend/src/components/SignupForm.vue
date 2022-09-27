@@ -249,7 +249,7 @@ export default {
             // Update Pinia AuthState;
             this.storeAuth.updateAuth(data);
             // navigate to a protected resource
-            this.$router.push({ name: "login" });
+            this.$router.push({ name: "feeds" });
           })
           .catch((error) => {
             console.log(error);

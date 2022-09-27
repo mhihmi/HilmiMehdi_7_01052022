@@ -134,16 +134,24 @@
       </div>
     </transition>
   </teleport>
+  <transition name="fading">
+    <notificationMessage
+      message="Votre compte a bien été modifié !"
+      v-show="notifModal"
+    ></notificationMessage>
+  </transition>
 </template>
 
 <script>
 import { useProfileStore } from "@/store/useProfile";
 import { useAuthStore } from "@/store/useAuth";
 import formatDateMixin from "@/mixins/formatDateMixin.js";
+import notificationMessage from "@/components/NotificationBox";
 
 export default {
   name: "ProfileModal",
   // emits: ["reloadIt"],
+  components: { notificationMessage },
 
   data() {
     let storeProfile = useProfileStore();
@@ -152,6 +160,7 @@ export default {
 
     return {
       isModalOpen: false,
+      notifModal: false,
       modal: null,
       storeProfile,
       storeAuth,
@@ -171,6 +180,7 @@ export default {
     updateProfile() {
       const formData = new FormData();
       formData.append("image", this.selectedFile);
+      // formData.append("image", this.selectedFile);
       formData.append("pseudo", this.form.pseudo);
       formData.append("firstname", this.form.firstname);
       formData.append("lastname", this.form.lastname);
@@ -185,13 +195,20 @@ export default {
       )
         .then((res) => res.json())
         .then((formData) => {
-          // console.log(formData);
+          console.log(formData);
           formData.userObject.photo =
             `${process.env.VUE_APP_API_URL}/images/` +
             formData.userObject.photo;
           console.log(formData.userObject);
           this.storeProfile.$patch(formData.userObject);
           // this.$emit("reloadIt");
+          this.storeProfile.getUserProfile();
+          this.isModalOpen = false; //Closing Profil Window
+          //Opening Success Notif
+          this.notifModal = true;
+          setTimeout(() => {
+            this.notifModal = !this.notifModal;
+          }, 1500);
         })
         .catch((error) => {
           console.log(error);
@@ -211,7 +228,9 @@ export default {
             this.storeProfile.clearProfile();
             this.storeAuth.clearAuth();
           })
-          .then(this.$router.push({ name: "login" }))
+          .then(() => {
+            this.$router.push({ name: "signup" });
+          })
           .catch((error) => {
             console.log(error);
           });
@@ -224,4 +243,29 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/components/profileModal";
 @import "@/styles/components/buttons";
+
+// .fading-enter-active,
+// .fading-leave-active {
+//   transition: opacity 1s ease;
+// }
+
+// .fading-enter-to,
+// .fading-leave-from {
+//   opacity: 0;
+// }
+
+// .fading-enter-from,
+// .fading-leave-to {
+//   opacity: 0;
+// }
+
+.fading-enter-active,
+.fading-leave-active {
+  transition: opacity 0.3s ease-in;
+}
+
+.fading-enter,
+.fading-leave-to {
+  opacity: 0;
+}
 </style>

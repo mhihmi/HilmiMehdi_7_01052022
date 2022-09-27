@@ -12,7 +12,7 @@ const authAdmin = require('../middleware/authAdmin');
 router.post('/signup', emailCtrl, pswCtrl, userCtrl.signup);
 router.post('/login', userCtrl.login);
 router.get("/profile/:id", auth, userCtrl.getUserProfile);
-router.get("/profile", authAdmin, userCtrl.getAllUsersProfiles);
+router.get("/profile", auth, userCtrl.getAllUsersProfiles);
 router.put("/profile/:id", auth, multer, userCtrl.updateProfile);
 router.delete("/profile/:id", auth, userCtrl.deleteProfile);
 
