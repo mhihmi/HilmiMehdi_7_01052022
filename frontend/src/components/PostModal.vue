@@ -1,5 +1,21 @@
 <template>
-  <div class="newPost" @click="isModalOpen = true">
+  <svg
+    v-if="editMode"
+    @click="isModalOpen = true"
+    v-bind="$attrs"
+    class="postCard__editBtn"
+    width="19"
+    height="19"
+    viewBox="0 0 19 19"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M1.60416 19.4365C1.31195 19.436 1.0334 19.3127 0.836452 19.0969C0.635874 18.8828 0.536206 18.5932 0.562493 18.301L0.817701 15.4948L12.6073 3.70938L16.2917 7.39271L4.5052 19.1771L1.69895 19.4323C1.66666 19.4354 1.63437 19.4365 1.60416 19.4365ZM17.0271 6.65625L13.3437 2.97292L15.5531 0.763545C15.7485 0.567944 16.0136 0.458038 16.2901 0.458038C16.5666 0.458038 16.8317 0.567944 17.0271 0.763545L19.2365 2.97292C19.4321 3.1683 19.542 3.43343 19.542 3.7099C19.542 3.98637 19.4321 4.2515 19.2365 4.44688L17.0281 6.65521L17.0271 6.65625Z"
+      fill="var(--color-text)"
+    />
+  </svg>
+  <div v-else class="newPost" @click="isModalOpen = true">
     <img
       :src="storeProfile.photo"
       :alt="storeProfile.pseudo"
@@ -185,6 +201,10 @@ export default {
   name: "PostModal",
   emits: ["reloadIt"],
   components: { notificationMessage },
+  props: {
+    editMode: Boolean,
+    post: Object,
+  },
 
   data() {
     let storeProfile = useProfileStore();
@@ -265,5 +285,38 @@ export default {
 .fading-enter,
 .fading-leave-to {
   opacity: 0;
+}
+
+.postCard__editBtn {
+  position: absolute;
+  top: calculateRem(20px);
+  right: calculateRem(26px);
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.3);
+    transition: transform 0.3s ease-in;
+  }
+
+  &:hover path {
+    fill: var(--color-text-hover);
+  }
+
+  @include breakpoint-down(medium) {
+    top: calculateRem(15px);
+    right: calculateRem(24px);
+  }
+
+  @include breakpoint-down(small) {
+    width: 16px;
+    height: 16px;
+    top: calculateRem(13px);
+    right: calculateRem(18px);
+
+    &:hover {
+      transform: scale(1.2);
+      transition: transform 0.3s ease-in;
+    }
+  }
 }
 </style>

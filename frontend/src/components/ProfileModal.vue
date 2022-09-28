@@ -67,7 +67,7 @@
               >
               <input
                 type="text"
-                placeholder="Votre prénom"
+                :placeholder="storeProfile.firstname"
                 name="firstname"
                 class="modal__profileFormInput"
                 v-model="form.firstname"
@@ -77,7 +77,7 @@
               >
               <input
                 type="text"
-                placeholder="Votre nom de famille"
+                :placeholder="storeProfile.lastname"
                 name="lastname"
                 class="modal__profileFormInput"
                 v-model="form.lastname"
@@ -87,7 +87,7 @@
               >
               <input
                 type="text"
-                placeholder="Votre pseudo"
+                :placeholder="storeProfile.pseudo"
                 name="pseudo"
                 class="modal__profileFormInput"
                 v-model="form.pseudo"
@@ -179,8 +179,8 @@ export default {
     },
     updateProfile() {
       const formData = new FormData();
+      // if condition TODO
       formData.append("image", this.selectedFile);
-      // formData.append("image", this.selectedFile);
       formData.append("pseudo", this.form.pseudo);
       formData.append("firstname", this.form.firstname);
       formData.append("lastname", this.form.lastname);

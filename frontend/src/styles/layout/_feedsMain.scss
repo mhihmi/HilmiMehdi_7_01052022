@@ -86,39 +86,6 @@
         line-height: 14px;
     }
 
-    &__editBtn {
-        position: absolute;
-        top: calculateRem(17px);
-        right: calculateRem(26px);
-        cursor: pointer;
-
-        &:hover {
-            transform: scale(1.3);
-            transition: transform .3s ease-in;
-        }
-
-        &:hover path {
-            fill: var(--color-text-hover);
-        }
-
-        @include breakpoint-down(medium) {
-            top: calculateRem(15px);
-            right: calculateRem(24px);
-        }
-
-        @include breakpoint-down(small) {
-            width: 16px;
-            height: 16px;
-            top: calculateRem(13px);
-            right: calculateRem(18px);
-
-            &:hover {
-                transform: scale(1.2);
-                transition: transform .3s ease-in;
-            }
-        }
-    }
-
     &__body {
         @include enableFlex(true);
         gap: calculateRem(22px);

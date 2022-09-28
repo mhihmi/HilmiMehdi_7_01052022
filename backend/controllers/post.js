@@ -26,6 +26,7 @@ exports.getAllPosts = (req, res) => {
     var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
     db.posts.findAll({
+        order: [['createdAt', 'DESC']],
         where: condition,
         include: [{
             model: db.users, attributes: ['pseudo', 'photo']
