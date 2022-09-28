@@ -39,8 +39,8 @@
     background: var(--color-post);
     padding: $layout-padding;
     border-radius: calculateRem(25px);
-    width: 100vw;
-    max-width: 700px;
+    width: 45vw;
+    max-width: 900px;
     margin: 1rem;
 
     @include box_shadow(2);

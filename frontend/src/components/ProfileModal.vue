@@ -166,9 +166,9 @@ export default {
       storeAuth,
       selectedFile: "",
       form: {
-        pseudo: storeProfile.pseudo,
-        lastname: storeProfile.lastname,
-        firstname: storeProfile.firstname,
+        pseudo: null,
+        lastname: null,
+        firstname: null,
       },
     };
   },
@@ -180,10 +180,18 @@ export default {
     updateProfile() {
       const formData = new FormData();
       // if condition TODO
-      formData.append("image", this.selectedFile);
-      formData.append("pseudo", this.form.pseudo);
-      formData.append("firstname", this.form.firstname);
-      formData.append("lastname", this.form.lastname);
+      if (this.selectedFile) {
+        formData.append("image", this.selectedFile);
+      }
+      if (this.form.pseudo != null) {
+        formData.append("pseudo", this.form.pseudo);
+      }
+      if (this.form.firstname != null) {
+        formData.append("firstname", this.form.firstname);
+      }
+      if (this.form.lastname != null) {
+        formData.append("lastname", this.form.lastname);
+      }
 
       fetch(
         `${process.env.VUE_APP_API_URL}/api/auth/profile/${this.storeProfile.userId}`,
@@ -196,10 +204,12 @@ export default {
         .then((res) => res.json())
         .then((formData) => {
           console.log(formData);
-          formData.userObject.photo =
-            `${process.env.VUE_APP_API_URL}/images/` +
-            formData.userObject.photo;
-          console.log(formData.userObject);
+          if (formData.userObject.photo != undefined) {
+            formData.userObject.photo =
+              `${process.env.VUE_APP_API_URL}/images/` +
+              formData.userObject.photo;
+          }
+          // console.log(formData.userObject);
           this.storeProfile.$patch(formData.userObject);
           // this.$emit("reloadIt");
           this.storeProfile.getUserProfile();
