@@ -203,7 +203,7 @@ export default {
       )
         .then((res) => res.json())
         .then((formData) => {
-          console.log(formData);
+          // console.log(formData);
           if (formData.userObject.photo != undefined) {
             formData.userObject.photo =
               `${process.env.VUE_APP_API_URL}/images/` +
@@ -211,11 +211,9 @@ export default {
           }
           // console.log(formData.userObject);
           this.storeProfile.$patch(formData.userObject);
-          // this.$emit("reloadIt");
-          this.storeProfile.getUserProfile();
+          this.storeProfile.getUserProfile(); //Reload profileStore
           this.isModalOpen = false; //Closing Profil Window
-          //Opening Success Notif
-          this.notifModal = true;
+          this.notifModal = true; //Opening Success Notif
           setTimeout(() => {
             this.notifModal = !this.notifModal;
           }, 1500);

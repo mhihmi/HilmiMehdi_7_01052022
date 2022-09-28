@@ -120,6 +120,8 @@
 
     &__bodyContent {
         align-self: flex-start;
+        text-align: justify;
+        padding: $layout-padding*.5 $layout-padding;
     }
 
     &__comment {
