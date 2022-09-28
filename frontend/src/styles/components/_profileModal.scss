@@ -204,8 +204,10 @@
     }
 
     &__profileCardBox {
+        width: 100%;
         @include enableFlex(true);
         gap: calculateRem(15px);
+        justify-content: space-evenly;
 
         @include breakpoint-down(medium) {
             flex-direction: row;
@@ -214,15 +216,19 @@
 
     &__profileCardPhoto {
         border-radius: 100%;
-        width: 95%;
+        width: calculateRem(200px);
+        height: calculateRem(200px);
+        object-fit: cover;
         max-width: calculateRem(225px);
 
         @include breakpoint-down(medium) {
             width: calculateRem(150px);
+            height: calculateRem(150px);
         }
 
         @include breakpoint-down(small) {
             width: calculateRem(100px);
+            height: calculateRem(100px);
         }
     }
 

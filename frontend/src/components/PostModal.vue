@@ -168,15 +168,23 @@
       </div>
     </transition>
   </teleport>
+  <transition name="fading">
+    <notificationMessage
+      message="Publication créée avec succès !"
+      v-show="notifModal"
+    ></notificationMessage>
+  </transition>
 </template>
 
 <script>
 import { useProfileStore } from "@/store/useProfile";
 import { useAuthStore } from "@/store/useAuth";
+import notificationMessage from "@/components/NotificationBox";
 
 export default {
   name: "PostModal",
   emits: ["reloadIt"],
+  components: { notificationMessage },
 
   data() {
     let storeProfile = useProfileStore();
@@ -185,6 +193,7 @@ export default {
 
     return {
       isModalOpen: false,
+      notifModal: false,
       modal: null,
       storeProfile,
       storeAuth,
@@ -226,7 +235,11 @@ export default {
         .then(() => {
           this.isModalOpen = false;
           this.$emit("reloadIt");
-          // this.$router.push({ name: "feeds" });
+          //Opening Success Notif
+          this.notifModal = true;
+          setTimeout(() => {
+            this.notifModal = !this.notifModal;
+          }, 1500);
         })
         // .then((response) => {
         //   console.log(JSON.stringify(response));
@@ -243,4 +256,14 @@ export default {
 @import "@/styles/components/newPostInput";
 @import "@/styles/components/postModal";
 @import "@/styles/components/buttons";
+
+.fading-enter-active,
+.fading-leave-active {
+  transition: opacity 0.3s ease-in;
+}
+
+.fading-enter,
+.fading-leave-to {
+  opacity: 0;
+}
 </style>

@@ -85,15 +85,19 @@
 
     &__userAvatar {
         border-radius: 100%;
-        width: calculateRem(100px);
+        width: calculateRem(150px);
+        height: calculateRem(150px);
+        object-fit: cover;
 
-        // @include breakpoint-down(medium) {
-        //     width: calculateRem(150px);
-        // }
+        @include breakpoint-down(medium) {
+            width: calculateRem(100px);
+            height: calculateRem(100px);
+        }
 
-        // @include breakpoint-down(small) {
-        //     width: calculateRem(100px);
-        // }
+        @include breakpoint-down(small) {
+            width: calculateRem(80px);
+            height: calculateRem(80px);
+        }
     }
 
     &__form {

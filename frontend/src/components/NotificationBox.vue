@@ -16,11 +16,15 @@ export default {
 <style scoped lang="scss">
 .notificationBox {
   padding: $layout-padding;
-  border: 4px solid blue;
-  background: rgb(31, 215, 31);
-  color: white;
+  border: 2px solid lighten($color-light-btn-success, 25%);
+  border-radius: 12.5px;
+  background: var(--color-post);
+  color: var(--color-text);
   position: fixed;
   top: 10%;
   right: 3%;
+  z-index: 10;
+
+  @include box_shadow(2);
 }
 </style>
