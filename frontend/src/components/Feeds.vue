@@ -150,7 +150,7 @@ export default {
           .then((data) => {
             // console.log(data.post);
             this.posts = data.post;
-            // console.log(this.posts);
+            console.log(this.posts);
           })
           .catch((error) => {
             console.log(error);

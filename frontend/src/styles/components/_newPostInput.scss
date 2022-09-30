@@ -55,7 +55,7 @@
         }
 
         &::placeholder {
-            color: $color-dark-input;
+            color: $color-light-placeholder;
         }
 
         @include breakpoint-down(medium) {

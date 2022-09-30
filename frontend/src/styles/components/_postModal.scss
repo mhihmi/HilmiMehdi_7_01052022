@@ -100,6 +100,16 @@
         }
     }
 
+    &__userPostInfo {
+        margin-top: calculateRem(5px);
+        text-indent: 5px;
+    }
+
+    &__userPseudo {
+        margin-top: calculateRem(5px);
+        text-indent: 5px;
+    }
+
     &__form {
         display: flex;
         gap: $layout-padding*.7;
@@ -168,7 +178,7 @@
         }
 
         &::placeholder {
-            color: $color-dark-input;
+            color: $color-light-placeholder;
         }
 
         @include breakpoint-down(medium) {
@@ -207,7 +217,7 @@
         }
 
         &::placeholder {
-            color: $color-dark-input;
+            color: $color-light-placeholder;
         }
 
         @include breakpoint-down(medium) {

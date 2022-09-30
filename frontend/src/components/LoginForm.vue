@@ -11,6 +11,7 @@
             type="mail"
             placeholder="test@gmail.com"
             name="email"
+            id="email"
             class="loginForm__input"
             :class="{
               error: shouldAppendErrorClass(v$.form.email),
@@ -31,6 +32,7 @@
             type="password"
             placeholder="********"
             name="psw"
+            id="psw"
             class="loginForm__input"
             :class="{
               error: shouldAppendErrorClass(v$.form.password),

@@ -68,8 +68,27 @@
           <button class="close-btn" @click.prevent="isModalOpen = false">
             X
           </button>
-          <h2 class="modal__title">Créer une publication</h2>
-          <div class="modal__user">
+          <h2 v-if="editMode" class="modal__title">Modifier une publication</h2>
+          <h2 v-else class="modal__title">Créer une publication</h2>
+          <div v-if="editMode" class="modal__user">
+            <img
+              :src="baseUrl + '/images/' + post.User.photo"
+              :alt="post.User.pseudo"
+              class="modal__userAvatar"
+            />
+            <div class="modal__userInfo">
+              <h3 class="modal__userName">
+                {{ post.User.pseudo }}
+              </h3>
+              <p class="modal__userPostInfo">
+                Posté le {{ formatDate(post.createdAt) }}
+              </p>
+              <p class="modal__userPostInfo">
+                Édité le {{ formatDate(post.updatedAt) }}
+              </p>
+            </div>
+          </div>
+          <div v-else class="modal__user">
             <img
               :src="storeProfile.photo"
               :alt="storeProfile.pseudo"
@@ -87,6 +106,15 @@
             <div class="modal__formLeft">
               <label for="title" class="modal__formTitle">Titre</label>
               <input
+                v-if="editMode"
+                type="text"
+                :placeholder="post.title"
+                name="title"
+                class="modal__formTitleInput"
+                v-model="form.title"
+              />
+              <input
+                v-else
                 type="text"
                 placeholder="Indiquez un titre (requis)"
                 name="title"
@@ -95,6 +123,16 @@
               />
               <label for="content" class="modal__formTitle">Contenu</label>
               <textarea
+                v-if="editMode"
+                v-model="form.content"
+                id="content"
+                name="content"
+                class="modal__formField"
+                :placeholder="post.content"
+                @input="resize($event)"
+              ></textarea>
+              <textarea
+                v-else
                 v-model="form.content"
                 id="content"
                 name="content"
@@ -161,7 +199,24 @@
                 </svg>
               </span>
             </button>
-            <button class="btn success" type="submit">
+            <button v-if="editMode" class="btn success" type="submit">
+              Modifier
+              <span
+                ><svg
+                  width="24"
+                  height="18"
+                  viewBox="0 0 24 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.6"
+                    d="M19.77 2.9301L21.17 4.3301L8.43 17.0701L2.83 11.4701L4.23 10.0701L8.43 14.2701L19.77 2.9301ZM19.77 0.100098L8.43 11.4401L4.23 7.2401L0 11.4701L8.43 19.9001L24 4.3301L19.77 0.100098Z"
+                    fill="$color-dark"
+                  />
+                </svg>
+              </span>
+            </button>
+            <button v-else class="btn success" type="submit">
               Publier
               <span
                 ><svg
@@ -196,6 +251,7 @@
 import { useProfileStore } from "@/store/useProfile";
 import { useAuthStore } from "@/store/useAuth";
 import notificationMessage from "@/components/NotificationBox";
+import formatDateMixin from "@/mixins/formatDateMixin.js";
 
 export default {
   name: "PostModal",
@@ -215,6 +271,7 @@ export default {
       isModalOpen: false,
       notifModal: false,
       modal: null,
+      baseUrl: process.env.VUE_APP_API_URL,
       storeProfile,
       storeAuth,
       errorContent: null,
@@ -225,6 +282,7 @@ export default {
       },
     };
   },
+  mixins: [formatDateMixin],
   methods: {
     resize(e) {
       e.target.style.height = "auto";
