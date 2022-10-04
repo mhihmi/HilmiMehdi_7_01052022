@@ -72,6 +72,8 @@ exports.updatePost = (req, res) => {
                 })
             };
 
+            console.log(req.body)
+
             const filename = post.media;
             if (req.file && (post.media !== null)) {
                 fs.unlink(`images/${filename}`, (err) => {

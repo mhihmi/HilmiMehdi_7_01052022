@@ -60,7 +60,8 @@
         @click.self="isModalOpen = false"
       >
         <form
-          @submit.prevent="createPost"
+          v-if="editMode"
+          @submit.prevent="editPost"
           autocomplete="off"
           class="modal"
           ref="modal"
@@ -68,9 +69,8 @@
           <button class="close-btn" @click.prevent="isModalOpen = false">
             X
           </button>
-          <h2 v-if="editMode" class="modal__title">Modifier une publication</h2>
-          <h2 v-else class="modal__title">Créer une publication</h2>
-          <div v-if="editMode" class="modal__user">
+          <h2 class="modal__title">Modifier une publication</h2>
+          <div class="modal__user">
             <img
               :src="baseUrl + '/images/' + post.User.photo"
               :alt="post.User.pseudo"
@@ -83,12 +83,114 @@
               <p class="modal__userPostInfo">
                 Posté le {{ formatDate(post.createdAt) }}
               </p>
-              <p class="modal__userPostInfo">
+              <p
+                class="modal__userPostInfo"
+                v-if="post.createdAt !== post.updatedAt"
+              >
                 Édité le {{ formatDate(post.updatedAt) }}
               </p>
             </div>
           </div>
-          <div v-else class="modal__user">
+          <div class="modal__form">
+            <div class="modal__formLeft">
+              <label for="title" class="modal__formTitle">Titre</label>
+              <input
+                type="text"
+                :placeholder="post.title"
+                name="title"
+                class="modal__formTitleInput"
+                v-model="form.title"
+              />
+              <label for="content" class="modal__formTitle">Contenu</label>
+              <textarea
+                v-model="form.content"
+                id="content"
+                name="content"
+                class="modal__formField"
+                :placeholder="post.content"
+                @input="resize($event)"
+              ></textarea>
+            </div>
+            <div class="modal__formRight">
+              <button
+                v-if="
+                  post.userId === storeProfile.userId || storeProfile.isAdmin
+                "
+                @click.prevent="deleteMedia()"
+                class="modal__uploadButton"
+              >
+                Supprimer le Media
+              </button>
+              <span class="textOr">OU</span>
+              <input
+                type="file"
+                accept=".png, .jpg, .jpeg, .gif"
+                @change="onFileSelected"
+                class="modal__uploadFileInput"
+                ref="fileInput"
+                aria-label="Ajouter une image"
+              />
+              <div class="modal__ButtonGroup">
+                <button
+                  @click.prevent="$refs.fileInput.click()"
+                  class="modal__uploadButton"
+                >
+                  Choisir un fichier
+                </button>
+                <p class="modal__fileInfo">{{ form.selectedFile.name }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="modal__btnContainer">
+            <button class="btn danger" @click.prevent="deletePost">
+              Supprimer
+              <span
+                ><svg
+                  width="14"
+                  height="18"
+                  viewBox="0 0 14 18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.6"
+                    d="M11 6V16H3V6H11ZM9.5 0H4.5L3.5 1H0V3H14V1H10.5L9.5 0ZM13 4H1V16C1 17.1 1.9 18 3 18H11C12.1 18 13 17.1 13 16V4Z"
+                    fill="$color-dark"
+                  />
+                </svg>
+              </span>
+            </button>
+            <button class="btn success" type="submit">
+              Modifier
+              <span
+                ><svg
+                  width="24"
+                  height="18"
+                  viewBox="0 0 24 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.6"
+                    d="M19.77 2.9301L21.17 4.3301L8.43 17.0701L2.83 11.4701L4.23 10.0701L8.43 14.2701L19.77 2.9301ZM19.77 0.100098L8.43 11.4401L4.23 7.2401L0 11.4701L8.43 19.9001L24 4.3301L19.77 0.100098Z"
+                    fill="$color-dark"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+          <p class="modal__formError">{{ errorContent }}</p>
+        </form>
+        <form
+          v-else
+          @submit.prevent="createPost"
+          autocomplete="off"
+          class="modal"
+          ref="modal"
+        >
+          <button class="close-btn" @click.prevent="isModalOpen = false">
+            X
+          </button>
+          <h2 class="modal__title">Créer une publication</h2>
+          <div class="modal__user">
             <img
               :src="storeProfile.photo"
               :alt="storeProfile.pseudo"
@@ -102,19 +204,10 @@
               <p class="modal__userPseudo">alias {{ storeProfile.pseudo }}</p>
             </div>
           </div>
-          <form class="modal__form">
+          <div class="modal__form">
             <div class="modal__formLeft">
               <label for="title" class="modal__formTitle">Titre</label>
               <input
-                v-if="editMode"
-                type="text"
-                :placeholder="post.title"
-                name="title"
-                class="modal__formTitleInput"
-                v-model="form.title"
-              />
-              <input
-                v-else
                 type="text"
                 placeholder="Indiquez un titre (requis)"
                 name="title"
@@ -123,16 +216,6 @@
               />
               <label for="content" class="modal__formTitle">Contenu</label>
               <textarea
-                v-if="editMode"
-                v-model="form.content"
-                id="content"
-                name="content"
-                class="modal__formField"
-                :placeholder="post.content"
-                @input="resize($event)"
-              ></textarea>
-              <textarea
-                v-else
                 v-model="form.content"
                 id="content"
                 name="content"
@@ -180,7 +263,7 @@
                 <p class="modal__fileInfo">{{ form.selectedFile.name }}</p>
               </div>
             </div>
-          </form>
+          </div>
           <div class="modal__btnContainer">
             <button class="btn danger" @click.prevent="isModalOpen = false">
               Annuler
@@ -199,24 +282,7 @@
                 </svg>
               </span>
             </button>
-            <button v-if="editMode" class="btn success" type="submit">
-              Modifier
-              <span
-                ><svg
-                  width="24"
-                  height="18"
-                  viewBox="0 0 24 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    opacity="0.6"
-                    d="M19.77 2.9301L21.17 4.3301L8.43 17.0701L2.83 11.4701L4.23 10.0701L8.43 14.2701L19.77 2.9301ZM19.77 0.100098L8.43 11.4401L4.23 7.2401L0 11.4701L8.43 19.9001L24 4.3301L19.77 0.100098Z"
-                    fill="$color-dark"
-                  />
-                </svg>
-              </span>
-            </button>
-            <button v-else class="btn success" type="submit">
+            <button class="btn success" type="submit">
               Publier
               <span
                 ><svg
@@ -239,12 +305,23 @@
       </div>
     </transition>
   </teleport>
-  <transition name="fading">
+  <transition-group name="fading">
     <notificationMessage
+      v-if="editMode"
+      message="Publication modifiée avec succès !"
+      v-show="notifModal"
+    ></notificationMessage>
+    <notificationMessage
+      v-else
       message="Publication créée avec succès !"
       v-show="notifModal"
     ></notificationMessage>
-  </transition>
+    <notificationMessage
+      v-if="deletedPost"
+      message="Publication supprimée avec succès !"
+      v-show="notifModal"
+    ></notificationMessage>
+  </transition-group>
 </template>
 
 <script>
@@ -261,13 +338,13 @@ export default {
     editMode: Boolean,
     post: Object,
   },
-
   data() {
     let storeProfile = useProfileStore();
     // storeProfile.getUserProfile();
     let storeAuth = useAuthStore();
 
     return {
+      deletedPost: false,
       isModalOpen: false,
       notifModal: false,
       modal: null,
@@ -296,7 +373,7 @@ export default {
       /* Create Post without file is authorized but not without content or title */
       if (!this.form.content || !this.form.title) {
         this.errorContent =
-          "Merci d'indiquer un titre et un contenu pour créer une nouvelle publication !";
+          "Merci d'indiquer au moins un titre et un contenu !";
         return;
       }
       const formData = new FormData();
@@ -325,6 +402,57 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    editPost() {
+      // console.log(this.form.content);
+      /* Create Post without file is authorized but not without content or title */
+      if (!this.form.content || !this.form.title) {
+        this.errorContent =
+          "Merci d'indiquer au moins un titre et un contenu !";
+        return;
+      }
+      const formData = new FormData();
+      formData.append("image", this.form.selectedFile);
+      formData.append("title", this.form.title);
+      formData.append("content", this.form.content);
+
+      fetch(`${process.env.VUE_APP_API_URL}/api/post/${this.post.id}`, {
+        method: "PUT",
+        headers: { Authorization: "Bearer " + useAuthStore().token },
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then(() => {
+          this.isModalOpen = false;
+          this.$emit("reloadIt");
+          //Opening Success Notif
+          this.notifModal = true;
+          setTimeout(() => {
+            this.notifModal = !this.notifModal;
+          }, 1500);
+        })
+        // .then((response) => {
+        //   console.log(JSON.stringify(response));
+        // })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deletePost() {
+      if (confirm("Voulez vraiment supprimer ce post ?")) {
+        fetch(`${process.env.VUE_APP_API_URL}/api/post/${this.post.id}`, {
+          method: "DELETE",
+          headers: { Authorization: "Bearer " + useAuthStore().token },
+        })
+          .then((res) => res.json())
+          .then(() => {
+            this.isModalOpen = false;
+            this.$emit("reloadIt");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
   },
 };

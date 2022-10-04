@@ -16,7 +16,7 @@ router.put("/:id/image", auth, multer, postCtrl.deletePostImg);
 router.delete("/:id", auth, postCtrl.deletePost);
 
 // CRUD for likes
-router.post('/:id/like', auth, multer, likeCtrl.addLike);
+router.post('/:id/like', auth, likeCtrl.addLike);
 router.get("/all/likes", auth, likeCtrl.getAllLikes);
 router.delete("/:id/dislike", auth, likeCtrl.unlike);
 
