@@ -35,6 +35,7 @@
             class="postCard__bodyMedia"
           />
           <p class="postCard__bodyContent">{{ post.content }}</p>
+          <LikeButton></LikeButton>
         </div>
         <div
           class="postCard__comment"
@@ -113,6 +114,7 @@ import { useProfileStore } from "@/store/useProfile";
 import { useAuthStore } from "@/store/useAuth";
 import PostModal from "@/components/PostModal";
 import Dropdown from "@/components/Dropdown";
+import LikeButton from "@/components/LikeButton";
 import SearchPost from "@/components/SearchPost";
 import formatDateMixin from "@/mixins/formatDateMixin.js";
 
@@ -122,6 +124,7 @@ export default {
     PostModal,
     Dropdown,
     SearchPost,
+    LikeButton,
   },
   data() {
     return {

@@ -88,17 +88,8 @@
 
     &__body {
         @include enableFlex(true);
-        gap: calculateRem(22px);
         padding: $layout-padding 0;
         position: relative;
-
-        @include breakpoint-down(medium) {
-            gap: calculateRem(18px);
-        }
-
-        @include breakpoint-down(small) {
-            gap: calculateRem(10px);
-        }
 
         &:before {
             content: "";
@@ -110,18 +101,40 @@
         }
     }
 
+    &__bodyTitle {
+        text-align: center;
+    }
+
     &__bodyMedia {
+        margin-top: calculateRem(22px);
         object-fit: cover;
         max-width: 80%;
         max-height: 600px;
         filter: contrast(85%);
         transition: filter 0.5s cubic-bezier(.43, .41, .22, .91);
+
+        @include breakpoint-down(medium) {
+            margin-top: calculateRem(18px);
+        }
+
+        @include breakpoint-down(small) {
+            margin-top: calculateRem(10px);
+        }
     }
 
     &__bodyContent {
+        margin-top: calculateRem(22px);
         align-self: flex-start;
         text-align: justify;
         padding: $layout-padding*.5 $layout-padding;
+
+        @include breakpoint-down(medium) {
+            margin-top: calculateRem(18px);
+        }
+
+        @include breakpoint-down(small) {
+            margin-top: calculateRem(10px);
+        }
     }
 
     &__comment {
@@ -159,6 +172,7 @@
         max-width: 90%;
         position: relative;
         display: flex;
+        text-align: justify;
         align-items: center;
 
         @include breakpoint-down(small) {
