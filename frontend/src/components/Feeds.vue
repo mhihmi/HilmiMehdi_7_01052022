@@ -35,7 +35,11 @@
             class="postCard__bodyMedia"
           />
           <p class="postCard__bodyContent">{{ post.content }}</p>
-          <LikeButton></LikeButton>
+          <LikeButton
+            @reload-it="loadIt"
+            :postId="post.id"
+            :likes="post.Likes"
+          ></LikeButton>
         </div>
         <div
           class="postCard__comment"

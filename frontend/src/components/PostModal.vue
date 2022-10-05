@@ -360,6 +360,10 @@ export default {
     };
   },
   mixins: [formatDateMixin],
+  // mounted() {
+  //   this.form.title = this.post.title;
+  //   this.form.content = this.post.content;
+  // },
   methods: {
     resize(e) {
       e.target.style.height = "auto";

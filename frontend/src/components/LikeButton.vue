@@ -1,5 +1,22 @@
 <template>
   <svg
+    v-if="liked"
+    @click="unlikeIt()"
+    width="32"
+    height="32"
+    viewBox="0 0 30 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class="postCard__likeBtn liked"
+  >
+    <path
+      d="M13.2005 6.89824L13.0754 7.5H13.69H20C20.8239 7.5 21.5 8.17614 21.5 9V11C21.5 11.1905 21.4644 11.3667 21.3971 11.5409L18.3804 18.5831L18.3804 18.5831L18.3785 18.5877C18.1544 19.1254 17.6238 19.5 17 19.5H8C7.17614 19.5 6.5 18.8239 6.5 18V8C6.5 7.5861 6.66462 7.21501 6.93868 6.94836L6.93871 6.9484L6.94382 6.94328L13.1719 0.705701L13.8764 1.40355C13.8767 1.40383 13.877 1.4041 13.8773 1.40437C14.0525 1.58002 14.1641 1.82566 14.1698 2.08902L14.1448 2.35555L13.2005 6.89824ZM0.5 8.5H3.5V19.5H0.5V8.5Z"
+      stroke="var(--color-text)"
+    />
+  </svg>
+  <svg
+    v-else
+    @click="likeIt()"
     width="32"
     height="32"
     viewBox="0 0 30 32"
@@ -8,23 +25,75 @@
     class="postCard__likeBtn"
   >
     <path
-      d="M26.9999 9.66665H18.5866L19.8533 3.57331L19.8933 3.14665C19.8933 2.59998 19.6666 2.09331 19.3066 1.73331L17.8933 0.333313L9.11992 9.11998C8.62658 9.59998 8.33325 10.2666 8.33325 11V24.3333C8.33325 25.8 9.53325 27 10.9999 27H22.9999C24.1066 27 25.0533 26.3333 25.4533 25.3733L29.4799 15.9733C29.5999 15.6666 29.6666 15.3466 29.6666 15V12.3333C29.6666 10.8666 28.4666 9.66665 26.9999 9.66665ZM26.9999 15L22.9999 24.3333H10.9999V11L16.7866 5.21331L15.3066 12.3333H26.9999V15ZM0.333252 11H5.66658V27H0.333252V11Z"
-      fill="var(--color-text)"
+      d="M13.2005 6.89824L13.0754 7.5H13.69H20C20.8239 7.5 21.5 8.17614 21.5 9V11C21.5 11.1905 21.4644 11.3667 21.3971 11.5409L18.3804 18.5831L18.3804 18.5831L18.3785 18.5877C18.1544 19.1254 17.6238 19.5 17 19.5H8C7.17614 19.5 6.5 18.8239 6.5 18V8C6.5 7.5861 6.66462 7.21501 6.93868 6.94836L6.93871 6.9484L6.94382 6.94328L13.1719 0.705701L13.8764 1.40355C13.8767 1.40383 13.877 1.4041 13.8773 1.40437C14.0525 1.58002 14.1641 1.82566 14.1698 2.08902L14.1448 2.35555L13.2005 6.89824ZM0.5 8.5H3.5V19.5H0.5V8.5Z"
+      stroke="var(--color-text)"
     />
   </svg>
 </template>
 
 <script>
+// import { useProfileStore } from "@/store/useProfile";
+import { useAuthStore } from "@/store/useAuth";
+
 export default {
   name: "Like-Button",
-
+  emits: ["reloadIt"],
+  props: {
+    postId: Number,
+    likes: Array,
+  },
   data() {
     return {
-      selected: "Publications récentes",
-      select: "A",
+      liked: null,
     };
   },
-  methods: {},
+  created() {
+    this.isLikedByUser();
+  },
+  methods: {
+    isLikedByUser() {
+      this.likes.forEach((like) => {
+        // console.log(like.userId);
+        like.userId == useAuthStore().userId
+          ? (this.liked = true)
+          : (this.liked = false);
+      });
+    },
+    likeIt() {
+      fetch(`${process.env.VUE_APP_API_URL}/api/post/${this.postId}/like`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + useAuthStore().token,
+        },
+      })
+        .then(() => {
+          this.liked = !this.liked;
+          this.$emit("reloadIt");
+          // this.isLikedByUser();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    unlikeIt() {
+      fetch(`${process.env.VUE_APP_API_URL}/api/post/${this.postId}/dislike`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + useAuthStore().token,
+        },
+      })
+        .then(() => {
+          this.liked = !this.liked;
+          this.$emit("reloadIt");
+          // this.isLikedByUser();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 
@@ -32,6 +101,7 @@ export default {
 .postCard {
   &__likeBtn {
     align-self: end;
+    position: relative;
 
     @include breakpoint-down(medium) {
       width: calculateRem(26px);
@@ -39,8 +109,16 @@ export default {
     }
 
     @include breakpoint-down(small) {
-      width: calculateRem(20px);
-      height: calculateRem(20px);
+      width: calculateRem(24px);
+      height: calculateRem(24px);
+    }
+
+    &:hover {
+      fill: var(--color-text);
+    }
+
+    &.liked {
+      fill: var(--color-text);
     }
   }
 }
