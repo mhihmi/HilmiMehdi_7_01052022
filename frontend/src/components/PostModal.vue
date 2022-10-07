@@ -96,19 +96,20 @@
               <label for="title" class="modal__formTitle">Titre</label>
               <input
                 type="text"
-                :placeholder="post.title"
+                :value="title"
                 name="title"
                 class="modal__formTitleInput"
-                v-model="form.title"
+                @input="$emit('update:title', $event.target.value)"
               />
               <label for="content" class="modal__formTitle">Contenu</label>
               <textarea
-                v-model="form.content"
                 id="content"
+                :value="content"
                 name="content"
                 class="modal__formField"
-                :placeholder="post.content"
-                @input="resize($event)"
+                @input="
+                  resize($event), $emit('update:content', $event.target.value)
+                "
               ></textarea>
             </div>
             <div class="modal__formRight">
@@ -316,11 +317,6 @@
       message="Publication créée avec succès !"
       v-show="notifModal"
     ></notificationMessage>
-    <notificationMessage
-      v-if="deletedPost"
-      message="Publication supprimée avec succès !"
-      v-show="notifModal"
-    ></notificationMessage>
   </transition-group>
 </template>
 
@@ -332,11 +328,13 @@ import formatDateMixin from "@/mixins/formatDateMixin.js";
 
 export default {
   name: "PostModal",
-  emits: ["reloadIt"],
+  emits: ["reloadIt", "update:title", "update:content"],
   components: { notificationMessage },
   props: {
     editMode: Boolean,
     post: Object,
+    title: String,
+    content: String,
   },
   data() {
     let storeProfile = useProfileStore();
@@ -344,7 +342,6 @@ export default {
     let storeAuth = useAuthStore();
 
     return {
-      deletedPost: false,
       isModalOpen: false,
       notifModal: false,
       modal: null,
@@ -410,7 +407,7 @@ export default {
     editPost() {
       // console.log(this.form.content);
       /* Create Post without file is authorized but not without content or title */
-      if (!this.form.content || !this.form.title) {
+      if (!this.content || !this.title) {
         this.errorContent =
           "Merci d'indiquer au moins un titre et un contenu !";
         return;

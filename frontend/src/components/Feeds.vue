@@ -23,6 +23,8 @@
             @reload-it="loadIt"
             editMode
             :post="post"
+            v-model:content="post.content"
+            v-model:title="post.title"
             v-if="post.userId === storeProfile.userId || storeProfile.isAdmin"
           />
         </header>
