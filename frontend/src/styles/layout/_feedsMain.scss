@@ -169,11 +169,15 @@
         color: $color-dark;
         border-radius: 25px;
         border: 1px solid var(--color-placeholder);
-        max-width: 90%;
+        // max-width: 90%;
         position: relative;
         display: flex;
-        text-align: justify;
+        // text-align: justify;
         align-items: center;
+
+        @include breakpoint-down(medium) {
+            max-width: 95%;
+        }
 
         @include breakpoint-down(small) {
             max-width: 100%;
@@ -182,7 +186,7 @@
 
     &__commentEdit {
         position: absolute;
-        right: -40px;
+        right: -30px;
         // transform: translate(-50%, -50%);
         cursor: pointer;
 
@@ -196,11 +200,11 @@
         }
 
         @include breakpoint-down(medium) {
-            right: -35px;
+            right: -25px;
         }
 
         @include breakpoint-down(small) {
-            left: -35px;
+            left: -25px;
         }
     }
 
