@@ -32,7 +32,6 @@
 </template>
 
 <script>
-// import { useProfileStore } from "@/store/useProfile";
 import { useAuthStore } from "@/store/useAuth";
 
 export default {
@@ -52,11 +51,31 @@ export default {
   },
   methods: {
     isLikedByUser() {
+      // fetch(`${process.env.VUE_APP_API_URL}/api/post/all/likes`, {
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: "Bearer " + useAuthStore().token,
+      //   },
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+
       this.likes.forEach((like) => {
-        // console.log(like.userId);
-        like.userId == useAuthStore().userId
-          ? (this.liked = true)
-          : (this.liked = false);
+        // console.log(like);
+        // like.userId == useAuthStore().userId
+        //   ? (this.liked = true)
+        //   : (this.liked = false);
+        if (like.userId == useAuthStore().userId) {
+          this.liked = true;
+        } else {
+          this.liked = false;
+        }
       });
     },
     likeIt() {
@@ -70,7 +89,6 @@ export default {
         .then(() => {
           this.liked = !this.liked;
           this.$emit("reloadIt");
-          // this.isLikedByUser();
         })
         .catch((error) => {
           console.log(error);
@@ -87,7 +105,6 @@ export default {
         .then(() => {
           this.liked = !this.liked;
           this.$emit("reloadIt");
-          // this.isLikedByUser();
         })
         .catch((error) => {
           console.log(error);
