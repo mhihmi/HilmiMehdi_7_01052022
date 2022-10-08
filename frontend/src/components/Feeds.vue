@@ -60,7 +60,10 @@
             <p class="postCard__postCreated">
               Posté le {{ formatDate(comment.createdAt) }}
             </p>
-            <div v-if="editModeComment" class="postCard__commentEditContent">
+            <div
+              v-if="editModeComment && selectedComment == comment.id"
+              class="postCard__commentEditContent"
+            >
               <div class="postCard__commentEditContainer">
                 <textarea
                   class="postCard__editField"
@@ -80,6 +83,9 @@
                 fill="none"
                 class="postCard__deleteIcon"
                 @click="deleteComment(comment.id)"
+                v-if="
+                  comment.userId === storeProfile.userId || storeProfile.isAdmin
+                "
               >
                 <path
                   opacity="0.6"
@@ -100,7 +106,7 @@
                 viewBox="0 0 19 19"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                @click="toggleEdit"
+                @click="toggleEdit(comment.id)"
               >
                 <path
                   d="M1.60416 19.4365C1.31195 19.436 1.0334 19.3127 0.836452 19.0969C0.635874 18.8828 0.536206 18.5932 0.562493 18.301L0.817701 15.4948L12.6073 3.70938L16.2917 7.39271L4.5052 19.1771L1.69895 19.4323C1.66666 19.4354 1.63437 19.4365 1.60416 19.4365ZM17.0271 6.65625L13.3437 2.97292L15.5531 0.763545C15.7485 0.567944 16.0136 0.458038 16.2901 0.458038C16.5666 0.458038 16.8317 0.567944 17.0271 0.763545L19.2365 2.97292C19.4321 3.1683 19.542 3.43343 19.542 3.7099C19.542 3.98637 19.4321 4.2515 19.2365 4.44688L17.0281 6.65521L17.0271 6.65625Z"
@@ -169,6 +175,7 @@ export default {
       baseUrl: process.env.VUE_APP_API_URL,
       newComment: "",
       editModeComment: false,
+      selectedComment: null,
     };
   },
   mixins: [formatDateMixin],
@@ -269,7 +276,8 @@ export default {
           });
       }
     },
-    toggleEdit() {
+    toggleEdit(commentId) {
+      this.selectedComment = commentId;
       this.editModeComment = !this.editModeComment;
     },
   },
