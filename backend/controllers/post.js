@@ -72,7 +72,7 @@ exports.updatePost = (req, res) => {
                 })
             };
 
-            console.log(req.body)
+            console.log(post)
 
             const filename = post.media;
             if (req.file && (post.media !== null)) {
@@ -83,12 +83,12 @@ exports.updatePost = (req, res) => {
                 })
             };
 
-            const parsedPost = JSON.parse(req.body.post);
+            const parsedPost = req.body.post;
 
             let postObject = {
-                id: parsedPost.id,
-                content: parsedPost.content,
-                title: parsedPost.title,
+                id: req.params.id,
+                content: req.body.content,
+                title: req.body.title,
             }
 
             if (req.file) {
@@ -99,7 +99,7 @@ exports.updatePost = (req, res) => {
                 .then(() => res.status(200).json({ message: 'Post updated successfully!' }))
                 .catch(error => res.status(400).json({ error }));
         })
-        .catch(error => res.status(400).json({ error }));
+        .catch(error => res.status(405).json({ error: console.log(error) }));
 };
 
 exports.deletePostImg = (req, res) => {

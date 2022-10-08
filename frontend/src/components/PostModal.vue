@@ -413,9 +413,9 @@ export default {
         return;
       }
       const formData = new FormData();
-      formData.append("image", this.form.selectedFile);
-      formData.append("title", this.form.title);
-      formData.append("content", this.form.content);
+      formData.append("image", this.selectedFile);
+      formData.append("title", this.title);
+      formData.append("content", this.content);
 
       fetch(`${process.env.VUE_APP_API_URL}/api/post/${this.post.id}`, {
         method: "PUT",

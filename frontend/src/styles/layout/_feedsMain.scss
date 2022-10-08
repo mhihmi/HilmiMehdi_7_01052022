@@ -50,11 +50,11 @@
         width: 90vw;
     }
 
-    &:hover {
-        .postCard__bodyMedia {
-            filter: contrast(100%);
-        }
-    }
+    // &:hover {
+    //     .postCard__bodyMedia {
+    //         filter: contrast(100%);
+    //     }
+    // }
 
     &__header {
         display: flex;
@@ -110,7 +110,7 @@
         object-fit: cover;
         max-width: 80%;
         max-height: 600px;
-        filter: contrast(85%);
+        // filter: contrast(90%);
         transition: filter 0.5s cubic-bezier(.43, .41, .22, .91);
 
         @include breakpoint-down(medium) {
@@ -160,6 +160,7 @@
 
     &__commentRight {
         margin-top: calculateRem(1.5px);
+        max-width: 75%;
     }
 
     &__commentContent {
@@ -169,19 +170,19 @@
         color: $color-dark;
         border-radius: 25px;
         border: 1px solid var(--color-placeholder);
-        // max-width: 90%;
+        // max-width: 95%;
         position: relative;
         display: flex;
         // text-align: justify;
         align-items: center;
 
-        @include breakpoint-down(medium) {
-            max-width: 95%;
-        }
+        // @include breakpoint-down(medium) {
+        //     max-width: 95%;
+        // }
 
-        @include breakpoint-down(small) {
-            max-width: 100%;
-        }
+        // @include breakpoint-down(small) {
+        //     max-width: 100%;
+        // }
     }
 
     &__commentEdit {

@@ -51,6 +51,7 @@ export default {
   },
   methods: {
     isLikedByUser() {
+      console.log(this.likes);
       // fetch(`${process.env.VUE_APP_API_URL}/api/post/all/likes`, {
       //   method: "GET",
       //   headers: {
@@ -71,7 +72,7 @@ export default {
         // like.userId == useAuthStore().userId
         //   ? (this.liked = true)
         //   : (this.liked = false);
-        if (like.userId == useAuthStore().userId) {
+        if (like.userId === useAuthStore().userId) {
           this.liked = true;
         } else {
           this.liked = false;
