@@ -83,8 +83,6 @@ exports.updatePost = (req, res) => {
                 })
             };
 
-            const parsedPost = req.body.post;
-
             let postObject = {
                 id: req.params.id,
                 content: req.body.content,
@@ -99,7 +97,7 @@ exports.updatePost = (req, res) => {
                 .then(() => res.status(200).json({ message: 'Post updated successfully!' }))
                 .catch(error => res.status(400).json({ error }));
         })
-        .catch(error => res.status(405).json({ error: console.log(error) }));
+        .catch(error => res.status(400).json({ error: console.log(error) }));
 };
 
 exports.deletePostImg = (req, res) => {

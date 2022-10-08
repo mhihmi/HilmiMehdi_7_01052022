@@ -117,7 +117,7 @@
                 v-if="
                   post.userId === storeProfile.userId || storeProfile.isAdmin
                 "
-                @click.prevent="deleteMedia()"
+                @click.prevent="deletePostMedia()"
                 class="modal__uploadButton"
               >
                 Supprimer le Media
@@ -413,7 +413,7 @@ export default {
         return;
       }
       const formData = new FormData();
-      formData.append("image", this.selectedFile);
+      formData.append("image", this.form.selectedFile);
       formData.append("title", this.title);
       formData.append("content", this.content);
 
@@ -454,6 +454,27 @@ export default {
             console.log(error);
           });
       }
+    },
+    deletePostMedia() {
+      // if (confirm("Voulez vraiment supprimer ce media ?")) {
+      const formData = new FormData();
+      fetch(`${process.env.VUE_APP_API_URL}/api/post/${this.post.id}/image`, {
+        method: "PUT",
+        headers: { Authorization: "Bearer " + useAuthStore().token },
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then(() => {
+          this.$emit("reloadIt");
+          this.notifModal = true;
+          setTimeout(() => {
+            this.notifModal = !this.notifModal;
+          }, 1500);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      // }
     },
   },
 };
