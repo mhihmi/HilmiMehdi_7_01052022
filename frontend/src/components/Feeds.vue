@@ -60,7 +60,35 @@
             <p class="postCard__postCreated">
               Posté le {{ formatDate(comment.createdAt) }}
             </p>
-            <p class="postCard__commentContent">
+            <div v-if="editModeComment" class="postCard__commentEditContent">
+              <div class="postCard__commentEditContainer">
+                <textarea
+                  class="postCard__editField"
+                  aria-label="Modifier un commentaire"
+                  v-model="comment.content"
+                  @keydown.enter.exact.prevent="
+                    editComment($event.target.value, comment.id)
+                  "
+                  @input="resize($event)"
+                ></textarea>
+              </div>
+              <svg
+                width="14"
+                height="18"
+                viewBox="0 0 14 18"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                class="postCard__deleteIcon"
+                @click="deleteComment(comment.id)"
+              >
+                <path
+                  opacity="0.6"
+                  d="M11 6V16H3V6H11ZM9.5 0H4.5L3.5 1H0V3H14V1H10.5L9.5 0ZM13 4H1V16C1 17.1 1.9 18 3 18H11C12.1 18 13 17.1 13 16V4Z"
+                  fill="var(--color-text)"
+                />
+              </svg>
+            </div>
+            <p v-else class="postCard__commentContent">
               {{ comment.content }}
               <svg
                 v-if="
@@ -72,6 +100,7 @@
                 viewBox="0 0 19 19"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                @click="toggleEdit"
               >
                 <path
                   d="M1.60416 19.4365C1.31195 19.436 1.0334 19.3127 0.836452 19.0969C0.635874 18.8828 0.536206 18.5932 0.562493 18.301L0.817701 15.4948L12.6073 3.70938L16.2917 7.39271L4.5052 19.1771L1.69895 19.4323C1.66666 19.4354 1.63437 19.4365 1.60416 19.4365ZM17.0271 6.65625L13.3437 2.97292L15.5531 0.763545C15.7485 0.567944 16.0136 0.458038 16.2901 0.458038C16.5666 0.458038 16.8317 0.567944 17.0271 0.763545L19.2365 2.97292C19.4321 3.1683 19.542 3.43343 19.542 3.7099C19.542 3.98637 19.4321 4.2515 19.2365 4.44688L17.0281 6.65521L17.0271 6.65625Z"
@@ -139,6 +168,7 @@ export default {
       posts: [],
       baseUrl: process.env.VUE_APP_API_URL,
       newComment: "",
+      editModeComment: false,
     };
   },
   mixins: [formatDateMixin],
@@ -187,11 +217,60 @@ export default {
           .then((response) => {
             console.log(response);
             this.loadIt();
+            this.newComment = "";
           })
           .catch((error) => {
             console.log(error);
           });
       }
+    },
+    editComment(comment, commentId) {
+      const data = {
+        content: comment,
+        commentId: commentId,
+      };
+
+      if (comment !== null) {
+        fetch(`${process.env.VUE_APP_API_URL}/api/comment/${commentId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + useAuthStore().token,
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            // console.log(response);
+            this.editModeComment = !this.editModeComment;
+            this.loadIt();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    deleteComment(commentId) {
+      if (confirm("Voulez vraiment supprimer ce commentaire ?")) {
+        fetch(`${process.env.VUE_APP_API_URL}/api/comment/${commentId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + useAuthStore().token,
+          },
+        })
+          .then((res) => res.json())
+          .then(() => {
+            this.editModeComment = !this.editModeComment;
+            this.loadIt();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    toggleEdit() {
+      this.editModeComment = !this.editModeComment;
     },
   },
 };

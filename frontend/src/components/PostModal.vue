@@ -121,7 +121,7 @@
                 "
                 @click.prevent="deletePostMedia()"
                 class="modal__uploadButton"
-                aria-label="supprimer le media de la publication"
+                aria-labelledby="supprimer le media de la publication"
               >
                 Supprimer le Media
               </button>
@@ -149,7 +149,7 @@
             <button
               class="btn danger"
               @click.prevent="deletePost"
-              aria-label="supprimer la publication"
+              aria-labelledby="supprimer la publication"
             >
               Supprimer
               <span
@@ -170,7 +170,7 @@
             <button
               class="btn success"
               type="submit"
-              aria-label="Modifier la publication"
+              aria-labelledby="Modifier la publication"
             >
               Modifier
               <span
@@ -285,7 +285,7 @@
             <button
               class="btn danger"
               @click.prevent="isModalOpen = false"
-              aria-label="annuler la création de publication"
+              aria-labelledby="annuler la création de publication"
             >
               Annuler
               <span
@@ -306,7 +306,7 @@
             <button
               class="btn success"
               type="submit"
-              aria-label="publier cette publication"
+              aria-labelledby="publier cette publication"
             >
               Publier
               <span

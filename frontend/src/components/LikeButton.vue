@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     isLikedByUser() {
-      console.log(this.likes);
+      // console.log(this.likes);
       let liked = false;
       this.likes.forEach((like) => {
         // console.log(like);
