@@ -38,6 +38,7 @@
           @click.prevent="logOut()"
           class="feeds-header__navLogout"
         >
+          <span class="sr-only">Se déconnecter</span>
           <svg
             width="24"
             height="22"

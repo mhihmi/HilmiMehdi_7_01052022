@@ -52,32 +52,14 @@ export default {
   methods: {
     isLikedByUser() {
       console.log(this.likes);
-      // fetch(`${process.env.VUE_APP_API_URL}/api/post/all/likes`, {
-      //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: "Bearer " + useAuthStore().token,
-      //   },
-      // })
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     console.log(data);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-
+      let liked = false;
       this.likes.forEach((like) => {
         // console.log(like);
-        // like.userId == useAuthStore().userId
-        //   ? (this.liked = true)
-        //   : (this.liked = false);
         if (like.userId === useAuthStore().userId) {
-          this.liked = true;
-        } else {
-          this.liked = false;
+          liked = true;
         }
       });
+      this.liked = liked;
     },
     likeIt() {
       fetch(`${process.env.VUE_APP_API_URL}/api/post/${this.postId}/like`, {

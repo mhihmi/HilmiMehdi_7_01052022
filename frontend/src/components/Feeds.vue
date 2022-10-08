@@ -90,6 +90,7 @@
           <textarea
             class="postCard__footerField"
             placeholder="Écrivez un commentaire..."
+            aria-label="Créer un commentaire"
             v-model="newComment"
             @keydown.enter.exact.prevent="
               createComment($event.target.value, post.id)

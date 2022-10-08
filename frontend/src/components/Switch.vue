@@ -1,8 +1,13 @@
 <template>
-  <label class="switch" aria-label="Switch Light Mode">
-    <input type="checkbox" class="switch__input" checked />
+  <div class="switch">
+    <input
+      type="checkbox"
+      class="switch__input"
+      aria-label="Switch Light Mode"
+      checked
+    />
     <span class="switch__slider"></span>
-  </label>
+  </div>
 </template>
 
 <script>

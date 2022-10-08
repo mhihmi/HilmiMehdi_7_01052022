@@ -25,6 +25,7 @@
       type="text"
       placeholder="Créez un nouveau post..."
       class="newPost__Input"
+      aria-label="Créer un nouveau post"
       disabled
     />
     <svg
@@ -98,6 +99,7 @@
                 type="text"
                 :value="title"
                 name="title"
+                id="title"
                 class="modal__formTitleInput"
                 @input="$emit('update:title', $event.target.value)"
               />
@@ -119,6 +121,7 @@
                 "
                 @click.prevent="deletePostMedia()"
                 class="modal__uploadButton"
+                aria-label="supprimer le media de la publication"
               >
                 Supprimer le Media
               </button>
@@ -143,7 +146,11 @@
             </div>
           </div>
           <div class="modal__btnContainer">
-            <button class="btn danger" @click.prevent="deletePost">
+            <button
+              class="btn danger"
+              @click.prevent="deletePost"
+              aria-label="supprimer la publication"
+            >
               Supprimer
               <span
                 ><svg
@@ -160,7 +167,11 @@
                 </svg>
               </span>
             </button>
-            <button class="btn success" type="submit">
+            <button
+              class="btn success"
+              type="submit"
+              aria-label="Modifier la publication"
+            >
               Modifier
               <span
                 ><svg
@@ -187,7 +198,11 @@
           class="modal"
           ref="modal"
         >
-          <button class="close-btn" @click.prevent="isModalOpen = false">
+          <button
+            class="close-btn"
+            @click.prevent="isModalOpen = false"
+            aria-label="fermer la création de publication"
+          >
             X
           </button>
           <h2 class="modal__title">Créer une publication</h2>
@@ -212,6 +227,7 @@
                 type="text"
                 placeholder="Indiquez un titre (requis)"
                 name="title"
+                id="title"
                 class="modal__formTitleInput"
                 v-model="form.title"
               />
@@ -266,7 +282,11 @@
             </div>
           </div>
           <div class="modal__btnContainer">
-            <button class="btn danger" @click.prevent="isModalOpen = false">
+            <button
+              class="btn danger"
+              @click.prevent="isModalOpen = false"
+              aria-label="annuler la création de publication"
+            >
               Annuler
               <span
                 ><svg
@@ -283,7 +303,11 @@
                 </svg>
               </span>
             </button>
-            <button class="btn success" type="submit">
+            <button
+              class="btn success"
+              type="submit"
+              aria-label="publier cette publication"
+            >
               Publier
               <span
                 ><svg

@@ -11,6 +11,7 @@
             type="mail"
             placeholder="test@gmail.com"
             name="mail"
+            id="mail"
             class="loginForm__input"
             :class="{
               error: shouldAppendErrorClass(v$.form.email),
@@ -23,11 +24,12 @@
           <p v-if="v$.form.email.$error" class="loginForm__errorMessage">
             Email valide requis
           </p>
-          <label for="psw" class="loginForm__label">Mot de Passe</label>
+          <label for="password" class="loginForm__label">Mot de Passe</label>
           <input
             type="password"
             placeholder="********"
             name="psw"
+            id="password"
             class="loginForm__input"
             :class="{
               error: shouldAppendErrorClass(v$.form.password),
@@ -57,13 +59,14 @@
               class="loginForm__errorMessage"
             ></p>
           </div>
-          <label for="psw" class="loginForm__label"
+          <label for="passwordConfirm" class="loginForm__label"
             >Confirmer votre Mot de Passe</label
           >
           <input
             type="password"
             placeholder="********"
             name="psw"
+            id="passwordConfirm"
             class="loginForm__input"
             :class="{
               error: shouldAppendErrorClass(v$.form.confirmPassword),
@@ -86,6 +89,7 @@
             type="text"
             placeholder="********"
             name="pseudo"
+            id="pseudo"
             class="loginForm__input"
             :class="{
               error: shouldAppendErrorClass(v$.form.pseudo),
@@ -102,6 +106,7 @@
             type="text"
             placeholder="********"
             name="lastname"
+            id="lastname"
             class="loginForm__input"
             :class="{
               error: shouldAppendErrorClass(v$.form.lastname),

@@ -1,6 +1,6 @@
 <template>
   <div class="customSelect">
-    <select v-model="selected">
+    <select v-model="selected" aria-label="organiser les publications">
       <option value="Publications récentes" selected>
         Publications récentes
       </option>

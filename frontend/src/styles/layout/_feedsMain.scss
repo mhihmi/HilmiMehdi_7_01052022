@@ -125,7 +125,6 @@
     &__bodyContent {
         margin-top: calculateRem(22px);
         align-self: flex-start;
-        text-align: justify;
         padding: $layout-padding*.5 $layout-padding;
 
         @include breakpoint-down(medium) {
