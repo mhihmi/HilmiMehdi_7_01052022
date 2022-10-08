@@ -103,12 +103,12 @@ exports.updatePost = (req, res) => {
 exports.deletePostImg = (req, res) => {
     db.posts.findOne({ where: { id: req.params.id } })
         .then(post => {
-            if (!post) { // If no user
+            if (!post) { // If no post
                 return res.status(404).json({
                     error: new Error('Post not found !')
                 })
             };
-            if (post.media === null) { // If no user
+            if (post.media === null) { // If no media
                 return res.status(404).json({
                     error: new Error('Image to delete not found !')
                 })
