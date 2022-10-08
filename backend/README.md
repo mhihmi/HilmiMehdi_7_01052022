@@ -16,6 +16,9 @@ You will need to have Node and `npm` installed locally on your machine.
   
 The server should run on `localhost` with default port `3000`. If the server runs on another port for any reason, this is printed to the console when the server starts, e.g. `Listening on port 3001`.
 
+
+NB : Database export from MySQL Workbench and Postman.json file are provided in the sent zip ro Openclassrooms with the Admin login and password.
+
 ## Routes
 
 <table style = "text-align:center">
