@@ -2,7 +2,10 @@
   <main class="feeds">
     <post-modal @reload-it="loadIt" />
     <div class="feeds__filterMenu">
-      <Dropdown />
+      <SortPost
+        :ascending="ascending"
+        @click="this.ascending = !this.ascending"
+      />
       <SearchPost @emitSearch="searchPost" />
     </div>
     <section class="postsList">
@@ -155,7 +158,7 @@
 import { useProfileStore } from "@/store/useProfile";
 import { useAuthStore } from "@/store/useAuth";
 import PostModal from "@/components/PostModal";
-import Dropdown from "@/components/Dropdown";
+import SortPost from "@/components/Sortbutton";
 import LikeButton from "@/components/LikeButton";
 import SearchPost from "@/components/SearchPost";
 import formatDateMixin from "@/mixins/formatDateMixin.js";
@@ -164,7 +167,7 @@ export default {
   name: "FeedsMain",
   components: {
     PostModal,
-    Dropdown,
+    SortPost,
     SearchPost,
     LikeButton,
   },
@@ -177,6 +180,7 @@ export default {
       editModeComment: false,
       selectedComment: null,
       searchValue: "",
+      ascending: true,
     };
   },
   mixins: [formatDateMixin],
@@ -193,6 +197,10 @@ export default {
             .toUpperCase()
             .includes(this.searchValue.toUpperCase());
         });
+      }
+
+      if (!this.ascending || this.ascending) {
+        tempPosts.reverse();
       }
       return tempPosts;
     },
