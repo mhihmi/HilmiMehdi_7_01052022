@@ -5,6 +5,7 @@
     v-model="search"
     aria-label="Rechercher un post"
     class="searchField"
+    @change="emitSearch"
   />
 </template>
 
@@ -17,7 +18,11 @@ export default {
       search: "",
     };
   },
-  methods: {},
+  methods: {
+    emitSearch() {
+      this.$emit("emitSearch", this.search);
+    },
+  },
 };
 </script>
 

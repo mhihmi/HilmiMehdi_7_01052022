@@ -3,10 +3,10 @@
     <post-modal @reload-it="loadIt" />
     <div class="feeds__filterMenu">
       <Dropdown />
-      <SearchPost />
+      <SearchPost @emitSearch="searchPost" />
     </div>
     <section class="postsList">
-      <article class="postCard" v-for="post in posts" :key="post.id">
+      <article class="postCard" v-for="post in filteredPosts" :key="post.id">
         <header class="postCard__header">
           <img
             :src="baseUrl + '/images/' + post.User.photo"
@@ -176,13 +176,32 @@ export default {
       newComment: "",
       editModeComment: false,
       selectedComment: null,
+      searchValue: "",
     };
   },
   mixins: [formatDateMixin],
   created() {
     this.loadIt();
   },
+  computed: {
+    filteredPosts() {
+      let tempPosts = this.posts;
+
+      if (this.searchValue != "" && this.searchValue) {
+        tempPosts = tempPosts.filter((item) => {
+          return item.title
+            .toUpperCase()
+            .includes(this.searchValue.toUpperCase());
+        });
+      }
+      return tempPosts;
+    },
+  },
   methods: {
+    searchPost(value) {
+      // console.log(value);
+      this.searchValue = value;
+    },
     resize(e) {
       e.target.style.height = "auto";
       e.target.style.height = `${e.target.scrollHeight}px`;
