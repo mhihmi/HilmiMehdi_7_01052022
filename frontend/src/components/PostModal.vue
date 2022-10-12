@@ -241,7 +241,15 @@
                 @input="resize($event)"
               ></textarea>
             </div>
-            <div class="modal__formRight">
+            <div
+              class="modal__formRight"
+              :class="{ 'active-dropzone': active }"
+              @dragenter.prevent="toggleActive"
+              @dragleave.prevent="toggleActive"
+              @dragover.prevent
+              @drop.prevent="toggleActive"
+              @drop="drop"
+            >
               <div class="modal__uploadIcon">
                 <svg
                   width="86"
@@ -284,7 +292,9 @@
           <div class="modal__btnContainer">
             <button
               class="btn danger"
-              @click.prevent="isModalOpen = false"
+              @click.prevent="
+                (isModalOpen = false), (this.form.selectedFile = '')
+              "
               aria-labelledby="annuler la création de publication"
             >
               Annuler
@@ -373,6 +383,7 @@ export default {
       storeProfile,
       storeAuth,
       errorContent: null,
+      active: false,
       form: {
         title: null,
         content: null,
@@ -381,11 +392,13 @@ export default {
     };
   },
   mixins: [formatDateMixin],
-  // mounted() {
-  //   this.form.title = this.post.title;
-  //   this.form.content = this.post.content;
-  // },
   methods: {
+    toggleActive() {
+      this.active = !this.active;
+    },
+    drop(e) {
+      this.form.selectedFile = e.dataTransfer.files[0];
+    },
     resize(e) {
       e.target.style.height = "auto";
       e.target.style.height = `${e.target.scrollHeight}px`;
@@ -513,12 +526,10 @@ export default {
 .fading-leave-active {
   transition: opacity 0.3s ease-in;
 }
-
 .fading-enter,
 .fading-leave-to {
   opacity: 0;
 }
-
 .postCard__editBtn {
   position: absolute;
   top: calculateRem(20px);
@@ -550,5 +561,9 @@ export default {
       transition: transform 0.3s ease-in;
     }
   }
+}
+.active-dropzone {
+  border-color: var(--color-placeholder);
+  background-color: $color-dark-btn-success;
 }
 </style>
