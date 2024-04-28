@@ -11,30 +11,31 @@
   "dependencies": {
     "@vuelidate/core": "^2.0.0-alpha.41",
     "@vuelidate/validators": "^2.0.0-alpha.29",
-    "@vueuse/core": "^9.1.1",
+    "@vueuse/core": "^10.9.0",
     "core-js": "^3.22.7",
+    "eslint": "^7.5.0",
     "pinia": "^2.0.23",
     "register-service-worker": "^1.7.2",
+    "volar-service-vetur": "^0.0.34",
     "vue": "^3.2.36",
     "vue-router": "^4.0.15"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
     "@babel/eslint-parser": "^7.18.2",
-    "@volar-plugins/vetur": "^0.1.0",
+    "@volar-plugins/vetur": "^2.0.0",
     "@vue/cli-plugin-babel": "~5.0.4",
     "@vue/cli-plugin-eslint": "~5.0.4",
     "@vue/cli-plugin-pwa": "~5.0.4",
     "@vue/cli-plugin-router": "~5.0.4",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.4",
-    "eslint": "^8.16.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.0.1",
-    "prettier": "^2.6.2",
+    "prettier": "^2.8.8",
     "sass": "^1.52.1",
-    "sass-loader": "^13.0.0",
+    "sass-loader": "^13.3.3",
     "vue-cli-plugin-pinia": "^0.2.1"
   }
 }
