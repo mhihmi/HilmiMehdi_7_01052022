@@ -1,10 +1,10 @@
 <template>
-  <div class="switch">
+  <div class="switch" @click="toggleDarkMode">
     <input
       type="checkbox"
       class="switch__input"
       aria-label="Switch Light Mode"
-      checked
+      :checked="isDarkMode"
     />
     <span class="switch__slider"></span>
   </div>
@@ -13,8 +13,13 @@
 <script>
 export default {
   name: "ToggleSwitch",
-  mounted() {
-    const setDarkMode = (active = true) => {
+  data() {
+    return {
+      isDarkMode: true,
+    };
+  },
+  methods: {
+    setDarkMode(active = true) {
       const wrapper = document.querySelector(":root");
       if (active) {
         wrapper.setAttribute("data-theme", "dark");
@@ -23,13 +28,13 @@ export default {
         wrapper.setAttribute("data-theme", "light");
         localStorage.setItem("theme", "light");
       }
-    };
-    const toggleDarkMode = () => {
+      this.isDarkMode = active;
+    },
+    toggleDarkMode() {
       const theme = document.querySelector(":root").getAttribute("data-theme");
-      // Si le thème actuel est "Light", Nous voulons activer le "Dark"
-      setDarkMode(theme === "light");
-    };
-    const initDarkMode = () => {
+      this.setDarkMode(theme === "light");
+    },
+    initDarkMode() {
       const query = window.matchMedia("(prefers-color-scheme: dark)");
       const themePreference = localStorage.getItem("theme");
       let active = query.matches;
@@ -39,14 +44,14 @@ export default {
       if (themePreference === "light") {
         active = false;
       }
-      setDarkMode(active);
+      this.setDarkMode(active);
       query.addEventListener("change", function (e) {
-        setDarkMode(e.matches);
+        this.setDarkMode(e.matches);
       });
-      const toggleButton = document.querySelector(".switch__slider");
-      toggleButton.addEventListener("click", toggleDarkMode);
-    };
-    initDarkMode();
+    },
+  },
+  mounted() {
+    this.initDarkMode();
   },
 };
 </script>
