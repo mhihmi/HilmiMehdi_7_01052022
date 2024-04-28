@@ -23,16 +23,11 @@
         width: 0;
         height: 0;
 
-        &:focus+.switch__slider {
-            border: 1px solid var(--color-input);
-            transition: none;
-        }
-
-        &:checked+.switch__slider {
+        &:not(:checked) + .switch__slider {
             background-color: rgb(212, 212, 212);
         }
 
-        &:checked+.switch__slider::before {
+        &:not(:checked) + .switch__slider::before {
             transform: scale(0.8) translateX(45px) translateY(-5px) rotate(120deg);
             background: transparent;
             box-shadow: 0 -10px 0 0 rgb(6, 6, 101);
@@ -46,6 +41,16 @@
                 transform: scale(0.8) translateX(26px) translateY(-1px) rotate(120deg);
                 box-shadow: 0 -5px 0 0 rgb(6, 6, 101);
             }
+        }
+
+        &:checked + .switch__slider {
+            background-color: rgb(9, 29, 61);
+        }
+
+        &:checked + .switch__slider::before {
+            transform: none;
+            box-shadow: none;
+            background-color: rgb(194, 174, 75);
         }
     }
 
