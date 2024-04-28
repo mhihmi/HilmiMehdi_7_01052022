@@ -22,6 +22,9 @@
     "vue": "^3.2.36",
     "vue-router": "^4.0.15"
   },
+  "resolutions": {
+    "postcss": "8.4.38"
+  },
   "devDependencies": {
     "@babel/core": "^7.18.2",
     "@babel/eslint-parser": "^7.18.2",
